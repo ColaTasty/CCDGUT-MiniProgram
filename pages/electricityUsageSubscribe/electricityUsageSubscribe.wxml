@@ -1,0 +1,36 @@
+<import src="/dist/field/index.wxml" />
+<import src="/dist/switch/index.wxml" />
+
+<view class="container">
+  <view class="doc-title">宿舍用电日报订阅设置</view>
+  <view class="zan-panel-title">宿舍信息</view>
+  <form bindsubmit="subscriptionSetting" report-submit="true">
+  <view class="zan-panel">
+    <view class="zan-cell zan-field">
+      <view class="zan-cell__hd zan-field__title">选择宿舍区</view>
+      <picker
+        mode="selector"
+        class="zan-field__input zan-cell__bd"
+        range="{{ area }}"
+        value="{{ areaIndex }}"
+        bindchange="onAreaChange"
+        name="area"
+      >
+        {{ area[areaIndex] }}
+      </picker>
+    </view>
+
+    <template is="zan-field" data="{{ title: '宿舍号', type: 'input', placeholder: '请输入宿舍号，如：607', name: 'room', defaultValue: historyRoom }}"></template>
+
+   
+  <view class="zan-cell zan-field">
+  <view class="zan-cell__hd zan-field__title">接收日报</view>
+    <template is="zan-switch" data="{{ ...sync, componentId: 'sync' }}" />
+  </view>
+
+    <view class="zan-btns">
+      <button class="zan-btn" class="zan-btn--primary {{queryLoadingStatus}}" formType="submit">提交</button>
+    </view>
+  </view>
+  </form>
+</view>

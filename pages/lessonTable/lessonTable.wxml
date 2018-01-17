@@ -1,0 +1,17 @@
+<!--pages/lessonTable/lessonTable.wxml-->
+<view class="page">
+<view wx:if="{{educationSystemBindCheck}}" class="page__bd page__bd_spacing">请稍等...
+<web-view src="https://ccdgut.yuninter.net/MyLesson?sessionId={{sessionId}}"></web-view>
+</view>
+<view wx:else>
+    <view class="page__hd">
+        <view class="page__title">你还未绑定教务系统</view>
+        <view class="page__desc">绑定教务系统后，可使用课表查询、成绩查询等功能。</view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area">
+                <navigator url="/pages/bindEducationSystem/bindEducationSystem"><button class="weui-btn">点击此处绑定教务系统</button></navigator>
+        </view>
+    </view>
+</view>
+</view>

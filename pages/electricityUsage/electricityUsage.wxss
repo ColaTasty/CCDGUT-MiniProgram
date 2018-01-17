@@ -1,0 +1,16 @@
+/* pages/electricityUsage/electricityUsage.wxss */
+.field__title--radius {
+  padding-bottom: 10px;
+}
+
+.bold {
+  font-weight: bold
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  float: left
+}

@@ -1,0 +1,18 @@
+<view class="container">
+
+  <view class="doc-title">今日课表</view>
+
+  <view wx:if="{{noLesson}}">
+    <view class="zan-panel">
+      <view style="padding: 15px;">今天没有课啦，好好赖个床！！</view>
+    </view>
+  </view>
+  <view wx:else>
+  <view wx:for="{{lessons}}">
+    <view class="zan-panel-title">第 {{index}} 节</view>
+    <view class="zan-panel">
+      <view style="padding: 15px;" class='textCenter'><text>{{item}}</text></view>
+    </view>
+  </view>
+  </view>
+</view>

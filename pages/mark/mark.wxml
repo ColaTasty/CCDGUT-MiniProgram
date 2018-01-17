@@ -1,0 +1,23 @@
+<view class="container">
+
+  <view class="doc-title">本学期成绩</view>
+
+  <view wx:if="{{noLesson}}">
+  <view class="page__bd page__bd_spacing">
+    <navigator url='/pages/bindSetting/bindSetting'>
+        <view class="button-sp-area">
+            <text>暂时没有成绩数据，请点击下面按钮，更新教务系统数据后再次查询</text>
+            <button formType="submit" class="weui-btn" type="primary" plain="true">更新教务系统数据</button>
+        </view>
+    </navigator>
+  </view>
+  </view>
+  <view wx:else>
+  <view wx:for="{{lessons}}">
+    <view class="zan-panel-title">第 {{index}} 节</view>
+    <view class="zan-panel">
+      <view style="padding: 15px;" class='textCenter'><text>{{item}}</text></view>
+    </view>
+  </view>
+  </view>
+</view>

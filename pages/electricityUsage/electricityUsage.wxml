@@ -1,0 +1,58 @@
+<import src="/dist/field/index.wxml" />
+
+<view class="container">
+  <view class="doc-title">宿舍用电查询</view>
+  <view class="zan-panel-title">宿舍信息</view>
+  <form bindsubmit="electricityUsageQuery" report-submit="true">
+  <view class="zan-panel">
+    <view class="zan-cell zan-field">
+      <view class="zan-cell__hd zan-field__title">选择宿舍区</view>
+      <picker
+        mode="selector"
+        class="zan-field__input zan-cell__bd"
+        range="{{ area }}"
+        value="{{ areaIndex }}"
+        bindchange="onAreaChange"
+        name="area"
+      >
+        {{ area[areaIndex] }}
+      </picker>
+    </view>
+
+    <template is="zan-field" data="{{ title: '宿舍号', type: 'input', placeholder: '请输入宿舍号，如：607', name: 'room', defaultValue: historyRoom }}"></template>
+    <view wx:if="{{loading}}">
+            <import src="/dist/loadmore/index.wxml" />
+        <template is="zan-loadmore" data="{{loading: true}}" />
+    </view>
+    <view wx:else class="zan-btns">
+      <button class="zan-btn" class="zan-btn--primary {{queryLoadingStatus}}" formType="submit">查询</button>
+    </view>
+  </view>
+  </form>
+
+  <view wx:if="{{showUsage}}">
+      <view wx:if="{{loaded}}">
+        <view class="zan-panel-title">电量余额</view>
+          <view class="zan-panel">
+            <view class="zan-cell">
+              <view class="zan-cell__bd center">{{balance}} 千瓦·时</view>
+            </view>
+          </view>
+        </view>
+
+        
+          <view class="zan-panel-title">近十天电量使用情况</view>
+          <view class="zan-panel">
+          <view wx:for="{{usageRecords}}">
+            <view class="zan-cell">
+              <view class="zan-cell__bd center">{{item.date}} -> {{item.usage}} 千瓦·时</view>
+            </view>
+          </view>
+          </view>
+
+      <view wx:if="{{!loaded}}">
+        <import src="/dist/loadmore/index.wxml" />
+        <template is="zan-loadmore" data="{{loading: true}}" />
+      </view>
+  </view>
+</view>

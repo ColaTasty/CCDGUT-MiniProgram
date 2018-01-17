@@ -1,0 +1,75 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.6.4",
+	"appid": "wx5401e991aa5b11ca",
+	"projectname": "CCDGUT",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/bindEducationSystem/bindEducationSystem",
+					"pathName": "pages/bindEducationSystem/bindEducationSystem",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/lessonTable/lessonTable",
+					"pathName": "pages/lessonTable/lessonTable",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/electricityUsage/electricityUsage",
+					"pathName": "pages/electricityUsage/electricityUsage",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/electricityUsageSubscribe/electricityUsageSubscribe",
+					"pathName": "pages/electricityUsageSubscribe/electricityUsageSubscribe",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/todayLesson/todayLesson",
+					"pathName": "pages/todayLesson/todayLesson",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/bindSetting/bindSetting",
+					"pathName": "pages/bindSetting/bindSetting",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/mark/mark",
+					"pathName": "pages/mark/mark",
+					"query": ""
+				}
+			]
+		}
+	}
+}

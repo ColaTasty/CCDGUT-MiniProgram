@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/bindEducationSystem/bindEducationSystem",
+    "pages/lessonTable/lessonTable",
+    "pages/electricityUsage/electricityUsage",
+    "pages/electricityUsageSubscribe/electricityUsageSubscribe",
+    "pages/todayLesson/todayLesson",
+    "pages/bindSetting/bindSetting",
+    "pages/mark/mark"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "城院贴吧小助手",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBarBackup": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/bindEducationSystem/bindEducationSystem",
+        "text": "绑定教务系统"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "日志"
+      }
+    ]
+  }
+}

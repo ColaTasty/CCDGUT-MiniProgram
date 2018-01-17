@@ -1,0 +1,82 @@
+<!--index.wxml-->
+<view>
+    <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 点我显示头像 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname whiteFont">{{userInfo.nickName}}</text>
+      <text class="regulatFont whiteFont">Hello！城院贴吧小助手欢迎你，<text class="yellowFont">^_^</text></text>
+    </block>
+    </view>
+    <view wx:if="{{loading}}">
+        <import src="/dist/loadmore/index.wxml" />
+        <template is="zan-loadmore" data="{{loading: true}}" />
+    </view>
+    <view wx:else>
+        <view>
+        <text class="navicationClass">教务教学</text>
+            <view class="navicationBlock">
+                <view class="weui-flex">
+                    <view class="weui-flex__item navicationLeftItem">
+                        <view wx:if="{{educationSystemBindCheck}}">
+                        <navigator url="/pages/lessonTable/lessonTable"><view class="placeholder">我的课表 <text class="yellowFont boldFont">></text></view></navigator>
+                    </view>
+                        <view wx:else>
+                            <navigator url="/pages/bindEducationSystem/bindEducationSystem"><view class="placeholder">我的课表 <text class="yellowFont boldFont">></text></view></navigator>
+                        </view>
+                    </view>
+                    <view class="weui-flex__item navicationRightItem">
+                        <view wx:if="{{educationSystemBindCheck}}">
+                        <navigator url="/pages/todayLesson/todayLesson"><view class="placeholder">
+                            今日课程 <text class="yellowFont boldFont">></text>
+                        </view></navigator>
+                    </view>
+                    <view wx:else>
+                            <navigator url="/pages/bindEducationSystem/bindEducationSystem"><view class="placeholder">今日课程 <text class="yellowFont boldFont">></text></view></navigator>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-flex">
+                    <view class="weui-flex__item navicationLeftItem">
+                    <navigator url="/pages/mark/mark">
+                        <view class="redFont placeholder">
+                          成绩查询 <text class="yellowFont boldFont">></text>
+                        </view>
+                    </navigator>
+                    </view>
+                    <view class="weui-flex__item navicationRightItem grayItem">
+                        <view class="placeholder">
+                          考勤查询 <text class="yellowFont boldFont">></text>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-flex" wx:if="{{educationSystemBindCheck}}">
+                    <view class="weui-flex__item navicationLeftItem">
+                    <navigator url='/pages/bindSetting/bindSetting'>
+                        <view class="placeholder">
+                          教务系统管理 <text class="yellowFont boldFont">></text>
+                        </view>
+                    </navigator>
+                    </view>
+                    <view class="weui-flex__item navicationRightItem grayItem">
+                        <view class="placeholder">
+                          敬请期待 <text class="yellowFont boldFont">...</text>
+                        </view>
+                    </view>
+                </view>
+
+            </view>
+        </view>
+        <view>
+            <text class="navicationClass">城院日常</text>
+            <view class="navicationBlock">
+                <view class="weui-flex">
+                    <view class="weui-flex__item navicationLeftItem"><navigator url="/pages/electricityUsage/electricityUsage"><view class="placeholder">宿舍用电查询 <text class="yellowFont boldFont">></text></view></navigator></view>
+                    <view class="weui-flex__item navicationRightItem grayItem"><view class="placeholder">宿舍用电日报订阅 <text class="yellowFont boldFont">></text></view></view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

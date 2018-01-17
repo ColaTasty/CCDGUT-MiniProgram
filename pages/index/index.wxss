@@ -1,0 +1,102 @@
+/**index.wxss**/
+.userinfo {
+  min-height: 156px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+  width: 100%;
+  background-image: url("https://mmbiz.qpic.cn/mmbiz_jpg/8rvuMBprahpzoyatonKnG8rLribPjEtk8BqKRa657ut6qib2k2l3NXpCFSw073PfyxRibgExyqQlzFmFUjibqSAh7g/0?wx_fmt=jpeg");
+  background-size: 100%;
+  background-repeat:no-repeat;
+  /* background-color: #09BB07; */
+  padding-top: 5px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+.userinfo-avatar {
+  border-style:solid;
+  border-width: 1px;
+  border-color: white;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  font-size: 11pt;
+  margin-bottom: 5px;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.regulatFont {
+  font-size: 9pt;
+}
+
+.redFont {
+  color: red;
+}
+
+.whiteFont {
+  color: white;
+}
+
+.yellowFont {
+  color: yellow
+}
+
+.blackFont {
+  color: black;
+}
+
+.grayFont {
+  color: gray;
+}
+
+.boldFont {
+  font-weight: bold;
+}
+
+.navicationClass {
+  padding: 20pt 0pt 20pt 10pt;
+  font-size: 11pt;
+}
+
+.navicationBlock {
+  margin: 5pt 10pt 20pt 10pt;
+}
+
+.navicationLeftItem {
+  line-height: 50pt;
+  height: 50pt;
+  margin-right: 5pt;
+  margin-bottom: 10pt;
+  background-color: #00acff;
+  color: white;
+  text-align: center;
+  font-size: 10pt;
+}
+
+.grayItem {
+  background-color: gray !important;
+}
+
+.navicationRightItem {
+  line-height: 50pt;
+  height: 50pt;
+  margin-left: 5pt;
+  margin-bottom: 10pt;
+  background-color: #00acff;
+  color: white;
+  text-align: center;
+  font-size: 10pt;
+}

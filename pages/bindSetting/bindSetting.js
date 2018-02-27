@@ -45,12 +45,19 @@ Page({
     loadingVerifyCode: false,
     updating: false,
     unbinding: false,
+    autoNavigateBackOnUpdated: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options);
+    if (options.back_on_updated == 1) {
+      this.setData({
+        autoNavigateBackOnUpdated: true,
+      });
+    }
     this.getVerifyCode();
   },
 
@@ -119,7 +126,12 @@ Page({
         wx.showModal({
           title: '成功',
           content: '教务系统数据更新成功',
-          showCancel: false          
+          showCancel: false,
+          complete: function () {
+            if (page.data.autoNavigateBackOnUpdated) {
+              wx.navigateBack({ delta: 1 });
+            }
+          }
         })
       } else {
         wx.showModal({

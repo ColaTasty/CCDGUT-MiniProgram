@@ -5,15 +5,68 @@ Page({
    * 页面的初始数据
    */
   data: {
-    lessons: [],
-    noLesson: true
+    marks: [],
+    noMarks: true,
+    loading: false,
+    educationSystemBindCheck: false,
+  },
+
+  educationSystemBindCheck: function () {
+    var page = this;
+
+    if (page.data.loading) {
+      console.log("Loading");
+      return;
+    }
+
+    page.setData({
+      loading: true
+    });
+    
+    getApp().callAPI("/Module/EducationSystem/BindCheck", null, function (e) {
+      page.setData({
+        educationSystemBindCheck: e.data.result
+      });
+      if (e.data.result) {
+        page.getMarks();
+      } else {
+        page.setData({
+          loading: false
+        });
+      }
+    });
+  },
+
+  getMarks() {
+    var page = this;
+    getApp().callAPI("/Module/EducationSystem/Marks", null,
+      function (e) {
+        page.setData({
+          marks: e.data.marks
+        });
+        if (e.data.marks.length == 0) {
+          page.setData({
+            noMarks: true,
+          });
+        } else {
+          page.setData({
+            noMarks: false,
+          });
+        }
+      },
+      function () { },
+      function () {
+        page.setData({
+          loading: false
+        });
+      });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    
   },
 
   /**
@@ -27,7 +80,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.educationSystemBindCheck();
   },
 
   /**

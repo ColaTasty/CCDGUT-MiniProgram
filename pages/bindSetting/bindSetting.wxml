@@ -36,6 +36,7 @@
       </form>
     </view>
 
+  <view wx:if="{{!autoNavigateBackOnUpdated}}">
     <view class="weui-cells__title">解绑教务系统</view>
     <view wx:if="{{unbinding}}" class="button-sp-area">
         <import src="/dist/loadmore/index.wxml" />
@@ -44,4 +45,5 @@
     <view wx:else class="button-sp-area">
       <button bindtap='unbind' class="weui-btn" type="" plain="true">解绑教务系统</button>
     </view>
+  </view>
 </view>

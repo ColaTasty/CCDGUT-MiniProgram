@@ -55,4 +55,8 @@
         <template is="zan-loadmore" data="{{loading: true}}" />
       </view>
   </view>
+
+  <view style='margin-top: 2em'>
+  <navigator url='/pages/index/index' open-type='redirect'><text style='text-align: center; display: block'>© 2018 城院贴吧小助手\nAll rights reserved</text></navigator>
+  </view>
 </view>

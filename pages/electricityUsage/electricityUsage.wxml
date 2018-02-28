@@ -57,6 +57,6 @@
   </view>
 
   <view style='margin-top: 2em'>
-  <navigator url='/pages/index/index' open-type='redirect'><text style='text-align: center; display: block'>© 2018 城院贴吧小助手\nAll rights reserved</text></navigator>
+  <navigator url='/pages/index/index' open-type='redirect'><text style='text-align: center; display: block'>© 2018 <text style='color: #0000EE'>城院贴吧小助手</text>\nAll rights reserved</text></navigator>
   </view>
 </view>

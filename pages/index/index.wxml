@@ -40,15 +40,17 @@
                 <view class="weui-flex">
                     <view class="weui-flex__item navicationLeftItem">
                     <navigator url="/pages/mark/mark">
-                        <view class="redFont placeholder">
+                        <view class="placeholder">
                           成绩查询 <text class="yellowFont boldFont">></text>
                         </view>
                     </navigator>
                     </view>
-                    <view class="weui-flex__item navicationRightItem grayItem">
+                    <view class="weui-flex__item navicationRightItem">
+                    <navigator url="/pages/godDamnSystem/godDamnSystem">
                         <view class="placeholder">
                           考勤查询 <text class="yellowFont boldFont">></text>
                         </view>
+                    </navigator>
                     </view>
                 </view>
 

@@ -1,0 +1,115 @@
+<import src="/dist/tab/index.wxml" />
+
+<!-- index-container begin -->
+<view class="index-container">
+
+  <!-- search-bar begin -->
+  <view class="search-bar">
+
+  <form bindsubmit="searchFormSubmit" bindreset="searchFormReset">
+    <view class="search-form">
+      <view class="nav-icon-box">
+        <view class="zan-icon zan-icon-wap-nav main-nav-icon" bindtap="toggleLeftPopup"></view>
+      </view>
+      <view class="search-icon-box">
+        <icon class="search-input-icon" type="search" size='14' />
+      </view>
+      <view class='search-button-box'>
+        <button class="search-button" formType="submit">搜索</button>
+      </view>
+      <view class="search-input-box">
+        <input class='search-input' placeholder="输入关键词进行搜索" />
+      </view>
+    </view>
+  </form>
+  </view>
+  <!-- search-bar end -->
+
+  <!-- tab begin -->
+  <view style="margin: 5px 0">
+    <template is="zan-tab" data="{{tab: tab1, componentId: 'tab1'}}"></template>
+  </view>
+  <!-- tab end -->
+
+<!-- item list begin -->
+  <view class='lost-and-found-item-list'>
+    <!-- 各项目面板 -->
+    <view class='item'>
+
+      <!-- 各项目发布者昵称、头像、日期 -->
+      <view class='item-header'>
+        <!-- 头像 -->
+        <view class='header-image'>
+          <image background-size="cover" class="userinfo-avatar" src="https://wx.qlogo.cn/mmopen/vi_32/FkSzIW2kzrl7uNNkcCap7OG5gMMYCw4v7AjQ6WxxvlZ7HNfy9OMwrXhWFvmsnKIK5EDvno1TQYr6xpFvFJSUUg/0"></image>
+        </view>
+        <!-- 联系按钮 -->
+        <view class='contact-link'>
+          <button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button">联系TA</button>
+        </view>
+        <!-- 昵称、日期 -->
+        <view class='meta-info'>
+          <view class="nickname">
+          昵称
+          </view>
+          <view class="date">
+          2018年3月30日 12:00
+          </view>
+        </view>
+      </view>
+
+      <!-- 各项目详细描述 -->
+      <view class="item-descriprion">
+        啦啦啦啦啦，你是卖报的小专家！从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事……
+      </view>
+
+      <!-- 各项目图片 -->
+      <view class="item-image-list">
+        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
+        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
+        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
+        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
+        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
+      </view>
+
+      <!-- 各项目地点等剩余详细 -->
+      <view class="item-footer">
+        <view class="position">
+              <view class="zan-icon zan-icon-location item-position-icon"></view>
+              广东省东莞市寮步镇文昌路一号 东莞理工学院城市学院7A111
+        </view>
+        <view class='keyword'>
+        </view>
+        <view class='small-tags'>
+          <view class="small-tag-item" style='display: none'>
+            <view class="zan-icon zan-icon-browsing-history tag-icon"></view>
+            128
+          </view>
+
+          <view class="small-tag-item">
+            <view class="zan-icon zan-icon-upgrade tag-icon"></view>
+            分享
+          </view>
+
+        </view>
+      </view>
+
+    </view>
+  </view>
+<!-- item list end -->
+
+<view class="zan-icon zan-icon-add nav-icon" bindtap='showNav'></view>
+
+  <view class="popup-example--left zan-popup zan-popup--left {{ showLeftPopup ? 'zan-popup--show' : ''}}">
+    <view class="zan-popup__mask" bindtap="toggleLeftPopup"></view>
+    <view class="zan-popup__container">
+      <navigator open-type="reLaunch" url="/pages/index/index"><view class='nav-item'>小助手 <view class='nav-item-small'>INDEX</view></view></navigator>
+      <navigator open-type='navigate' url='/pages/lostAndFound/new/new'><view class='nav-item'>发布启事 <view class='nav-item-small'>NEW</view></view></navigator>
+      <view class='bottom-item-group'>
+        <navigator open-type="navigateBack"><view class='nav-item'>返回 <view class='nav-item-small'>BACK</view></view></navigator>
+        <view class='nav-item' bindtap='toggleLeftPopup'>关闭 <view class='nav-item-small'>CLOSE</view></view>
+      </view>
+    </view>
+  </view>
+
+</view>
+<!-- index-container end -->

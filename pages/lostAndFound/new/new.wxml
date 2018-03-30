@@ -1,0 +1,72 @@
+<import src="/dist/select/index.wxml" />
+<import src="/dist/toptips/index.wxml" />
+<form bindsubmit="formSubmit" bindreset="formReset">
+<view class='item-form-box'>
+<text style='color: gray; font-size: 13px;'>启事类型</text>
+      <view>
+        <template
+          is="zan-select"
+          data="{{ items, checkedValue: checked.form, name: 'type', componentId: 'form' }}" ></template>
+      </view>
+</view>
+
+<view class='item-form-box'>
+  <textarea name="description" style='width: 100%' placeholder="请输入启事描述" />
+
+  <view class='image-list-box weui-uploader__bd'>
+
+    <!-- 已选择的图片列表 -->
+    <view class="weui-uploader__files" id="uploaderFiles">
+      <view class="weui-uploader__file" wx:for="{{imageList}}">
+        <image style='border-width:1px;' class="weui-uploader__img" wx:key="*this" src="{{item}}" data-index="{{index}}" bindtap="previewImage" mode="aspectFill" />
+        <view class='delete-button' data-index="{{index}}" bindtap='deleteImage'>
+        x
+        </view>
+      </view>
+    </view>
+
+    <!-- 选择图片按钮 -->
+    <view class="weui-uploader__input-box">
+        <view class="weui-uploader__input" bindtap="chooseImage"></view>
+    </view>
+  </view>
+
+    <view class='input-box'>
+      <view class='icon'>
+        <view class="zan-icon zan-icon-location"></view>
+      </view>
+
+      <view class='button'>
+          <button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain" bindtap='openMap'>打开地图</button>
+      </view>
+
+      <view class="input">
+        <input name="address" class='search-input' placeholder="失/拾物地址" value='{{address}}' />
+      </view>
+    </view>
+
+    <view class='input-box'>
+      <view class='icon'>
+        <view class="zan-icon zan-icon-phone"></view>
+      </view>
+
+      <view class="input">
+        <input name="phone" class='search-input' placeholder="联系电话" />
+      </view>
+    </view>
+
+    <view class='input-box'>
+      <view class='icon'>
+        <view class="zan-icon zan-icon-records"></view>
+      </view>
+
+      <view class="input">
+        <input name="keywords" class='search-input' placeholder="标签/关键词 多个词之间以空格分开" />
+      </view>
+    </view>
+</view>
+
+<view style='padding: 10px 20px 10px 20px; margin-bottom: 20px;'>
+      <button class="zan-btn zan-btn--primary" formType="submit">立即发布</button>
+</view>
+</form>

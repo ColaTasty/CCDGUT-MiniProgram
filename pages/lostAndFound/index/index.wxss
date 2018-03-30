@@ -1,0 +1,210 @@
+/* pages/lostAndFound/index/index.wxss */
+
+.index-container {
+  background-color: #f7f7f7;
+  overflow: hidden;
+  height: 100%;
+}
+
+.search-bar {
+  padding: 8px 15px 8px 8px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.search-form > view {
+  height: 30px;
+  line-height: 30px;
+}
+
+.nav-icon-box {
+  float: left;
+  margin-right: 5px;
+}
+
+.nav-icon-box .main-nav-icon {
+  font-size: 25px;
+}
+
+.search-input-icon {
+  height: 21px
+}
+
+.search-icon-box {
+  padding: 0px 0px 0px 10px;  
+  background-color: white;
+  float: left;
+  width: 20px;
+}
+
+.search-button-box {
+  float: right;
+  width: 65px
+}
+
+.search-button {
+  height: 30px;
+  font-size: 12px;
+  line-height: 30px;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.search-input-box {
+  overflow: hidden;
+}
+
+.search-input {
+  border: 1;
+  border-left: 0;
+  background-color: white;
+  padding: 0px 5px 0px 5px;
+  font-size: 14px;
+  height: 30px;
+}
+
+
+.lost-and-found-item-list .item {
+  margin: 10px 0 10px 0;
+  background-color: white;
+  padding: 10px 20px 10px 20px;
+}
+
+.userinfo-avatar {
+  border-style:solid;
+  border-width: 1px;
+  border-color: white;
+  width: 72rpx;
+  height: 72rpx;
+  margin: 5rpx;
+  border-radius: 50%;
+}
+
+.item-header {
+  overflow: hidden;
+  padding-right: 5px;
+}
+
+.item-header > view {
+  height: 50px;
+}
+
+.header-image {
+  float: left;
+}
+
+.contact-link {
+  float: right;
+}
+
+.contact-button {
+  font-size: 11px;
+}
+
+.meta-info {
+  padding-left: 10px;
+  overflow: hidden;
+}
+
+.meta-info .nickname {
+  font-size: 14px;
+  height: 25px;
+  line-height: 25px;
+}
+
+.meta-info .date {
+  color: gray;
+  font-size: 12px;
+  height: 22px;
+  line-height: 22px;
+}
+
+.item-descriprion {
+  padding: 2px 0 10px 0;
+}
+
+.item-footer {
+  padding-bottom: 10px;
+  overflow: hidden;
+}
+
+.item-footer .position {
+  color: gray;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.item-footer .item-position-icon {
+  color: #ff4343;
+}
+
+.small-tags .tag-icon {
+  font-size: 15px;
+}
+
+.small-tags {
+  color: gray;  
+  float: right;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.small-tags .small-tag-item {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.item-image-list > .image-item {
+  width: 30%;
+  height: 100px;
+  background-color: #eeeeee;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.nav-icon {
+  display: none;
+  font-size: 50px;
+  height: 50px;
+  line-height: 50px;
+  color: #f44;
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+}
+
+.nav-item {
+  font-size: 15px;
+  border-bottom: 1px solid #efefef;
+  color: #000;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 25px;
+  display: block;
+}
+
+.nav-item-small {
+  color: #cacaca;
+  float: right;
+  margin-left: 80px;
+  margin-right: 25px;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.bottom-item-group {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.bottom-item-group .nav-item {
+  border-top: 1px solid #efefef;
+  border-bottom: none;
+}
+
+.popup-example--left .zan-popup__container {
+  top: 0;
+  bottom: 0;
+}

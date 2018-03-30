@@ -1,0 +1,60 @@
+page {
+  background-color: #f7f7f7;
+}
+
+.item-form-box {
+  background-color: white;
+  padding: 10px 20px 10px 20px;
+  margin-bottom: 20px;
+}
+
+.image-list-box {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.image-list-box .delete-button {
+  position:relative;
+  top:-79px;
+  color:white;
+  left:55px;
+  width:15px;
+  padding-left:9px;
+  padding-bottom:2px;  
+  background-color:gray;
+  opacity:0.8;
+}
+
+.input-box {
+  margin-top: 10px;
+}
+
+.input-box > view {
+  height: 30px;
+  line-height: 30px;
+}
+
+.input-box > .button {
+  padding-left: 10px;
+  float: right;
+}
+
+.input-box .icon {
+  color: gray;
+  float: left;
+}
+
+.input-box .input {
+  overflow: hidden;
+  padding-left: 10px;
+}
+
+.input-box .input > input {
+  height: 30;
+  line-height: 30px;
+}
+
+.zan-cell {
+  padding-left: 0;
+}

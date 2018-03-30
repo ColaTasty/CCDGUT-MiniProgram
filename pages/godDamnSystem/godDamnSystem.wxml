@@ -1,0 +1,71 @@
+<import src="/dist/field/index.wxml" />
+
+<view class="container" wx:if="{{educationSystemBindCheck}}">
+
+  <view class="doc-title">考勤历史</view>
+  <view class="zan-panel-title">查询设置</view>
+
+  <form bindsubmit="histortQuery" report-submit="true">
+  <view class="zan-panel">
+    <view class="zan-cell zan-field">
+      <view class="zan-cell__hd zan-field__title">查询范围</view>
+      <picker
+        mode="selector"
+        class="zan-field__input zan-cell__bd"
+        range="{{ limit }}"
+        value="{{ limitValue[limitIndex] }}"
+        bindchange="onLimitChange"
+        name="limit"
+      >
+        {{ limit[limitIndex] }}
+      </picker>
+    </view>
+    <view wx:if="{{loading}}">
+            <import src="/dist/loadmore/index.wxml" />
+        <template is="zan-loadmore" data="{{loading: true}}" />
+    </view>
+    <view wx:else class="zan-btns">
+      <button class="zan-btn" class="zan-btn--primary {{queryLoadingStatus}}" formType="submit">查询</button>
+    </view>
+  </view>
+  </form>
+
+
+  <view class="page__bd_spacing">
+  </view>
+  <view wx:if="{{loading}}">
+        <import src="/dist/loadmore/index.wxml" />
+        <template is="zan-loadmore" data="{{loading: true}}" />
+  </view>
+  <view wx:else>
+    <view wx:if="{{noHistory}}">
+    <text>暂时没有考勤历史记录</text>
+    </view>
+
+    <view wx:for="{{history}}">
+      <view class="zan-panel-title">#{{index + 1}}</view>
+      <view class="zan-panel">
+        <view style="padding: 15px;" class='textCenter'>
+          <text>考勤时间: {{item[0]}}\n</text>
+          <text>签到类型: {{item[1]}}\n</text>
+          <text>考勤结果: <text style='{{item[2] == "正常" ? "color: green;" : (item[2] == "旷课" || item[2] == "本次课旷课" ? "color: red;" : "")}}'>{{item[2]}}</text>\n</text>
+          <text>签到教室: {{item[3]}}\n</text>
+          <text>教师: {{item[4]}}\n</text>
+          <text>课程名称: {{item[5]}}\n</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <text>\n</text>
+</view>
+<view wx:else>
+    <view class="page__hd">
+        <view class="page__title">你还未绑定教务系统</view>
+        <view class="page__desc">绑定教务系统后，可使用课表查询、成绩查询等功能。</view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area">
+                <navigator url="/pages/bindEducationSystem/bindEducationSystem?back_on_binded=1"><button class="weui-btn">点击此处绑定教务系统</button></navigator>
+        </view>
+    </view>
+</view>

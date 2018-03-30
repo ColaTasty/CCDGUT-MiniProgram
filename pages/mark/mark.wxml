@@ -19,8 +19,8 @@
       <view class="zan-panel">
         <view style="padding: 15px;" class='textCenter'>
           <text>成绩: {{item.lessonGrade}}\n</text>
-          <text wx:if="{{item.lessonRegrade != null}}">补考成绩: {{item.lessonGrade}}\n</text>
-          <text wx:if="{{item.lessonRestudyGrade != null}}">重修成绩: {{item.lessonGrade}}\n</text>
+          <text wx:if="{{item.lessonRegrade != null}}">补考成绩: {{item.lessonRegrade}}\n</text>
+          <text wx:if="{{item.lessonRestudyGrade != null}}">重修成绩: {{item.lessonRestudyGrade}}\n</text>
           <text>学分: {{item.lessonCredit}}\n</text>
           <text wx:if="{{item.lessonGradePoint != null}}">绩点: {{item.lessonGradePoint}}\n</text>
         </view>

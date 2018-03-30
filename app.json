@@ -9,7 +9,10 @@
     "pages/todayLesson/todayLesson",
     "pages/bindSetting/bindSetting",
     "pages/mark/mark",
-    "pages/godDamnSystem/godDamnSystem"
+    "pages/godDamnSystem/godDamnSystem",
+    "pages/lostAndFound/index/index",
+    "pages/lostAndFound/test/test",
+    "pages/lostAndFound/new/new"
   ],
   "window": {
     "backgroundTextStyle": "light",

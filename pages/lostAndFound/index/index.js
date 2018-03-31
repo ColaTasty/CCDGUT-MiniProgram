@@ -3,6 +3,7 @@ var Zan = require('../../../dist/index');
 Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
   data: {
     showLeftPopup: false,
+    showBottomPopup: false,
     tab1: {
       list: [
         {
@@ -31,6 +32,8 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
     imageURLPrefix: "",
     keywords: "",
     nomore: false,
+    weChatUsername: "",
+    phoneNumber: "",
   },
 
   onPullDownRefresh() {
@@ -66,6 +69,18 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
     this.setData({
       showLeftPopup: !this.data.showLeftPopup
     });
+  },
+
+  toggleBottomPopup() {
+    this.setData({
+      showBottomPopup: !this.data.showBottomPopup
+    });
+  },
+
+  makePhoneCall(e) {
+    wx.makePhoneCall({
+      phoneNumber: this.data.phoneNumber,
+    })
   },
 
   handleZanTabChange(e) {
@@ -140,6 +155,15 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
   searchFormSubmit: function(e) {
     console.log(e);
     console.log(this.data.keywords);
+  },
+
+  contact(e) {
+    console.log(e);
+    this.setData({
+      weChatUsername: this.data.list[e.currentTarget.dataset.index].item.weChatUsername,
+      phoneNumber: this.data.list[e.currentTarget.dataset.index].item.phoneNumber
+    });
+    this.toggleBottomPopup();
   },
 
   closeItem(e) {
@@ -306,5 +330,26 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
 
     return urls;
   },
+
+  copyWeChatUsername() {
+    this.copy(this.data.weChatUsername);
+  },
+
+  copyPhoneNumber() {
+    this.copy(this.data.phoneNumber);
+  },
+
+
+  copy(value) {
+    wx.setClipboardData({
+      icon: "success",
+      data: value,
+      success: function() {
+        wx.showToast({
+          title: '复制成功',
+        })
+      }
+    })
+  }
 
 }));

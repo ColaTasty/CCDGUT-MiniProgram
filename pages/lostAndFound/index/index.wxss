@@ -177,6 +177,16 @@ page {
   right: 30px;
 }
 
+.bottom-nav-item {
+  font-size: 15px;
+  color: #000;  
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid #efefef;  
+}
+
 .nav-item {
   font-size: 15px;
   border-bottom: 1px solid #efefef;
@@ -205,6 +215,11 @@ page {
 .bottom-item-group .nav-item {
   border-top: 1px solid #efefef;
   border-bottom: none;
+}
+
+.popup-example--bottom .zan-popup__container {
+  left: 0;
+  right: 0;
 }
 
 .popup-example--left .zan-popup__container {

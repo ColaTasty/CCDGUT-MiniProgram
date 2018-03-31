@@ -46,7 +46,7 @@
         </view>
         <!-- 联系按钮 -->
         <view class='contact-link'>
-          <view wx:if="{{uid == item.item.uid}}">
+          <view wx:if="{{false && uid == item.item.uid}}">
             <button wx:if="{{item.item.status != 2}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain contact-button" data-index="{{index}}" bindtap='closeItem'>关闭启事</button>
             <button wx:else class="zan-btn zan-btn--mini zan-btn--disabled zan-btn--plain contact-button">已关闭</button>    
           </view>
@@ -121,6 +121,27 @@
         <navigator open-type="navigateBack"><view class='nav-item'>返回 <view class='nav-item-small'>BACK</view></view></navigator>
         <view class='nav-item' bindtap='toggleLeftPopup'>关闭 <view class='nav-item-small'>CLOSE</view></view>
       </view>
+    </view>
+  </view>
+
+    <view class="popup-example--bottom zan-popup zan-popup--bottom {{ showBottomPopup ? 'zan-popup--show' : ''}}">
+    <view class="zan-popup__mask" catchtap="toggleBottomPopup"></view>
+    <view class="zan-popup__container">
+        <view style='color: gray;' class="bottom-nav-item">
+          TIP: 轻点项目可复制内容
+        </view>
+        <view class="bottom-nav-item" wx:if="{{weChatUsername && weChatUsername != ''}}" bindtap='copyWeChatUsername'>
+          WeChat: {{weChatUsername}}
+        </view>
+        <view class="bottom-nav-item" bindtap='copyPhoneNumber'>
+          TEL: {{phoneNumber}}
+        </view>
+        <view class="bottom-nav-item" bindtap='makePhoneCall'>
+          呼叫
+        </view>
+        <view class="bottom-nav-item" style='border-top: 5px solid #efefef' catchtap="toggleBottomPopup">
+          关闭
+        </view>
     </view>
   </view>
 

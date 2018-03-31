@@ -57,6 +57,17 @@
       </view>
     </view>
 
+
+    <view class='input-box'>
+      <view class='icon'>
+        <view class="zan-icon zan-icon-wechat"></view>
+      </view>
+
+      <view class="input">
+        <input type='number' name="weChatUsername" class='search-input' placeholder="微信号(非必填)" />
+      </view>
+    </view>
+
     <view class='input-box'>
       <view class='icon'>
         <view class="zan-icon zan-icon-records"></view>

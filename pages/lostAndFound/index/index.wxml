@@ -16,8 +16,8 @@
       <view class="search-icon-box" wx:if="{{!singleItem}}">
         <icon class="search-input-icon" type="search" size='14' />
       </view>
-      <view style='display: none' class='search-button-box' wx:if="{{!singleItem}}">
-        <button class="search-button" formType="submit">搜索</button>
+      <view class='search-button-box' wx:if="{{!singleItem}}">
+        <navigator open-type='navigate' url='/pages/lostAndFound/new/new'><button class="search-button" formType="submit">发布</button></navigator>
       </view>
       <view class="search-input-box" wx:if="{{!singleItem}}">
         <input name="keywords" value='{{keywords}}' class='search-input' placeholder="输入关键词进行搜索"  confirm-type="search" bindconfirm='searchInputConfirm' />
@@ -46,7 +46,7 @@
         </view>
         <!-- 联系按钮 -->
         <view class='contact-link'>
-          <view wx:if="{{false && uid == item.item.uid}}">
+          <view wx:if="{{uid == item.item.uid}}">
             <button wx:if="{{item.item.status != 2}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain contact-button" data-index="{{index}}" bindtap='closeItem'>关闭启事</button>
             <button wx:else class="zan-btn zan-btn--mini zan-btn--disabled zan-btn--plain contact-button">已关闭</button>    
           </view>

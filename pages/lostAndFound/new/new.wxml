@@ -64,7 +64,7 @@
       </view>
 
       <view class="input">
-        <input type='number' name="weChatUsername" class='search-input' placeholder="微信号(非必填)" />
+        <input name="weChatUsername" class='search-input' placeholder="微信号(非必填)" />
       </view>
     </view>
 

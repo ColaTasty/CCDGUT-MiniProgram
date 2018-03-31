@@ -16,11 +16,11 @@
       <view class="search-icon-box" wx:if="{{!singleItem}}">
         <icon class="search-input-icon" type="search" size='14' />
       </view>
-      <view class='search-button-box' wx:if="{{!singleItem}}">
-        <navigator open-type='navigate' url='/pages/lostAndFound/new/new'><button class="search-button" formType="submit">发布</button></navigator>
+      <view class='search-button-box' wx:if="{{!singleItem && showNewButton}}">
+        <navigator open-type='navigate' url='/pages/lostAndFound/new/new'><button class="search-button">发布</button></navigator>
       </view>
       <view class="search-input-box" wx:if="{{!singleItem}}">
-        <input name="keywords" value='{{keywords}}' class='search-input' placeholder="输入关键词进行搜索"  confirm-type="search" bindconfirm='searchInputConfirm' />
+        <input name="keywords" value='{{keywords}}' class='search-input' placeholder="输入关键词进行搜索"  confirm-type="search" bindconfirm='searchInputConfirm' bindfocus="searchInputFocus" bindblur="searchInputBlur" />
       </view>
     </view>
   </form>

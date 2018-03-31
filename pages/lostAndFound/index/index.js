@@ -34,6 +34,7 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
     nomore: false,
     weChatUsername: "",
     phoneNumber: "",
+    showNewButton: true,
   },
 
   onPullDownRefresh() {
@@ -63,6 +64,18 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
         wx.stopPullDownRefresh()
       }
     );
+  },
+
+  searchInputFocus() {
+    this.setData({
+      showNewButton: false
+    });
+  },
+
+  searchInputBlur() {
+    this.setData({
+      showNewButton: true
+    });
   },
 
   toggleLeftPopup() {

@@ -83,6 +83,29 @@ App({
     })
   },
 
+  uploadFile: function (api, filePath, name, formData, onSuccess, onFail, onComplete) {
+    if (onSuccess == null)
+      onSuccess = function () { };
+    if (onFail == null)
+      onFail = function () { };
+    if (onComplete == null)
+      onComplete = function () { };
+
+    wx.uploadFile({
+      url: this.systemDomain + api,
+      filePath: filePath,
+      name: name,
+      formData: formData,
+      header: {
+        'content-type': 'application/json', // 默认值
+        'sessionId': this.sessionId
+      },
+      success: onSuccess,
+      fail: onFail,
+      complete: onComplete
+    })
+  },
+
   onLaunch: function () {
     /*
     // 展示本地存储能力

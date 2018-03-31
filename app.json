@@ -12,7 +12,8 @@
     "pages/godDamnSystem/godDamnSystem",
     "pages/lostAndFound/index/index",
     "pages/lostAndFound/test/test",
-    "pages/lostAndFound/new/new"
+    "pages/lostAndFound/new/new",
+    "pages/lostAndFound/item/item"
   ],
   "window": {
     "backgroundTextStyle": "light",

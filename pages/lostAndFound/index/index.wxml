@@ -1,24 +1,26 @@
 <import src="/dist/tab/index.wxml" />
+<import src="/dist/toptips/index.wxml" />
+<import src="/dist/loadmore/index.wxml" />
 
 <!-- index-container begin -->
 <view class="index-container">
 
   <!-- search-bar begin -->
-  <view class="search-bar">
+  <view class="search-bar" style='{{singleItem ? "background-color:white;" : ""}}'>
 
   <form bindsubmit="searchFormSubmit" bindreset="searchFormReset">
     <view class="search-form">
       <view class="nav-icon-box">
         <view class="zan-icon zan-icon-wap-nav main-nav-icon" bindtap="toggleLeftPopup"></view>
       </view>
-      <view class="search-icon-box">
+      <view class="search-icon-box" wx:if="{{!singleItem}}">
         <icon class="search-input-icon" type="search" size='14' />
       </view>
-      <view class='search-button-box'>
+      <view style='display: none' class='search-button-box' wx:if="{{!singleItem}}">
         <button class="search-button" formType="submit">搜索</button>
       </view>
-      <view class="search-input-box">
-        <input class='search-input' placeholder="输入关键词进行搜索" />
+      <view class="search-input-box" wx:if="{{!singleItem}}">
+        <input name="keywords" value='{{keywords}}' class='search-input' placeholder="输入关键词进行搜索"  confirm-type="search" bindconfirm='searchInputConfirm' />
       </view>
     </view>
   </form>
@@ -26,7 +28,7 @@
   <!-- search-bar end -->
 
   <!-- tab begin -->
-  <view style="margin: 5px 0">
+  <view style="margin: 5px 0 10px 0" wx:if="{{!singleItem}}">
     <template is="zan-tab" data="{{tab: tab1, componentId: 'tab1'}}"></template>
   </view>
   <!-- tab end -->
@@ -34,51 +36,58 @@
 <!-- item list begin -->
   <view class='lost-and-found-item-list'>
     <!-- 各项目面板 -->
-    <view class='item'>
+    <view class='item' wx:for="{{list}}">
 
       <!-- 各项目发布者昵称、头像、日期 -->
       <view class='item-header'>
         <!-- 头像 -->
         <view class='header-image'>
-          <image background-size="cover" class="userinfo-avatar" src="https://wx.qlogo.cn/mmopen/vi_32/FkSzIW2kzrl7uNNkcCap7OG5gMMYCw4v7AjQ6WxxvlZ7HNfy9OMwrXhWFvmsnKIK5EDvno1TQYr6xpFvFJSUUg/0"></image>
+          <image background-size="cover" class="userinfo-avatar" src="{{item.userInfo.avatarUrl}}"></image>
         </view>
         <!-- 联系按钮 -->
         <view class='contact-link'>
-          <button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button">联系TA</button>
+          <view wx:if="{{uid == item.item.uid}}">
+            <button wx:if="{{item.item.status != 2}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain contact-button" data-index="{{index}}" bindtap='closeItem'>关闭启事</button>
+            <button wx:else class="zan-btn zan-btn--mini zan-btn--disabled zan-btn--plain contact-button">已关闭</button>    
+          </view>
+          <view wx:else>
+            <button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button" data-index="{{index}}" bindtap='contact'>联系TA</button>
+          </view>
         </view>
         <!-- 昵称、日期 -->
         <view class='meta-info'>
           <view class="nickname">
-          昵称
+          {{item.userInfo.nickName}}
           </view>
           <view class="date">
-          2018年3月30日 12:00
+          {{item.item.createTime}}
           </view>
         </view>
       </view>
 
       <!-- 各项目详细描述 -->
       <view class="item-descriprion">
-        啦啦啦啦啦，你是卖报的小专家！从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事：从前有座山，山里有座庙，庙里有个和尚，和尚讲了一个故事……
+        {{item.item.description}}
       </view>
 
       <!-- 各项目图片 -->
       <view class="item-image-list">
-        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
-        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
-        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
-        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
-        <image class="image-item" mode="aspectFill" src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/cat/2.png?t=2018327" bindtap="previewImage"></image>
+        <image class="image-item" mode="aspectFill" wx:for="{{item.images}}" wx:for-index="imageIndex" wx:for-item="image" src="{{imageURLPrefix + image.relativePath}}" data-imageindex="{{imageIndex}}" data-index="{{index}}" bindtap="previewImage"></image>
       </view>
 
       <!-- 各项目地点等剩余详细 -->
       <view class="item-footer">
         <view class="position">
               <view class="zan-icon zan-icon-location item-position-icon"></view>
-              广东省东莞市寮步镇文昌路一号 东莞理工学院城市学院7A111
+              {{item.item.address}}
         </view>
-        <view class='keyword'>
+        
+        <!-- 各项目关键词 -->
+        <view class='keywords'>
+          <view class="keyword">{{item.item.type == 0 ? "#寻物启事" : "#失物招领"}}</view>
+          <view class="keyword" wx:for="{{item.keywords}}" wx:for-index="keywordIndex" wx:for-item="keyword">#{{keyword}}</view>
         </view>
+
         <view class='small-tags'>
           <view class="small-tag-item" style='display: none'>
             <view class="zan-icon zan-icon-browsing-history tag-icon"></view>
@@ -86,8 +95,10 @@
           </view>
 
           <view class="small-tag-item">
-            <view class="zan-icon zan-icon-upgrade tag-icon"></view>
-            分享
+            <button class="share-button" open-type="share" data-index="{{index}}">
+              <view class="zan-icon zan-icon-upgrade tag-icon"></view>
+              分享
+            </button>
           </view>
 
         </view>
@@ -97,7 +108,9 @@
   </view>
 <!-- item list end -->
 
-<view class="zan-icon zan-icon-add nav-icon" bindtap='showNav'></view>
+  <template wx:if="{{nomore}}" is="zan-loadmore" data="{{ nomore: true }}" />
+
+<view class="zan-icon zan-icon-add nav-icon" bindtap='showNav' wx:if="{{!singleItem}}"></view>
 
   <view class="popup-example--left zan-popup zan-popup--left {{ showLeftPopup ? 'zan-popup--show' : ''}}">
     <view class="zan-popup__mask" bindtap="toggleLeftPopup"></view>
@@ -110,6 +123,8 @@
       </view>
     </view>
   </view>
+
+  <template is="zan-toptips" data="{{ zanTopTips }}"></template>
 
 </view>
 <!-- index-container end -->

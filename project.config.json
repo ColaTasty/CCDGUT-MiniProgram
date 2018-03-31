@@ -20,6 +20,10 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"current": -1,
 			"list": []
@@ -86,6 +90,12 @@
 					"name": "pages/lostAndFound/new/new",
 					"pathName": "pages/lostAndFound/new/new",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "SingleItem pages/lostAndFound/index/index",
+					"pathName": "pages/lostAndFound/index/index",
+					"query": "singleItem=136"
 				}
 			]
 		}

@@ -1,7 +1,10 @@
 /* pages/lostAndFound/index/index.wxss */
 
+page {
+  background-color: #f7f7f7;  
+}
+
 .index-container {
-  background-color: #f7f7f7;
   overflow: hidden;
   height: 100%;
 }
@@ -64,9 +67,8 @@
   height: 30px;
 }
 
-
 .lost-and-found-item-list .item {
-  margin: 10px 0 10px 0;
+  margin: 0px 0 20px 0;
   background-color: white;
   padding: 10px 20px 10px 20px;
 }
@@ -125,6 +127,7 @@
 }
 
 .item-footer {
+  margin-top: 15px;
   padding-bottom: 10px;
   overflow: hidden;
 }
@@ -207,4 +210,32 @@
 .popup-example--left .zan-popup__container {
   top: 0;
   bottom: 0;
+}
+
+.share-button {
+  padding: 0 0 0 0 !important; 
+  margin: 0 0 0 0 !important; 
+  border: none; 
+  border-style: none;
+  color: inherit; 
+  border-radius:0; 
+  font-size: inherit; 
+  box-sizing: 0; 
+  line-height: inherit; 
+  background-color: white !important;
+}
+
+.share-button::after {
+  border: none;
+}
+
+.keywords {
+  margin-top: 10px;
+}
+
+.keywords .keyword {
+  display: inline-block;
+  font-size: 13px;
+  padding-right: 10px;
+  color: #ff4343;
 }

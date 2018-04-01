@@ -32,6 +32,7 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
     imageURLPrefix: "",
     keywords: "",
     nomore: false,
+    contactName: "",
     weChatUsername: "",
     phoneNumber: "",
     showNewButton: true,
@@ -152,7 +153,13 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
       });
     }
 
-    this.refreshList();    
+    var app = getApp();
+
+    if (app.getUserInfoComplete) {
+      this.refreshList();    
+    } else {
+      app.userInfoCompleteCallback = this.refreshList;
+    }
   },
 
   searchInputConfirm(e) {
@@ -173,6 +180,7 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
   contact(e) {
     console.log(e);
     this.setData({
+      contactName: this.data.list[e.currentTarget.dataset.index].item.name,
       weChatUsername: this.data.list[e.currentTarget.dataset.index].item.weChatUsername,
       phoneNumber: this.data.list[e.currentTarget.dataset.index].item.phoneNumber
     });
@@ -208,7 +216,7 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
   },
 
   resetList() {
-    this.setData({list: []});
+    this.setData({ list: [], nomore: false});
   },
 
   refreshList() {

@@ -1,5 +1,6 @@
 //app.js
 App({
+  getUserInfoComplete: false,
   systemDomain: "https://ccdgut.yuninter.net/WeChat/API/1",
   // systemDomain: "http://wechatapi.com/WeChat/API/1",
   sessionId: null,
@@ -24,10 +25,10 @@ App({
   },
 
   getSession: function (onSuccessCallback) {
-    // 登录
+    // 调用小程序的登录
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        // 小程序调用wx.login()成功后，发送 res.code 到后台换取 openId, sessionKey, unionId
         wx.request({
           url: this.systemDomain + "/Login",
           method: "POST",
@@ -114,32 +115,43 @@ App({
     wx.setStorageSync('logs', logs)
     */
 
+    var checkSessionCallback = () => {
+      this.userSessionInit(() => {
+        // 获取用户信息
+        wx.getUserInfo({
+          success: res => {
+            // 可以将 res 发送给后台解码出 unionId
+            // console.log(res.userInfo);
+            this.globalData.userInfo = res.userInfo
+
+            this.submitUserInfo(res.userInfo);
+
+            // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+            // 所以此处加入 callback 以防止这种情况
+            if (this.userInfoReadyCallback) {
+              this.userInfoReadyCallback(res)
+            }
+          },
+          complete: (res) => {
+            this.getUserInfoComplete = true;
+            if (this.userInfoCompleteCallback) {
+              this.userInfoCompleteCallback(res);
+            }
+          }
+        });
+      });
+    }
+
+    // 检查小程序的Session是否有效，无效则重新登录，并到服务器获取sessionId
     wx.checkSession({
+      success: checkSessionCallback,
       fail: function() {
-        getApp().getSession();
+        getApp().getSession(checkSessionCallback);
       }
     })
 
     // console.log(wx.getStorageSync("sessionID"));
     // console.log(this.userSessionInit());
-    this.userSessionInit(() => {
-      // 获取用户信息
-      wx.getUserInfo({
-        success: res => {
-          // 可以将 res 发送给后台解码出 unionId
-          // console.log(res.userInfo);
-          this.globalData.userInfo = res.userInfo
-
-          this.submitUserInfo(res.userInfo);
-
-          // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-          // 所以此处加入 callback 以防止这种情况
-          if (this.userInfoReadyCallback) {
-            this.userInfoReadyCallback(res)
-          }
-        }
-      });
-    });
   },
 
   submitUserInfo: function(userInfo) {

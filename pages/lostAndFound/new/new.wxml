@@ -70,6 +70,16 @@
 
     <view class='input-box'>
       <view class='icon'>
+        <view class="zan-icon zan-icon-contact"></view>
+      </view>
+
+      <view class="input">
+        <input name="name" class='search-input' placeholder="联系人(非必填)" />
+      </view>
+    </view>
+
+    <view class='input-box'>
+      <view class='icon'>
         <view class="zan-icon zan-icon-records"></view>
       </view>
 

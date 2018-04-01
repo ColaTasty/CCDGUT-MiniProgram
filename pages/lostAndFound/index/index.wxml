@@ -46,7 +46,7 @@
         </view>
         <!-- 联系按钮 -->
         <view class='contact-link'>
-          <view wx:if="{{uid == item.item.uid}}">
+          <view wx:if="{{false && uid == item.item.uid}}">
             <button wx:if="{{item.item.status != 2}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain contact-button" data-index="{{index}}" bindtap='closeItem'>关闭启事</button>
             <button wx:else class="zan-btn zan-btn--mini zan-btn--disabled zan-btn--plain contact-button">已关闭</button>    
           </view>
@@ -57,7 +57,7 @@
         <!-- 昵称、日期 -->
         <view class='meta-info'>
           <view class="nickname">
-          {{item.userInfo.nickName}}
+          {{item.userInfo.nickName ? item.userInfo.nickName : (item.item.name ? item.item.name : "匿名")}}
           </view>
           <view class="date">
           {{item.item.createTime}}
@@ -129,6 +129,9 @@
     <view class="zan-popup__container">
         <view style='color: gray;' class="bottom-nav-item">
           TIP: 轻点项目可复制内容
+        </view>
+        <view class="bottom-nav-item" wx:if="{{contactName && contactName != ''}}" bindtap='copyContactName'>
+          Name: {{contactName}}
         </view>
         <view class="bottom-nav-item" wx:if="{{weChatUsername && weChatUsername != ''}}" bindtap='copyWeChatUsername'>
           WeChat: {{weChatUsername}}

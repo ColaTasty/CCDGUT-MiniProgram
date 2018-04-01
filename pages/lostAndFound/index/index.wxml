@@ -46,7 +46,7 @@
         </view>
         <!-- 联系按钮 -->
         <view class='contact-link'>
-          <view wx:if="{{false && uid == item.item.uid}}">
+          <view wx:if="{{uid == item.item.uid}}">
             <button wx:if="{{item.item.status != 2}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain contact-button" data-index="{{index}}" bindtap='closeItem'>关闭启事</button>
             <button wx:else class="zan-btn zan-btn--mini zan-btn--disabled zan-btn--plain contact-button">已关闭</button>    
           </view>

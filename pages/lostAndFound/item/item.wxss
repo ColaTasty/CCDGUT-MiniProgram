@@ -1,1 +1,1 @@
-/* pages/lostAndFound/item/item.wxss */
+@import "../index/index.wxss";

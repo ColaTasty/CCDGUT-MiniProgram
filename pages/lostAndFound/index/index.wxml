@@ -95,6 +95,13 @@
           </view>
 
           <view class="small-tag-item">
+            <view class="share-button" data-index="{{index}}" bindtap='share'>
+              <view class="zan-icon zan-icon-upgrade tag-icon"></view>
+              分享到朋友圈
+            </view>
+          </view>
+
+          <view class="small-tag-item">
             <button class="share-button" open-type="share" data-index="{{index}}">
               <view class="zan-icon zan-icon-upgrade tag-icon"></view>
               分享
@@ -123,6 +130,10 @@
       </view>
     </view>
   </view>
+
+    <view class="canvas-box">
+      <canvas canvas-id="myCanvas" style="width: 1920px; height: 1080px;"></canvas>
+    </view>
 
     <view class="popup-example--bottom zan-popup zan-popup--bottom {{ showBottomPopup ? 'zan-popup--show' : ''}}">
     <view class="zan-popup__mask" catchtap="toggleBottomPopup"></view>

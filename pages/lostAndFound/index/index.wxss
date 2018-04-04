@@ -238,6 +238,7 @@ page {
   box-sizing: 0; 
   line-height: inherit; 
   background-color: white !important;
+  overflow: visible;
 }
 
 .share-button::after {
@@ -253,4 +254,11 @@ page {
   font-size: 13px;
   padding-right: 10px;
   color: #ff4343;
+}
+
+.canvas-box{
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 999999rpx;
 }

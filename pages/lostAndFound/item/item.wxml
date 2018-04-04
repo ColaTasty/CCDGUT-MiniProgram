@@ -1,2 +1,148 @@
-<!--pages/lostAndFound/item/item.wxml-->
-<text>pages/lostAndFound/item/item.wxml</text>
+<import src="/dist/tab/index.wxml" />
+<import src="/dist/toptips/index.wxml" />
+<import src="/dist/loadmore/index.wxml" />
+
+<!-- index-container begin -->
+<view class="index-container">
+
+  <!-- search-bar begin -->
+  <view class="search-bar" style='background-color: white;'>
+
+    <view class="search-form">
+      <view class="nav-icon-box">
+        <view class="zan-icon zan-icon-wap-nav main-nav-icon" bindtap="toggleLeftPopup"></view>
+      </view>
+    </view>
+  </view>
+  <!-- search-bar end -->
+
+<!-- item list begin -->
+  <view class='lost-and-found-item-list'>
+    <!-- 各项目面板 -->
+    <view class='item' wx:for="{{list}}">
+
+      <!-- 各项目发布者昵称、头像、日期 -->
+      <view class='item-header'>
+        <!-- 头像 -->
+        <view class='header-image'>
+          <image background-size="cover" class="userinfo-avatar" src="{{item.userInfo.avatarUrl}}"></image>
+        </view>
+        <!-- 联系按钮 -->
+        <view class='contact-link'>
+          <view wx:if="{{uid == item.item.uid}}">
+            <button wx:if="{{item.item.status != 2}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain contact-button" data-index="{{index}}" bindtap='closeItem'>关闭启事</button>
+            <button wx:else class="zan-btn zan-btn--mini zan-btn--disabled zan-btn--plain contact-button">已关闭</button>    
+          </view>
+          <view wx:else>
+            <button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button" data-index="{{index}}" bindtap='contact'>联系TA</button>
+          </view>
+        </view>
+        <!-- 昵称、日期 -->
+        <view class='meta-info'>
+          <view class="nickname">
+          {{item.userInfo.nickName ? item.userInfo.nickName : (item.item.name ? item.item.name : "匿名")}}
+          </view>
+          <view class="date">
+          {{item.item.createTime}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 各项目详细描述 -->
+      <view class="item-descriprion">
+        {{item.item.description}}
+      </view>
+
+      <!-- 各项目图片 -->
+      <view class="item-image-list">
+        <image class="image-item" mode="aspectFill" wx:for="{{item.images}}" wx:for-index="imageIndex" wx:for-item="image" src="{{imageURLPrefix + image.relativePath}}" data-imageindex="{{imageIndex}}" data-index="{{index}}" bindtap="previewImage"></image>
+      </view>
+
+      <!-- 各项目地点等剩余详细 -->
+      <view class="item-footer">
+        <view class="position">
+              <view class="zan-icon zan-icon-location item-position-icon"></view>
+              {{item.item.address}}
+        </view>
+        
+        <!-- 各项目关键词 -->
+        <view class='keywords'>
+          <view class="keyword">{{item.item.type == 0 ? "#寻物启事" : "#失物招领"}}</view>
+          <view class="keyword" wx:for="{{item.keywords}}" wx:for-index="keywordIndex" wx:for-item="keyword">#{{keyword}}</view>
+        </view>
+
+        <view class='small-tags'>
+          <view class="small-tag-item" style='display: none'>
+            <view class="zan-icon zan-icon-browsing-history tag-icon"></view>
+            128
+          </view>
+
+          <view class="small-tag-item">
+            <view class="share-button" data-index="{{index}}" bindtap='share'>
+              <view class="zan-icon zan-icon-upgrade tag-icon"></view>
+              分享到朋友圈
+            </view>
+          </view>
+
+          <view class="small-tag-item">
+            <button class="share-button" open-type="share" data-index="{{index}}">
+              <view class="zan-icon zan-icon-upgrade tag-icon"></view>
+              分享
+            </button>
+          </view>
+
+        </view>
+      </view>
+
+    </view>
+  </view>
+<!-- item list end -->
+
+  <template wx:if="{{nomore}}" is="zan-loadmore" data="{{ nomore: true }}" />
+
+<view class="zan-icon zan-icon-add nav-icon" bindtap='showNav' wx:if="{{!singleItem}}"></view>
+
+  <view class="popup-example--left zan-popup zan-popup--left {{ showLeftPopup ? 'zan-popup--show' : ''}}">
+    <view class="zan-popup__mask" bindtap="toggleLeftPopup"></view>
+    <view class="zan-popup__container">
+      <navigator open-type="reLaunch" url="/pages/index/index"><view class='nav-item'>小助手 <view class='nav-item-small'>INDEX</view></view></navigator>
+      <navigator open-type='navigate' url='/pages/lostAndFound/new/new'><view class='nav-item'>发布启事 <view class='nav-item-small'>NEW</view></view></navigator>
+      <view class='bottom-item-group'>
+        <navigator open-type="navigateBack"><view class='nav-item'>返回 <view class='nav-item-small'>BACK</view></view></navigator>
+        <view class='nav-item' bindtap='toggleLeftPopup'>关闭 <view class='nav-item-small'>CLOSE</view></view>
+      </view>
+    </view>
+  </view>
+
+    <view class="canvas-box">
+      <canvas canvas-id="myCanvas" style="width: 1920px; height: 1080px;"></canvas>
+    </view>
+
+    <view class="popup-example--bottom zan-popup zan-popup--bottom {{ showBottomPopup ? 'zan-popup--show' : ''}}">
+    <view class="zan-popup__mask" catchtap="toggleBottomPopup"></view>
+    <view class="zan-popup__container">
+        <view style='color: gray;' class="bottom-nav-item">
+          TIP: 轻点项目可复制内容
+        </view>
+        <view class="bottom-nav-item" wx:if="{{contactName && contactName != ''}}" bindtap='copyContactName'>
+          Name: {{contactName}}
+        </view>
+        <view class="bottom-nav-item" wx:if="{{weChatUsername && weChatUsername != ''}}" bindtap='copyWeChatUsername'>
+          WeChat: {{weChatUsername}}
+        </view>
+        <view class="bottom-nav-item" bindtap='copyPhoneNumber'>
+          TEL: {{phoneNumber}}
+        </view>
+        <view class="bottom-nav-item" bindtap='makePhoneCall'>
+          呼叫
+        </view>
+        <view class="bottom-nav-item" style='border-top: 5px solid #efefef' catchtap="toggleBottomPopup">
+          关闭
+        </view>
+    </view>
+  </view>
+
+  <template is="zan-toptips" data="{{ zanTopTips }}"></template>
+
+</view>
+<!-- index-container end -->

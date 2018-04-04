@@ -91,6 +91,73 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
     });
   },
 
+  share(e) {
+    var that = this;
+
+    const ctx = wx.createCanvasContext('myCanvas');
+
+    ctx.drawImage("TS.jpg", 0, 0, 600, 520);
+
+    ctx.setFillStyle('white')
+    ctx.fillRect(0, 520, 600, 280);
+
+
+    ctx.setFontSize(28)
+    ctx.setFillStyle('#6F6F6F')
+    ctx.fillText('妖妖灵', 110, 590)
+
+    ctx.setFontSize(30)
+    ctx.setFillStyle('#111111')
+    ctx.fillText('宠友们快来围观萌宠靓照', 30, 660)
+    ctx.fillText('我在萌爪幼稚园', 30, 700)
+
+    ctx.setFontSize(24)
+    ctx.fillText('长按扫码查看详情', 30, 770)
+    ctx.draw()
+
+    setTimeout(() => {
+      // 3. canvas画布转成图片
+      wx.canvasToTempFilePath({
+        x: 0,
+        y: 0,
+        width: 600,
+        height: 800,
+        destWidth: 600,
+        destHeight: 800,
+        canvasId: 'myCanvas',
+        success: function (res) {
+          console.log(res.tempFilePath);
+          that.setData({
+            shareImgSrc: res.tempFilePath
+          })
+
+        },
+        fail: function (res) {
+          console.log(res)
+        }
+      })
+      //4. 当用户点击分享到朋友圈时，将图片保存到相册
+      wx.saveImageToPhotosAlbum({
+        filePath: that.data.shareImgSrc,
+        success(res) {
+          wx.showModal({
+            title: '存图成功',
+            content: '图片成功保存到相册了，去发圈噻~',
+            showCancel: false,
+            confirmText: '好哒',
+            confirmColor: '#72B9C3',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定');
+              }
+              that.hideShareImg()
+            }
+          })
+        }
+      })
+    }, 1000);
+  },
+
   makePhoneCall(e) {
     wx.makePhoneCall({
       phoneNumber: this.data.phoneNumber,

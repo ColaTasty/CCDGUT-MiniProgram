@@ -31,7 +31,6 @@ Page({
   },
   
   onLoad: function () {
-
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -43,7 +42,6 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         });
-        this.educationSystemBindCheck();        
       }
     }
 
@@ -73,7 +71,11 @@ Page({
   },
 
   onShow: function () {
-    this.educationSystemBindCheck();
+    if (app.getUserInfoComplete) {
+      this.educationSystemBindCheck();      
+    } else {
+      app.userInfoCompleteCallback = this.educationSystemBindCheck;
+    }
   },
 
   getUserInfo: function (e) {

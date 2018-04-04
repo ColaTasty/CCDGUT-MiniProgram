@@ -8,7 +8,9 @@ App({
     this.sessionId = sessionId;
     wx.setStorageSync("sessionID", sessionId)
   },
+
   sessionIdValid: function (onSuccess) {
+    this.sessionIdValidRequire = false; // 防止重复调用
     this.callAPI("/SessionIdValid", {}, function(e) {
       if(!e.data.result)
         getApp().getSession(onSuccess);
@@ -63,25 +65,34 @@ App({
 
   callAPI: function(api, data, onSuccess, onFail, onComplete) {
     // data.sessionId = this.sessionId;
-    if (onSuccess == null)
-      onSuccess = function() {};
-    if (onFail == null)
-      onFail = function() {};
-    if (onComplete == null)
-      onComplete = function() {};
-    wx.request({
-      url: this.systemDomain + api,
-      method: "POST",
-      dataType: "json",
-      data: data,
-      header: {
-        'content-type': 'application/json', // 默认值
-        'sessionId': this.sessionId
-      },
-      success: onSuccess,
-      fail: onFail,
-      complete: onComplete
-    })
+    var callAPIClosure = () => {
+      if (onSuccess == null)
+        onSuccess = function () { };
+      if (onFail == null)
+        onFail = function () { };
+      if (onComplete == null)
+        onComplete = function () { };
+      wx.request({
+        url: this.systemDomain + api,
+        method: "POST",
+        dataType: "json",
+        data: data,
+        header: {
+          'content-type': 'application/json', // 默认值
+          'sessionId': this.sessionId
+        },
+        success: onSuccess,
+        fail: onFail,
+        complete: onComplete
+      })
+    }
+
+    if (this.sessionIdValidRequire) {
+      this.sessionIdValidRequire = false;
+      this.sessionIdValid(callAPIClosure);
+    } else {
+      callAPIClosure();
+    }
   },
 
   uploadFile: function (api, filePath, name, formData, onSuccess, onFail, onComplete) {
@@ -108,6 +119,20 @@ App({
   },
 
   onLaunch: function () {
+    this.sessionCheck();
+  },
+
+  sessionIdValidRequire: false, // 为true时，调用callAPI将会先调用sessionValid
+  firstShow: true, // 为true时，表示是第一次触发onShow()，不修改sessionIdValidRequire为true，避免重复调用sessionValid
+
+  onShow(options) {
+    if (!this.firstShow) {
+      this.sessionIdValidRequire = true;
+    }
+    this.firstShow = false;
+  },
+
+  sessionCheck() {
     /*
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -115,38 +140,40 @@ App({
     wx.setStorageSync('logs', logs)
     */
 
-    var checkSessionCallback = () => {
-      this.userSessionInit(() => {
-        // 获取用户信息
-        wx.getUserInfo({
-          success: res => {
-            // 可以将 res 发送给后台解码出 unionId
-            // console.log(res.userInfo);
-            this.globalData.userInfo = res.userInfo
+    var getUserInfoClosure = () => {
+      // 获取用户信息
+      wx.getUserInfo({
+        success: res => {
+          // 可以将 res 发送给后台解码出 unionId
+          // console.log(res.userInfo);
+          this.globalData.userInfo = res.userInfo
 
-            this.submitUserInfo(res.userInfo);
+          this.submitUserInfo(res.userInfo);
 
-            // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-            // 所以此处加入 callback 以防止这种情况
-            if (this.userInfoReadyCallback) {
-              this.userInfoReadyCallback(res)
-            }
-          },
-          complete: (res) => {
-            this.getUserInfoComplete = true;
-            if (this.userInfoCompleteCallback) {
-              this.userInfoCompleteCallback(res);
-            }
+          // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+          // 所以此处加入 callback 以防止这种情况
+          if (this.userInfoReadyCallback) {
+            this.userInfoReadyCallback(res)
           }
-        });
+        },
+        complete: (res) => {
+          this.getUserInfoComplete = true;
+          if (this.userInfoCompleteCallback) {
+            this.userInfoCompleteCallback(res);
+          }
+        }
       });
+    };
+
+    var checkSessionCallback = () => {
+      this.userSessionInit(getUserInfoClosure);
     }
 
     // 检查小程序的Session是否有效，无效则重新登录，并到服务器获取sessionId
     wx.checkSession({
-      success: checkSessionCallback,
-      fail: function() {
-        getApp().getSession(checkSessionCallback);
+      success: checkSessionCallback, // 小程序的session有效时，到服务器验证服务器session是否有效
+      fail: function () {
+        getApp().getSession(getUserInfoClosure); // 小程序的session无效时，重新调用login获取小程序session，再到服务器获取服务器的session，再调用getUserInfo
       }
     })
 
@@ -155,7 +182,7 @@ App({
   },
 
   submitUserInfo: function(userInfo) {
-    this.callAPI("/UserInfo", userInfo, function (res) { console.log(res); });
+    this.callAPI("/UserInfo", userInfo, function (res) {});
   },
   
   globalData: {

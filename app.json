@@ -13,7 +13,8 @@
     "pages/lostAndFound/index/index",
     "pages/lostAndFound/test/test",
     "pages/lostAndFound/new/new",
-    "pages/lostAndFound/item/item"
+    "pages/lostAndFound/item/item",
+    "pages/extraCreditSystem/extraCreditSystem"
   ],
   "window": {
     "backgroundTextStyle": "light",

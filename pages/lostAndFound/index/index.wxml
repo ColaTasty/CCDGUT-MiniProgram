@@ -53,7 +53,7 @@
             <button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button" data-index="{{index}}" bindtap='contact'>联系TA</button>
           </view>
           <view style='margin-right: 0;'>
-            <navigator open-type='navigate' url='/pages/lostAndFound/item/item?itemId={{item.item.id}}' class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button">更多... ></navigator>         
+            <navigator open-type='navigate' url='/pages/lostAndFound/item/item?itemId={{item.item.id}}' class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button">详情... ></navigator>         
           </view>
         </view>
         <!-- 昵称、日期 -->

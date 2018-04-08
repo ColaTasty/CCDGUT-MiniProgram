@@ -56,16 +56,18 @@
 
                 <view class="weui-flex" wx:if="{{educationSystemBindCheck}}">
                     <view class="weui-flex__item navicationLeftItem">
+                    <navigator url='/pages/extraCreditSystem/extraCreditSystem'>                    
+                        <view class="placeholder">
+                          课外学分 <text class="yellowFont boldFont">></text>
+                        </view>
+                    </navigator>
+                    </view>
+                    <view class="weui-flex__item navicationRightItem">
                     <navigator url='/pages/bindSetting/bindSetting'>
                         <view class="placeholder">
                           教务系统管理 <text class="yellowFont boldFont">></text>
                         </view>
                     </navigator>
-                    </view>
-                    <view class="weui-flex__item navicationRightItem grayItem">
-                        <view class="placeholder">
-                          敬请期待 <text class="yellowFont boldFont">...</text>
-                        </view>
                     </view>
                 </view>
 

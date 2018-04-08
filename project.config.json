@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -102,6 +102,18 @@
 					"name": "Item 154",
 					"pathName": "pages/lostAndFound/item/item",
 					"query": "itemId=154"
+				},
+				{
+					"id": -1,
+					"name": "pages/extraCreditSystem/extraCreditSystem",
+					"pathName": "pages/extraCreditSystem/extraCreditSystem",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": ""
 				}
 			]
 		}

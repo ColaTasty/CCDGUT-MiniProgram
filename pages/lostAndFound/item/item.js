@@ -149,7 +149,7 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
 
       return {
         title: name + "的" + (this.data.list[index].item.type == 0 ? "寻物启事" : "失物招领启事"),
-        path: "/pages/lostAndFound/index/index?singleItem=" + itemId
+        path: "/pages/lostAndFound/item/item?itemId=" + itemId
       };
     }
   },
@@ -277,7 +277,8 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
         console.log(res);
         if (res.data.result) {
           this.setData({
-            commentValue: "",            
+            commentValue: "",
+            commentCounter: this.data.commentCounter + 1
           });
           wx.hideLoading();
           wx.showToast({

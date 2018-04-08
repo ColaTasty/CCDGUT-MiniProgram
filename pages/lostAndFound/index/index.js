@@ -186,12 +186,18 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
   },
 
   onShareAppMessage(options) {
-    console.log(options);
     if (options.from == "button") {
       var index = options.target.dataset.index;
       var itemId = this.data.list[index].item.id;
+
+      var name = this.data.list[index].userInfo.nickName;
+      if (!name || name == "")
+        name = this.data.list[index].item.name;
+      if (!name || name == "")
+        name = "匿名";
+
       return {
-        title: this.data.list[index].userInfo.nickName + "的" + (this.data.list[index].item.type == 0 ? "寻物启事" : "失物招领启事"),
+        title: name + "的" + (this.data.list[index].item.type == 0 ? "寻物启事" : "失物招领启事"),
         path: "/pages/lostAndFound/index/index?singleItem=" + itemId
       };
     }

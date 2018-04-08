@@ -33,9 +33,6 @@
             <button wx:if="{{item.item.status != 2}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain contact-button" data-index="{{index}}" bindtap='closeItem'>关闭启事</button>
             <button wx:else class="zan-btn zan-btn--mini zan-btn--disabled zan-btn--plain contact-button">已关闭</button>    
           </view>
-          <view wx:else>
-            <button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button" data-index="{{index}}" bindtap='contact'>联系TA</button>
-          </view>
         </view>
         <!-- 昵称、日期 -->
         <view class='meta-info'>
@@ -77,11 +74,16 @@
             128
           </view>
 
-          <view class="small-tag-item">
+          <view class="small-tag-item" style='display: none;'>
             <view class="share-button" data-index="{{index}}" bindtap='share'>
               <view class="zan-icon zan-icon-upgrade tag-icon"></view>
               分享到朋友圈
             </view>
+          </view>
+
+          <view class="small-tag-item" bindtap='openCommentBox'>
+              <view class="zan-icon zan-icon-chat tag-icon"></view>
+              {{item.commentCounter}}
           </view>
 
           <view class="small-tag-item">
@@ -98,9 +100,98 @@
   </view>
 <!-- item list end -->
 
-  <template wx:if="{{nomore}}" is="zan-loadmore" data="{{ nomore: true }}" />
+<view class="contact-panel">
+  <view style='color: gray;' class="bottom-nav-item">
+    联系方式
+  </view>
+  <view class="bottom-nav-item" wx:if="{{list[0].item.contactName && list[0].item.contactName != ''}}" bindtap='copyContactName'>
+    Name: {{list[0].item.contactName}}
+  </view>
+  <view class="bottom-nav-item" wx:if="{{list[0].item.weChatUsername && list[0].item.weChatUsername != ''}}" bindtap='copyWeChatUsername'>
+    WeChat: {{list[0].item.weChatUsername}}
+  </view>
+  <view class="bottom-nav-item" bindtap='copyPhoneNumber'>
+    TEL: {{list[0].item.phoneNumber}}
+  </view>
+</view>
 
-<view class="zan-icon zan-icon-add nav-icon" bindtap='showNav' wx:if="{{!singleItem}}"></view>
+<view class="contact-panel" style='margin-top: 20px;'>
+  <view class="bottom-nav-item" style='color: gray; border-bottom: 1px solid #efefef;'>
+    全部评论({{commentCounter}})
+  </view>
+</view>
+<!-- item list begin -->
+  <view class='lost-and-found-item-list' style='margin-bottom: 60px;'>
+    <!-- 各项目面板 -->
+    <view class='item' wx:for="{{commentList}}" style='margin-top: 0; margin-bottom: 0; border-bottom: 1px solid #efefef'>
+
+      <!-- 各项目发布者昵称、头像、日期 -->
+      <view class='item-header'>
+        <!-- 头像 -->
+        <view class='header-image'>
+          <image background-size="cover" class="userinfo-avatar" src="{{item.userInfo.avatarUrl}}"></image>
+        </view>
+        <!-- 楼层 -->
+        <view class='contact-link' style='color: gray;'>
+          #{{index + 1}}
+          <button wx:if="{{item.comment.uid == uid && item.comment.status == 0}}" class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain contact-button" data-index="{{index}}" bindtap='deleteComment'>删除评论</button>
+        </view>
+        <!-- 昵称、日期 -->
+        <view class='meta-info'>
+          <view class="nickname">
+          {{item.userInfo.nickName ? item.userInfo.nickName : (item.item.name ? item.item.name : "匿名")}}
+          </view>
+          <view class="date">
+          {{item.item.createTime}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 各项目详细描述 -->
+      <view class="item-descriprion" style='{{item.comment.status == 1 ? "color: gray;" : ""}}'>
+        <text wx:if="{{item.comment.replyToComment !== null}}" style='color: gray; font-size: 12px;'>
+        回复 #{{commentIdMap[item.comment.replyToComment] + 1}} {{commentList[commentIdMap[item.comment.replyToComment]].userInfo.nickName}}：
+        </text>
+        {{item.comment.status == 1 ? "评论已删除" : item.comment.comment}}
+      </view>
+
+      <!-- 各项目地点等剩余详细 -->
+      <view class="item-footer">
+        <view class='small-tags'>
+
+          <view class="small-tag-item">
+            <view class="share-button" data-index="{{index}}" bindtap='replayToComment'>
+              <view class="zan-icon zan-icon-chat tag-icon"></view>
+              回复
+            </view>
+          </view>
+
+        </view>
+      </view>
+
+    </view>
+  </view>
+<!-- item list end -->
+
+<view wx:if="{{!showBottomPopup}}" style='position: fixed; bottom: 0; background-color: white; display: block; width: 100%; text-align: center; height:30px; line-height: 30px; padding: 10px 0 10px 0; border-top: 1px solid #efefef;' bindtap='openCommentBox'>发表评论</view>
+
+    <view class="popup-example--bottom zan-popup zan-popup--bottom {{ showBottomPopup ? 'zan-popup--show' : ''}}">
+    <view class="zan-popup__mask" catchtap="toggleBottomPopup"></view>
+    <view class="zan-popup__container" style='background-color: #f7f7f7;'>
+        <view style='margin: 10px 0 0 20px;'>评论</view>
+        <form report-submit='true' bindsubmit='submitComment'>
+        <view style='padding: 10px 10px 10px 10px; margin: 10px 20px 20px 20px; background-color: white;'>
+          <textarea cursor-spacing="80" wx:if="{{showBottomPopup}}" name='comment' value='{{commentValue}}' placeholder='{{commentPlaceholder}}' style='height: 80px;' />
+        </view>
+        <view style='overflow: hidden;'>
+          <button form-type='submit' style='width: 100px; float: right; margin: 0 20px 20px 0;' class='zan-btn zan-btn--small zan-btn--primary'>{{submitting ? "请稍等..." : "提交"}}</button>
+        </view>
+        </form>
+        <view class="bottom-nav-item" style='border-top: 5px solid #efefef' catchtap="toggleBottomPopup">
+          关闭
+        </view>
+    </view>
+    </view>
 
   <view class="popup-example--left zan-popup zan-popup--left {{ showLeftPopup ? 'zan-popup--show' : ''}}">
     <view class="zan-popup__mask" bindtap="toggleLeftPopup"></view>
@@ -111,34 +202,6 @@
         <navigator open-type="navigateBack"><view class='nav-item'>返回 <view class='nav-item-small'>BACK</view></view></navigator>
         <view class='nav-item' bindtap='toggleLeftPopup'>关闭 <view class='nav-item-small'>CLOSE</view></view>
       </view>
-    </view>
-  </view>
-
-    <view class="canvas-box">
-      <canvas canvas-id="myCanvas" style="width: 1920px; height: 1080px;"></canvas>
-    </view>
-
-    <view class="popup-example--bottom zan-popup zan-popup--bottom {{ showBottomPopup ? 'zan-popup--show' : ''}}">
-    <view class="zan-popup__mask" catchtap="toggleBottomPopup"></view>
-    <view class="zan-popup__container">
-        <view style='color: gray;' class="bottom-nav-item">
-          TIP: 轻点项目可复制内容
-        </view>
-        <view class="bottom-nav-item" wx:if="{{contactName && contactName != ''}}" bindtap='copyContactName'>
-          Name: {{contactName}}
-        </view>
-        <view class="bottom-nav-item" wx:if="{{weChatUsername && weChatUsername != ''}}" bindtap='copyWeChatUsername'>
-          WeChat: {{weChatUsername}}
-        </view>
-        <view class="bottom-nav-item" bindtap='copyPhoneNumber'>
-          TEL: {{phoneNumber}}
-        </view>
-        <view class="bottom-nav-item" bindtap='makePhoneCall'>
-          呼叫
-        </view>
-        <view class="bottom-nav-item" style='border-top: 5px solid #efefef' catchtap="toggleBottomPopup">
-          关闭
-        </view>
     </view>
   </view>
 

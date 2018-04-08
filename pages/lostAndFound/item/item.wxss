@@ -1,1 +1,5 @@
 @import "../index/index.wxss";
+
+.contact-panel {
+  background-color: white;
+}

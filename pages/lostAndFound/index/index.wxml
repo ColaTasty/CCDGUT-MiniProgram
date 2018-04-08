@@ -37,7 +37,6 @@
   <view class='lost-and-found-item-list'>
     <!-- 各项目面板 -->
     <view class='item' wx:for="{{list}}">
-
       <!-- 各项目发布者昵称、头像、日期 -->
       <view class='item-header'>
         <!-- 头像 -->
@@ -53,6 +52,9 @@
           <view wx:else>
             <button class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button" data-index="{{index}}" bindtap='contact'>联系TA</button>
           </view>
+          <view style='margin-right: 0;'>
+            <navigator open-type='navigate' url='/pages/lostAndFound/item/item?itemId={{item.item.id}}' class="zan-btn zan-btn--mini zan-btn--primary zan-btn--plain contact-button">更多... ></navigator>         
+          </view>
         </view>
         <!-- 昵称、日期 -->
         <view class='meta-info'>
@@ -65,10 +67,12 @@
         </view>
       </view>
 
+    <navigator open-type='navigate' url='/pages/lostAndFound/item/item?itemId={{item.item.id}}'>
       <!-- 各项目详细描述 -->
       <view class="item-descriprion">
         {{item.item.description}}
       </view>
+    </navigator>      
 
       <!-- 各项目图片 -->
       <view class="item-image-list">
@@ -94,12 +98,12 @@
             128
           </view>
 
-          <view class="small-tag-item">
-            <view class="share-button" data-index="{{index}}" bindtap='share'>
-              <view class="zan-icon zan-icon-upgrade tag-icon"></view>
-              分享到朋友圈
+          <navigator open-type='navigate' url='/pages/lostAndFound/item/item?itemId={{item.item.id}}' class="small-tag-item">
+            <view class="share-button" data-index="{{index}}">
+              <view class="zan-icon zan-icon-chat tag-icon"></view>
+              {{item.commentCounter}}
             </view>
-          </view>
+          </navigator>
 
           <view class="small-tag-item">
             <button class="share-button" open-type="share" data-index="{{index}}">
@@ -110,7 +114,6 @@
 
         </view>
       </view>
-
     </view>
   </view>
 <!-- item list end -->

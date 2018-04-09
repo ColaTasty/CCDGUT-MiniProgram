@@ -19,7 +19,7 @@
       </picker>
     </view>
 
-    <template is="zan-field" data="{{ title: '宿舍号', type: 'input', placeholder: '请输入宿舍号，如：607', name: 'room', defaultValue: historyRoom }}"></template>
+    <template is="zan-field" data="{{ title: '宿舍号', type: 'input', placeholder: '请输入宿舍号，如：607', name: 'room', value: historyRoom }}"></template>
     <view wx:if="{{loading}}">
             <import src="/dist/loadmore/index.wxml" />
         <template is="zan-loadmore" data="{{loading: true}}" />

@@ -127,6 +127,7 @@ Page({
           content: "教务系统绑定成功",
           showCancel: false,
           complete: function() {
+            getApp().educationSystemBind = true;
             wx.navigateBack({
               delta: 1
             });

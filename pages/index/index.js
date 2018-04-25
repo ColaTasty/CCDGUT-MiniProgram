@@ -1,3 +1,5 @@
+var edusystem = require("../../utils/Edusystem.js");
+
 //index.js
 //获取应用实例
 const app = getApp()
@@ -9,6 +11,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     educationSystemBindCheck: false,
     sessionId: "",
+    loading: false,
   },
 
   educationSystemBindCheck: function () {
@@ -71,11 +74,29 @@ Page({
   },
 
   onShow: function () {
+    edusystem.bindCheck(
+      undefined,
+      undefined,
+      undefined,
+      (e) => {
+        this.setData({
+          loading: false,          
+          educationSystemBindCheck: app.educationSystemBind
+        });
+      },
+      () => {
+        this.setData({
+          loading: true,
+        });
+      }
+    );
+    /*
     if (app.getUserInfoComplete) {
       this.educationSystemBindCheck();      
     } else {
       app.userInfoCompleteCallback = this.educationSystemBindCheck;
     }
+    */
   },
 
   getUserInfo: function (e) {
@@ -84,5 +105,8 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     });
+  },
+
+  onShareAppMessage: function (options) {
   }
 })

@@ -137,21 +137,19 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
    * 用户点击右上角分享
    */
   onShareAppMessage: function (options) {
-    if (options.from == "button") {
-      var index = options.target.dataset.index;
-      var itemId = this.data.list[index].item.id;
+    var index = 0;
+    var itemId = this.data.list[index].item.id;
 
-      var name = this.data.list[index].userInfo.nickName;
-      if (!name || name == "")
-        name = this.data.list[index].item.name;
-      if (!name || name == "")
-        name = "匿名";
+    var name = this.data.list[index].userInfo.nickName;
+    if (!name || name == "")
+      name = this.data.list[index].item.name;
+    if (!name || name == "")
+      name = "匿名";
 
-      return {
-        title: name + "的" + (this.data.list[index].item.type == 0 ? "寻物启事" : "失物招领启事"),
-        path: "/pages/lostAndFound/item/item?itemId=" + itemId
-      };
-    }
+    return {
+      title: name + "的" + (this.data.list[index].item.type == 0 ? "寻物启事" : "失物招领启事"),
+      path: "/pages/lostAndFound/item/item?itemId=" + itemId
+    };
   },
 
   previewImage(e) {

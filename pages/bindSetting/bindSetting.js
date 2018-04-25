@@ -170,6 +170,7 @@ Page({
           content: '教务系统解绑成功',
           showCancel: false,
           complete: function() {
+            getApp().educationSystemBind = false;
             wx.redirectTo({
               url: '/pages/bindEducationSystem/bindEducationSystem',
             })

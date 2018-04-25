@@ -1,5 +1,7 @@
 //app.js
 App({
+  educationSystemBindChecked: false, // 用于标记是否已检查过用户有无绑定教务系统
+  educationSystemBind: false, // 标记用户是否已绑定教务系统
   getUserInfoComplete: false,
   systemDomain: "https://ccdgut.yuninter.net/WeChat/API/1",
   // systemDomain: "http://wechatapi.com/WeChat/API/1",
@@ -11,12 +13,19 @@ App({
 
   sessionIdValid: function (onSuccess) {
     this.sessionIdValidRequire = false; // 防止重复调用
-    this.callAPI("/SessionIdValid", {}, function(e) {
-      if(!e.data.result)
-        getApp().getSession(onSuccess);
-      else if (typeof onSuccess !== "undefined")
-        onSuccess();
-    });
+    this.callAPI(
+      "/SessionIdValid", 
+      {}, 
+      function(e) {
+        if(!e.data.result)
+          getApp().getSession(onSuccess);
+        else if (typeof onSuccess !== "undefined")
+          onSuccess();
+      },
+      () => {},
+      () => {
+      }
+      );
   },
 
   userSessionInit: function (onSuccess) {
@@ -63,7 +72,7 @@ App({
     })
   },
 
-  callAPI: function(api, data, onSuccess, onFail, onComplete) {
+  callAPI: function (api, data, onSuccess, onFail, onComplete, beforeAPIInvoke) {
     // data.sessionId = this.sessionId;
     var callAPIClosure = () => {
       if (onSuccess == null)
@@ -72,6 +81,9 @@ App({
         onFail = function () { };
       if (onComplete == null)
         onComplete = function () { };
+      beforeAPIInvoke = beforeAPIInvoke || function () { };
+
+      beforeAPIInvoke();
       wx.request({
         url: this.systemDomain + api,
         method: "POST",
@@ -141,6 +153,9 @@ App({
     */
 
     var getUserInfoClosure = () => {
+      wx.showLoading({
+        title: '请稍后...',
+      })
       // 获取用户信息
       wx.getUserInfo({
         success: res => {
@@ -161,6 +176,7 @@ App({
           if (this.userInfoCompleteCallback) {
             this.userInfoCompleteCallback(res);
           }
+          wx.hideLoading();
         }
       });
     };

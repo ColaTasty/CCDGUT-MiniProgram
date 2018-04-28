@@ -26,6 +26,7 @@
   height: 128rpx;
   margin: 20rpx;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .userinfo-nickname {
@@ -75,28 +76,21 @@
   margin: 5pt 10pt 20pt 10pt;
 }
 
-.navicationLeftItem {
-  line-height: 50pt;
-  height: 50pt;
-  margin-right: 5pt;
-  margin-bottom: 10pt;
-  background-color: #00acff;
-  color: white;
-  text-align: center;
-  font-size: 10pt;
-}
-
 .grayItem {
   background-color: gray !important;
 }
 
-.navicationRightItem {
+.weui-flex {
+  margin-bottom: 10pt;
+}
+
+.weui-flex__item {
   line-height: 50pt;
   height: 50pt;
-  margin-left: 5pt;
-  margin-bottom: 10pt;
   background-color: #00acff;
   color: white;
   text-align: center;
   font-size: 10pt;
+  margin: 0 5pt 0 5pt;
+  border-radius: 15px;  
 }

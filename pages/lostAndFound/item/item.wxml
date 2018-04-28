@@ -184,7 +184,11 @@
           <textarea cursor-spacing="80" wx:if="{{showBottomPopup}}" name='comment' value='{{commentValue}}' placeholder='{{commentPlaceholder}}' style='height: 80px;' />
         </view>
         <view style='overflow: hidden;'>
+          <button style='float: left; margin: 6px 0 20px 20px;' class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain" bindgetuserinfo="bindgetuserinfo" open-type='getUserInfo'>授权更新昵称头像</button>
           <button form-type='submit' style='width: 100px; float: right; margin: 0 20px 20px 0;' class='zan-btn zan-btn--small zan-btn--primary'>{{submitting ? "请稍等..." : "提交"}}</button>
+        </view>
+        <view style='color: gray; margin-bottom: 20px; font-size: 10px; text-align: center; width: 100%;'>
+          NOTE: 授权小吧吧获取你的头像昵称后，你发表的评论才会显示头像和昵称哦！
         </view>
         </form>
         <view class="bottom-nav-item" style='border-top: 5px solid #efefef' catchtap="toggleBottomPopup">

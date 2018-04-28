@@ -227,5 +227,17 @@ Page(Object.assign({}, Zan.Select, Zan.TopTips, {
 
   isSubmitting() {
     return this.data.submitting;
+  },
+
+  bindgetuserinfo(e) {
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      getApp().submitUserInfoDefaultNotify(e.detail.userInfo);
+    } else {
+      wx.showToast({
+        title: '更新失败',
+        duration: 1000,
+        icon: "none"
+      })
+    }
   }
 }));

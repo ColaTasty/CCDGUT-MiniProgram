@@ -72,10 +72,10 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
     
     var app = getApp();
 
-    if (app.getUserInfoComplete) {
+    if (app.sessionReady) {
       getItemClosure();
     } else {
-      app.userInfoCompleteCallback = getItemClosure;
+      app.sessionReadyCallback = getItemClosure;
     }
   },
 
@@ -315,4 +315,16 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
       }
     );
   },
+
+  bindgetuserinfo(e) {
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      getApp().submitUserInfoDefaultNotify(e.detail.userInfo);
+    } else {
+      wx.showToast({
+        title: '更新失败',
+        duration: 1000,
+        icon: "none"
+      })
+    }
+  }
 }));

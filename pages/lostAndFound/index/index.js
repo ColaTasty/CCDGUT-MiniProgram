@@ -228,10 +228,10 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
 
     var app = getApp();
 
-    if (app.getUserInfoComplete) {
+    if (app.sessionReady) {
       this.refreshList();    
     } else {
-      app.userInfoCompleteCallback = this.refreshList;
+      app.sessionReadyCallback = this.refreshList;
     }
   },
 

@@ -73,8 +73,12 @@
         <view class="zan-icon zan-icon-contact"></view>
       </view>
 
+      <view class='button'>
+          <button class="zan-btn zan-btn--mini zan-btn--danger zan-btn--plain" bindgetuserinfo="bindgetuserinfo" open-type='getUserInfo'>授权更新昵称头像</button>
+      </view>
+
       <view class="input">
-        <input name="name" class='search-input' placeholder="联系人(非必填)" />
+        <input name="name" class='search-input' placeholder="联系人(已授权昵称头像可不填)" />
       </view>
     </view>
 

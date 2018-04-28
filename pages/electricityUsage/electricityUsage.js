@@ -135,10 +135,10 @@ Page({
    */
   onLoad: function (options) {
     var app = getApp();
-    if (app.getUserInfoComplete) {
+    if (app.sessionReady) {
       this.getQueryHistory();
     } else {
-      app.userInfoCompleteCallback = this.getQueryHistory;
+      app.sessionReadyCallback = this.getQueryHistory;
     }
   },
 

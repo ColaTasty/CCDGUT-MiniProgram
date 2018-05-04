@@ -47,6 +47,7 @@ App({
     wx.login({
       success: res => {
         // 小程序调用wx.login()成功后，发送 res.code 到后台换取 openId, sessionKey, unionId
+        console.log("Call login: " + this.systemDomain + "/Login");
         wx.request({
           url: this.systemDomain + "/Login",
           method: "POST",
@@ -93,6 +94,8 @@ App({
       beforeAPIInvoke = beforeAPIInvoke || function () { };
 
       beforeAPIInvoke();
+
+      console.log("Call API: " + this.systemDomain + api);
       wx.request({
         url: this.systemDomain + api,
         method: "POST",
@@ -109,6 +112,7 @@ App({
     }
 
     if (this.sessionIdValidRequire) {
+      console.log("callAPI invoke sessionIdValid.");
       this.sessionIdValidRequire = false;
       this.sessionIdValid(callAPIClosure);
     } else {
@@ -140,6 +144,7 @@ App({
   },
 
   onLaunch: function () {
+    console.log("app.js onLaunch invoked.");
     this.sessionCheck();
   },
 
@@ -197,11 +202,14 @@ App({
     */
 
     var sessionReadyCallback = () => {
-      this.sessionReady = true;      
+      console.log("Invoke session ready callback.");
+      wx.hideLoading();
+      this.sessionReady = true;
       this.sessionReadyCallback();
     };
 
     var onSessionError = () => {
+      wx.hideLoading();
       wx.showModal({
         title: '错误',
         content: '小程序暂时无法提供服务，请稍后重试...',
@@ -213,7 +221,8 @@ App({
     };
 
     var onSessionReadyComplete = () => {
-      wx.hideLoading();
+      // console.log("Session ready! Hide loading.");
+      // wx.hideLoading();
     };
 
     // 到服务器检查Session ID是否有效
@@ -221,6 +230,7 @@ App({
       this.userSessionInit(sessionReadyCallback, onSessionError, onSessionReadyComplete);
     }
 
+    console.log("Show session loading.");
     wx.showLoading({
       title: '请稍后...',
       mask: true
@@ -258,6 +268,7 @@ App({
       "/UserInfo", 
       userInfo, 
       () => {
+        wx.hideLoading();
         wx.showToast({
           title: '更新成功',
           duration: 1500,
@@ -268,13 +279,19 @@ App({
           onSuccess();
         }
       }, 
-      onError, 
-      () => {
+      (res) => {
         wx.hideLoading();
-        if (onComplete) {
-          onComplete();
+        wx.showToast({
+          title: '网络错误',
+          duration: 1500,
+          icon: "none"
+        });
+
+        if (onError) {
+          onError(res);
         }
-      }
+      }, 
+      onComplete
     );    
   },
   

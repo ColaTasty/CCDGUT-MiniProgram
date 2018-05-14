@@ -7,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    captcha: null,
+    session: null,
     educationSystemBindCheck: false,
     limit: [
       "最近十条",
@@ -22,6 +24,39 @@ Page({
     ],
     limitIndex: 0,
     history: []
+  },
+
+  APIPrefix: "/Module/GodDamnSystem/",
+
+  preLogin: function () {
+    this.setData({ userInputCaptcha: "" });
+    wx.showLoading({
+      title: '加载中...',
+      mask: true,
+    })
+    getApp().callAPI(
+      this.APIPrefix + "PreLogin",
+      {},
+      (res) => {
+        // console.log(res); 
+        if (res.data.result) {
+          this.setData({
+            captcha: "data:image/jpeg;base64," + res.data.captcha,
+            session: res.data.session
+          });
+        } else {
+          wx.showModal({
+            title: '错误',
+            content: res.data.error,
+            showCancel: false,
+            success: function () {
+            }
+          })
+        }
+      },
+      (res) => { },
+      (res) => { wx.hideLoading(); }
+    );
   },
 
   onLimitChange: function (e) {
@@ -55,6 +90,7 @@ Page({
     page.setData({
       loading: true
     });
+    e.detail.value.session = this.data.session;
     getApp().callAPI("/Module/GodDamnSystem/Query", e.detail, 
     function (e) {
       if (e.data.result) {
@@ -72,7 +108,8 @@ Page({
     function () {
       
     },
-    function (e) {
+    (e) => {
+      this.preLogin();
       page.setData({
         loading: false
       });
@@ -126,7 +163,9 @@ Page({
    */
   onShow: function () {
     edusystem.bindCheck(
-      undefined,
+      () => {
+        this.preLogin();
+      },
       undefined,
       undefined,
       (e) => {

@@ -2,38 +2,22 @@
 
 <view class="container" wx:if="{{educationSystemBindCheck}}">
 
-  <view class="doc-title">考勤历史</view>
-  <view class="zan-panel-title">查询设置</view>
+  <view class="doc-title">课外学分</view>
+  <view class="zan-panel-title">查询信息</view>
 
-  <form bindsubmit="histortQuery" report-submit="true">
+  <form bindsubmit="query" report-submit="true">
   <view class="zan-panel">
-
-    <view class="zan-cell zan-field">
-      <view class="zan-cell__hd zan-field__title">查询范围</view>
-      <picker
-        mode="selector"
-        class="zan-field__input zan-cell__bd"
-        range="{{ limit }}"
-        value="{{ limitValue[limitIndex] }}"
-        bindchange="onLimitChange"
-        name="limit"
-      >
-        {{ limit[limitIndex] }}
-      </picker>
-    </view>
-
     <view class="weui-cell weui-cell_input weui-cell_vcode">
       <view class="weui-cell__hd">
-          <view class="zan-cell__hd zan-field__title">验证码</view>
+          <view class="weui-label">验证码</view>
       </view>
       <view class="weui-cell__bd">
-          <input name="captcha" class="weui-input" placeholder="请输入验证码" value="{{userInputCaptcha}}" />
+          <input name="verifyCode" class="weui-input" placeholder="请输入验证码" value="{{userInputVerifyCode}}" />
       </view>
       <view class="weui-cell__bd">
-        <image bindtap="preLogin" style="width: 120px; height: 36px; margin-right: 20px; float: right;" src="{{captcha}}"></image>
+        <image bindtap="preLogin" style="width: 60px; height: 20px; margin-right: 30px; float: right;" src="{{verifyCode}}"></image>
       </view>
     </view>
-
     <view wx:if="{{loading}}">
             <import src="/dist/loadmore/index.wxml" />
         <template is="zan-loadmore" data="{{loading: true}}" />
@@ -52,20 +36,25 @@
         <template is="zan-loadmore" data="{{loading: true}}" />
   </view>
   <view wx:else>
-    <view wx:if="{{noHistory}}">
-    <text>暂时没有考勤历史记录</text>
+    <view style='width: 100%; text-align: center; margin-top: 20px;' wx:if="{{emptyList}}">
+    <text>暂时没有课外学分记录</text>
     </view>
 
-    <view wx:for="{{history}}">
+    <view wx:if="{{applied && applied != ''}}" style='background-color: #dff0d8; color: #468847; witdh: 100%; text-align: center; border-color: #d6e9c6; margin: 20px 10px 20px 10px; padding: 8px 35px 8px 14px;'>
+    {{applied}}
+    </view>
+
+    <view wx:for="{{list}}">
       <view class="zan-panel-title">#{{index + 1}}</view>
       <view class="zan-panel">
         <view style="padding: 15px;" class='textCenter'>
-          <text>考勤时间: {{item[0]}}\n</text>
-          <text>签到类型: {{item[1]}}\n</text>
-          <text>考勤结果: <text style='{{item[2] == "正常" ? "color: green;" : (item[2] == "旷课" || item[2] == "本次课旷课" ? "color: red;" : "")}}'>{{item[2]}}</text>\n</text>
-          <text>签到教室: {{item[3]}}\n</text>
-          <text>教师: {{item[4]}}\n</text>
-          <text>课程名称: {{item[5]}}\n</text>
+          <text>类别: {{item[3]}}\n</text>
+          <text>项目: {{item[4]}}\n</text>
+          <text>组织单位: {{item[5]}}\n</text>
+          <text>负责老师: {{item[6]}}\n</text>
+          <text>取得成绩: {{item[7]}}\n</text>
+          <text>申请学分: {{item[8]}}\n</text>
+          <text>状态: <text style='{{item[10] == "申请成功" ? "color: green;" : ""}}'>{{item[10]}}</text>\n</text>
         </view>
       </view>
     </view>

@@ -5,10 +5,11 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.90",
+	"libVersion": "2.3.0",
 	"appid": "wx5401e991aa5b11ca",
 	"projectname": "CCDGUT",
 	"condition": {

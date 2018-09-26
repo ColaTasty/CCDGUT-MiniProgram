@@ -15,9 +15,11 @@
         <template is="zan-loadmore" data="{{loading: true}}" />
     </view>
     <view wx:else>
-        <view>
+    <!-- 以下教务教学功能留到日后备用，若重新启用请将备份代码拷贝进pages目录，上传至微信小程序 -->
+        <!-- <view>
         <text class="navicationClass">教务教学</text>
             <view class="navicationBlock">
+
                 <view class="weui-flex">
                     <view class="weui-flex__item navicationLeftItem">
                         <view wx:if="{{educationSystemBindCheck}}">
@@ -76,8 +78,30 @@
                 </view>
 
             </view>
-        </view>
+        </view> -->
         
+        <view>
+        <text class="navicationClass">学习生活</text>
+            <view class="navicationBlock">
+
+                <view class="weui-flex">
+                    <view class="weui-flex__item navicationLeftItem">
+                        <view wx:if="{{educationSystemBindCheck}}">
+                        <navigator url="./../CETquery/CETquery"><view class="placeholder">四六级查询 <text class="yellowFont boldFont">></text></view></navigator>
+                    </view>
+                    </view>
+                    <view class="weui-flex__item navicationRightItem">
+                        <view>
+                        <navigator open-type='redirect' url="./index"><view class="placeholder">
+                            我的日程表 <text class="yellowFont boldFont">></text>
+                        </view></navigator>
+                    </view>
+                    </view>
+                </view>
+
+            </view>
+        </view>
+
         <view>
             <text class="navicationClass">城院日常</text>
             <view class="navicationBlock">

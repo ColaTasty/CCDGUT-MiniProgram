@@ -110,5 +110,13 @@ Page({
   },
 
   onShareAppMessage: function (options) {
+  },
+
+  /*
+  bindtap_redirect: function (){
+    wx.redirectTo({
+      url: './index',
+    })
   }
+  */
 })

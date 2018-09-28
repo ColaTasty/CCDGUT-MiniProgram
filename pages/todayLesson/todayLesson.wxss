@@ -1,4 +1,0 @@
-/* pages/todayLesson/todayLesson.wxss */
-.textCenter {
-  text-align: center;
-}

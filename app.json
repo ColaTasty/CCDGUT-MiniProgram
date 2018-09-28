@@ -2,19 +2,12 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/bindEducationSystem/bindEducationSystem",
-    "pages/lessonTable/lessonTable",
     "pages/electricityUsage/electricityUsage",
     "pages/electricityUsageSubscribe/electricityUsageSubscribe",
-    "pages/todayLesson/todayLesson",
-    "pages/bindSetting/bindSetting",
-    "pages/mark/mark",
-    "pages/godDamnSystem/godDamnSystem",
     "pages/lostAndFound/index/index",
     "pages/lostAndFound/test/test",
     "pages/lostAndFound/new/new",
     "pages/lostAndFound/item/item",
-    "pages/extraCreditSystem/extraCreditSystem",
     "pages/CETquery/CETquery"
   ],
   "window": {

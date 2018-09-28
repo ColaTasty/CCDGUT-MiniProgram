@@ -86,7 +86,7 @@
 
                 <view class="weui-flex">
                     <view class="weui-flex__item navicationLeftItem">
-                        <view wx:if="{{educationSystemBindCheck}}">
+                        <view>
                         <navigator url="./../CETquery/CETquery"><view class="placeholder">四六级查询 <text class="yellowFont boldFont">></text></view></navigator>
                     </view>
                     </view>

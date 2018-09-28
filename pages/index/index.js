@@ -9,12 +9,15 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    educationSystemBindCheck: false,
+    /*
+    educationSystemBindCheck: false, //教务系统用
+    */
     sessionId: "",
     loading: false,
   },
 
   educationSystemBindCheck: function () {
+    /* //教务系统用
     var page = this;
     page.setData({
       loading: true
@@ -31,6 +34,7 @@ Page({
         loading: false
       });
     });
+    */
   },
   
   onLoad: function () {
@@ -76,6 +80,7 @@ Page({
   },
 
   onShow: function () {
+    /*
     edusystem.bindCheck(
       undefined,
       undefined,
@@ -92,6 +97,8 @@ Page({
         });
       }
     );
+    */
+
     /*
     if (app.getUserInfoComplete) {
       this.educationSystemBindCheck();      

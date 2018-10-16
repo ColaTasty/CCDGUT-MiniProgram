@@ -2,8 +2,6 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/electricityUsage/electricityUsage",
-    "pages/electricityUsageSubscribe/electricityUsageSubscribe",
     "pages/lostAndFound/index/index",
     "pages/lostAndFound/test/test",
     "pages/lostAndFound/new/new",

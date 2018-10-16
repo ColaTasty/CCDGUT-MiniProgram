@@ -107,13 +107,7 @@
             <view class="navicationBlock">
                 <view class="weui-flex">
                     <view class="weui-flex__item navicationLeftItem">
-                      <navigator url="/pages/electricityUsage/electricityUsage">
-                        <view class="placeholder">宿舍用电查询 <text class="yellowFont boldFont">></text></view>
-                      </navigator>
-                    </view>
-
-                    <view class="weui-flex__item navicationRightItem">
-                      <navigator url="/pages/lostAndFound/index/index">                                        
+                      <navigator url="/pages/lostAndFound/index/index">
                         <view class="placeholder">失物招领 寻物启事 <text class="redFont boldFont">></text></view>
                       </navigator>
                     </view>

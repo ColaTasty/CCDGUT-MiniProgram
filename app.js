@@ -82,6 +82,18 @@ App({
     })
   },
 
+
+  /**
+   * @version 城院贴吧小助手2018
+   * 
+   * @param string api
+   * @param object data
+   * @param function onSuccess
+   * @param function onFail
+   * @param function onComplete
+   * @param function beforeAPIInvoke
+   *
+   */
   callAPI: function (api, data, onSuccess, onFail, onComplete, beforeAPIInvoke) {
     // data.sessionId = this.sessionId;
     var callAPIClosure = () => {
@@ -118,6 +130,43 @@ App({
     } else {
       callAPIClosure();
     }
+  },
+
+  /**
+   * @version 城院贴吧小助手2019
+   * 
+   * @param string api
+   * @param object data
+   * @param object header
+   * @param function onSuccess
+   * @param function onFail
+   * @param function onComplete
+   * 
+   */
+  requestTo:function(api, data, header=null, onSuccess=null, onFail=null, onComplete=null) {
+    var url = "https://ccdgut.yuninter.net/IcedCappuccino" + api;
+    if(header == null)
+      header = {"content-type":"application/x-www-form-urlencoded"};
+    if(onSuccess == null)
+      onSuccess = function () { };
+    if (onFail == null)
+      onFail = function () { };
+    if (onComplete == null)
+      onComplete = function () { };
+
+    wx.request({
+      url: url,
+      data: data,
+      header: header,
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: onSuccess,
+      fail: onFail,
+      complete: onComplete,
+    });
+
+    console.log("Call API:" + url);
   },
 
   uploadFile: function (api, filePath, name, formData, onSuccess, onFail, onComplete) {

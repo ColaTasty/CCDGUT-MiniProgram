@@ -1,6 +1,7 @@
 /**app.wxss**/
 @import 'style/weui.wxss';
 @import 'dist/index.wxss';
+@import "zanui-components/index.wxss";
 
 .container {
   background: #F9F9F9;

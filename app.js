@@ -1,7 +1,18 @@
 //app.js
+var systemInfo = null;
+var date = new Date();
+wx.getSystemInfo({
+  success: function (res) {
+    systemInfo = res;
+  },
+});
+systemInfo.year = date.getFullYear();
+systemInfo.month = date.getMonth() + 1;
+systemInfo.day = date.getDate();
+systemInfo.time = date.getTime();
 App({
   sessionReady: false, // 程序首次启动后，Session ID是否已准备好？
-  sessionReadyCallback: function () {}, // Session ID首次准备好后的回调，只在onLaunch事件中生效
+  sessionReadyCallback: function() {}, // Session ID首次准备好后的回调，只在onLaunch事件中生效
 
   educationSystemBindChecked: false, // 用于标记是否已检查过用户有无绑定教务系统
   educationSystemBind: false, // 标记用户是否已绑定教务系统
@@ -11,30 +22,31 @@ App({
   // systemDomain: "http://wechatapi.com/WeChat/API/1",
   sessionId: null,
 
+  systemInfo: systemInfo,
+
   // 储存Session ID
   setSessionId: function(sessionId) {
     this.sessionId = sessionId;
     wx.setStorageSync("sessionID", sessionId)
   },
 
-  sessionIdValid: function (onSuccess, onError, onComplete) {
+  sessionIdValid: function(onSuccess, onError, onComplete) {
     this.sessionIdValidRequire = false; // 防止重复调用
     this.callAPI(
-      "/SessionIdValid", 
-      {}, 
+      "/SessionIdValid", {},
       function(e) {
-        if(!e.data.result)
+        if (!e.data.result)
           getApp().getSession(onSuccess, onError, onComplete);
         else if (typeof onSuccess !== "undefined")
           onSuccess();
       },
       onError,
       onComplete
-      );
+    );
   },
 
   // 读取已储存的Session ID，检查的Session ID是否有效，无效则到服务器重新获取Session ID
-  userSessionInit: function (onSuccess, onError, onComplete) {
+  userSessionInit: function(onSuccess, onError, onComplete) {
     this.sessionId = wx.getStorageSync("sessionID");
     if (this.sessionId == null || this.sessionId.length == 0)
       return this.getSession(onSuccess, onError, onComplete);
@@ -42,7 +54,7 @@ App({
   },
 
   // 从服务器获取Session ID
-  getSession: function (onSuccessCallback, onError, onComplete) {
+  getSession: function(onSuccessCallback, onError, onComplete) {
     // 调用小程序的登录
     wx.login({
       success: res => {
@@ -58,7 +70,7 @@ App({
           header: {
             'content-type': 'application/json', // 默认值
           },
-          success: function (res) {
+          success: function(res) {
             if (res.data.result == true) {
               getApp().setSessionId(res.data.sessionId);
               if (typeof onSuccessCallback !== "undefined")
@@ -70,7 +82,9 @@ App({
                 showCancel: false,
                 confirmText: "返回",
                 complete: function() {
-                  wx.navigateBack({delta: 1});
+                  wx.navigateBack({
+                    delta: 1
+                  });
                 }
               })
             }
@@ -94,16 +108,16 @@ App({
    * @param function beforeAPIInvoke
    *
    */
-  callAPI: function (api, data, onSuccess, onFail, onComplete, beforeAPIInvoke) {
+  callAPI: function(api, data, onSuccess, onFail, onComplete, beforeAPIInvoke) {
     // data.sessionId = this.sessionId;
     var callAPIClosure = () => {
       if (onSuccess == null)
-        onSuccess = function () { };
+        onSuccess = function() {};
       if (onFail == null)
-        onFail = function () { };
+        onFail = function() {};
       if (onComplete == null)
-        onComplete = function () { };
-      beforeAPIInvoke = beforeAPIInvoke || function () { };
+        onComplete = function() {};
+      beforeAPIInvoke = beforeAPIInvoke || function() {};
 
       beforeAPIInvoke();
 
@@ -143,16 +157,24 @@ App({
    * @param function onComplete
    * 
    */
-  requestTo:function(api, data, header=null, onSuccess=null, onFail=null, onComplete=null) {
+  requestTo: function(api, data, header = null, onSuccess = null, onFail = null, onComplete = null) {
     var url = "https://ccdgut.yuninter.net/IcedCappuccino" + api;
-    if(header == null)
-      header = {"content-type":"application/x-www-form-urlencoded"};
-    if(onSuccess == null)
-      onSuccess = function () { };
+    if (header == null)
+      header = {
+        "content-type": "application/x-www-form-urlencoded"
+      };
+    if (onSuccess == null)
+      onSuccess = function() {};
     if (onFail == null)
-      onFail = function () { };
+      onFail = function() {
+        wx.showModal({
+          title: '连接失败',
+          content: '服务器连接失败，请检查网络',
+          showCancel: false
+        })
+      };
     if (onComplete == null)
-      onComplete = function () { };
+      onComplete = function() {};
 
     wx.request({
       url: url,
@@ -169,13 +191,13 @@ App({
     console.log("Call API:" + url);
   },
 
-  uploadFile: function (api, filePath, name, formData, onSuccess, onFail, onComplete) {
+  uploadFile: function(api, filePath, name, formData, onSuccess, onFail, onComplete) {
     if (onSuccess == null)
-      onSuccess = function () { };
+      onSuccess = function() {};
     if (onFail == null)
-      onFail = function () { };
+      onFail = function() {};
     if (onComplete == null)
-      onComplete = function () { };
+      onComplete = function() {};
 
     wx.uploadFile({
       url: this.systemDomain + api,
@@ -192,7 +214,7 @@ App({
     })
   },
 
-  onLaunch: function () {
+  onLaunch: function() {
     console.log("app.js onLaunch invoked.");
     this.sessionCheck();
   },
@@ -263,7 +285,7 @@ App({
         title: '错误',
         content: '小程序暂时无法提供服务，请稍后重试...',
         showCancel: false,
-        complete: function () {
+        complete: function() {
           wx.navigateBack();
         }
       })
@@ -288,7 +310,7 @@ App({
     // 检查小程序的Session是否有效，无效则重新登录，并到服务器获取sessionId
     wx.checkSession({
       success: checkSessionCallback, // 小程序的session有效时，到服务器验证服务器session是否有效
-      fail: function () {
+      fail: function() {
         // 小程序的session无效时，重新调用login获取小程序session，然后到服务器获取session，再调用sessionReadyCallback
         getApp().getSession(
           sessionReadyCallback,
@@ -312,10 +334,10 @@ App({
       title: '请稍等...',
       mask: true,
     });
-    
+
     this.callAPI(
-      "/UserInfo", 
-      userInfo, 
+      "/UserInfo",
+      userInfo,
       () => {
         wx.hideLoading();
         wx.showToast({
@@ -327,7 +349,7 @@ App({
         if (onSuccess) {
           onSuccess();
         }
-      }, 
+      },
       (res) => {
         wx.hideLoading();
         wx.showToast({
@@ -339,11 +361,11 @@ App({
         if (onError) {
           onError(res);
         }
-      }, 
+      },
       onComplete
-    );    
+    );
   },
-  
+
   globalData: {
     userInfo: null
   }

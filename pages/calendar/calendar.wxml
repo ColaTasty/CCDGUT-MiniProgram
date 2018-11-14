@@ -1,0 +1,6 @@
+<!--pages/calendar/calendar.wxml-->
+<doc-page title="日程表" without-padding>
+  <zan-cell-group border class="cell-panel-demo">
+    <zan-cell title="新建日程表" class="zan-c-blue" bindtap="bindtap_build"></zan-cell>
+  </zan-cell-group>
+</doc-page>

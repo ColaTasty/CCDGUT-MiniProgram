@@ -1,0 +1,32 @@
+/* pages/calendar/build/build.wxss */
+.table-title {
+  line-height: 30px;
+  text-align: center;
+  background-color: #39a9ed;
+  font-size: 15px;
+  color: #fff;
+  border-left-width: 1px;
+  border-left-color: #555;
+  border-left-style: solid;
+}
+
+.table-item{
+  height:40px;
+  text-align: center;
+  font-size: 15px;
+  border-left-width: 1px;
+  border-left-color: #555;
+  border-left-style: solid;
+}
+
+.null{
+  color: #ccc;
+  border-bottom-width: 1px;
+  border-bottom-color: #555;
+  border-bottom-style: solid;
+}
+
+.value{
+  text-align: left;
+  /* width: 33px; */
+}

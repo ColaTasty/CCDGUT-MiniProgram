@@ -6,7 +6,11 @@
     "pages/lostAndFound/test/test",
     "pages/lostAndFound/new/new",
     "pages/lostAndFound/item/item",
-    "pages/CETquery/CETquery"
+    "pages/CETquery/CETquery",
+    "pages/calendar/calendar",
+    "pages/calendar/build/build",
+    "pages/calendar/view/view",
+    "pages/calendar/build_item/build_item"
   ],
   "window": {
     "backgroundTextStyle": "light",

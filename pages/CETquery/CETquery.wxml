@@ -1,61 +1,52 @@
 <!--pages/CETquery/CETquery.wxml-->
 <doc-page title="四六级查询" without-padding>
+  <block wx:if="{{!have_res}}">
+    <zan-panel title="{{dd.subn}}">
+      <zan-cell-group>
+        <zan-field title="准考证号" placeholder="15位准考证号" error="{{err_i}}" maxlength="15" bind:change="bindchange_getZkz">
+        </zan-field>
+        <zan-field title="姓名" placeholder="考生姓名" error="{{err_name}}" maxlength="8" bind:change="bindchange_getName">
+        </zan-field>
+        <zan-field title="验证码" placeholder="输入下图验证码" error="{{err_v}}" maxlength="4" bind:change="bindchange_getVerify">
+        </zan-field>
+      </zan-cell-group>
+    </zan-panel>
 
-  <zan-panel>
-    <zan-cell-group>
-      <zan-field
-        title="准考证号"
-        placeholder="15位准考证号"
-        error="{{err_i}}"
-        maxlength="15"
-        bind:change="bindchange_getZkz"
-      >
-      </zan-field>
-      <zan-field
-        title="姓名"
-        placeholder="考生姓名"
-        error="{{err_name}}"
-        maxlength="8"
-        bind:change="bindchange_getName"
-      >
-      </zan-field>
-      <zan-field
-        title="验证码"
-        placeholder="输入下图验证码"
-        error="{{err_v}}"
-        maxlength="4"
-        bind:change="bindchange_getVerify"
-      >
-      </zan-field>
-    </zan-cell-group>
-  </zan-panel>
-
-  <zan-panel title="点击图片刷新" class="panel-example">
-    <block wx:if="{{isLoading_v}}">
-      <zan-button-group>
-        <zan-button loading>点击获取验证码</zan-button>
-      </zan-button-group>
-    </block>
-    <block wx:else>
-      <block wx:if="{{!showVerify}}">
-      <zan-button-group>
-        <zan-button bindtap='bindtap_getVerify'>点击获取验证码</zan-button>
-      </zan-button-group>
+    <zan-panel title="点击图片刷新" class="panel-example">
+      <block wx:if="{{isLoading_v}}">
+        <zan-button-group>
+          <zan-button loading>点击获取验证码</zan-button>
+        </zan-button-group>
       </block>
       <block wx:else>
-        <image
-          class='verify_code'
-          style='margin-left:{{class_v}}px'
-          src='{{src_v}}'
-          bindtap='bindtap_getVerify'
-        ></image>
+        <block wx:if="{{!showVerify}}">
+          <zan-button-group>
+            <zan-button bindtap='bindtap_getVerify'>点击获取验证码</zan-button>
+          </zan-button-group>
+        </block>
+        <block wx:else>
+          <image class='verify_code' style='margin-left:{{class_v}}px' src='{{src_v}}' bindtap='bindtap_getVerify'></image>
+        </block>
       </block>
-    </block>
-  </zan-panel>
+    </zan-panel>
 
-  <zan-button-group>
-    <zan-button disabled='{{!canSubmit}}' loading='{{isLoading_submit}}' type="warn">提交查询</zan-button>
-  </zan-button-group>
+    <zan-button-group>
+      <zan-button disabled='{{!canSubmit}}' loading='{{isLoading_submit}}' type="warn" bindtap='bindtap_submit'>提交查询
+      </zan-button>
+    </zan-button-group>
 
+  </block>
+  <block wx:else>
+    <zan-cell-group border class="cell-panel-demo">
+      <zan-cell title="准考证号" value="{{res.z}}"></zan-cell>
+      <zan-cell title="姓名" value="{{res.n}}"></zan-cell>
+      <zan-cell title="学校" value="{{res.x}}"></zan-cell>
+      <zan-cell title="总分" value="{{res.s}}"></zan-cell>
+      <zan-cell title="听力" value="{{res.l}}"></zan-cell>
+      <zan-cell title="阅读" value="{{res.r}}"></zan-cell>
+      <zan-cell title="写作和翻译" value="{{res.w}}"></zan-cell>
+    </zan-cell-group>
+  </block>
+  <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
   <zan-dialog id="verify-can-not-get"></zan-dialog>
 </doc-page>

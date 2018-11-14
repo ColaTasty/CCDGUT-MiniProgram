@@ -68,3 +68,12 @@ page{
     text-align: left;
     font-size: 14px;
 }
+
+#copyright_text{
+  width: 100%;
+  height: 40px;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  /* background-color: red; */
+}

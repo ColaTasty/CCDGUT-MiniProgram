@@ -92,7 +92,7 @@
                     </view>
                     <view class="weui-flex__item navicationRightItem">
                         <view>
-                        <navigator open-type='redirect' url="./index"><view class="placeholder">
+                        <navigator url="./../calendar/calendar"><view class="placeholder">
                             我的日程表 <text class="yellowFont boldFont">></text>
                         </view></navigator>
                     </view>

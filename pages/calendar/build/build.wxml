@@ -1,0 +1,54 @@
+<!--pages/calendar/build/build.wxml-->
+<doc-page title="新建日程表" without-padding>
+  <block wx:if="{{table_name == ''}}">
+    <form bindsubmit='bindsubmit_next'>
+      <zan-panel title="第一步、新的日程表名称">
+        <zan-field name="table_name" title="日程表名称" placeholder="不超过15个字" bind:change="bindchange_tableName">
+        </zan-field>
+      </zan-panel>
+      <zan-button-group>
+        <button disabled='{{!canNext}}' form-type='submit' type="primary">下一步</button>
+      </zan-button-group>
+    </form>
+  </block>
+  <block wx:else>
+    <zan-panel title="第二步、点击加号添加日程安排">
+      <zan-row>
+        <zan-col col="4" col-class="table-title">时间点</zan-col>
+        <zan-col col="4" col-class="table-title">星期一</zan-col>
+        <zan-col col="4" col-class="table-title">星期二</zan-col>
+        <zan-col col="4" col-class="table-title">星期三</zan-col>
+        <zan-col col="4" col-class="table-title">星期四</zan-col>
+        <zan-col col="4" col-class="table-title">星期五</zan-col>
+      </zan-row>
+      <zan-row>
+        <zan-col col="4" col-class="table-item">
+          一
+        </zan-col>
+        <block wx:for="{{table_items[0]}}" wx:key="*this">
+          <zan-col col="4" col-class="table-item value" wx:if="{{item.value != null}}">
+            <view class='zan-ellipsis' style='width:{{phone.screenWidth/6}}px;'>123456789</view>
+          </zan-col>
+        <zan-col col="4" col-class="table-item null" wx:else>
+        </zan-col>
+        </block>
+        <zan-col col="4" col-class="table-item value">
+          <view class='zan-ellipsis--l2' style='width:{{phone.screenWidth/6}}px;'>123456789</view>
+        </zan-col>
+        <zan-col col="4" col-class="table-item null">
+        </zan-col>
+        <zan-col col="4" col-class="table-item null">
+        </zan-col>
+        <zan-col col="4" col-class="table-item null">
+        </zan-col>
+      </zan-row>
+      <zan-row>
+        <zan-col col="4" col-class="table-item">
+          二
+        </zan-col>
+        <block wx:for="{{table_items}}" wx:key="{{item.value}}">
+        </block>
+      </zan-row>
+    </zan-panel>
+  </block>
+</doc-page>

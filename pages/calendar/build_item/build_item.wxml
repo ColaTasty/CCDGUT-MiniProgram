@@ -15,5 +15,6 @@
   </view>
   <zan-button-group>
     <button disabled='{{!canFinish}}' bindtap='bindtap_finish' type="primary" style='margin-top:30px'>完成</button>
+    <button bindtap='bindtap_reset' type="default" style='margin-top:15px'>清空</button>
   </zan-button-group>
 </doc-page>

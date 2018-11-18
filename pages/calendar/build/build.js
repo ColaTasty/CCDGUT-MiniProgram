@@ -93,7 +93,7 @@ var init_days = [{
   checked: "nav-item",
   item: init_table_item
 }, ];
-var haveLast;
+var haveLast = false;
 Page({
 
   /**

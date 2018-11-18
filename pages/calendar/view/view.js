@@ -115,13 +115,14 @@ Page({
         title: '正在查询。。。',
       })
       app.requestTo(
-        "/wxapp/calendar/viewTable", {
+        "/wxapp/calendar/viewTable", 
+        {
           tid: options.tid
         },
         null,
         (res) => {
-          var d = init_days;
           if (res.data.isOK) {
+            var d = init_days;
             d[0].item = JSON.parse(res.data.Mon);
             d[1].item = JSON.parse(res.data.Tue);
             d[2].item = JSON.parse(res.data.Wed);
@@ -213,6 +214,10 @@ Page({
           }
         }
       })
+    }else{
+      wx.removeStorageSync("table_tmp");
+      wx.removeStorageSync("table_edit");
+      wx.removeStorageSync("tables_backup");
     }
   },
 

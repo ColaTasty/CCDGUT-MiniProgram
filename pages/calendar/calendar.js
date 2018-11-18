@@ -167,11 +167,10 @@ Page({
                       tables: res.data.tables
                     })
                   } else {
-                    Dialog({
-                      title: "未查到周程表",
-                      message: res.data.msg,
-                      selector: '#alter'
-                    });
+                    that.setData({
+                      have_tables: res.data.isOK,
+                      tables: null
+                    })
                   }
                 },
               );

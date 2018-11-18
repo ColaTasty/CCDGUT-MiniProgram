@@ -81,7 +81,7 @@ Page({
     wx.setStorage({
       key: 'table_tmp',
       data: this.data.table,
-      success:(e)=>{
+      success: (e) => {
         wx.setStorageSync("table_edit", true);
         wx.navigateBack({
           detail: 1
@@ -109,5 +109,18 @@ Page({
       table: t,
       canFinish: (that.data.table[that.data.timeIndex].time.hour != null) && (that.data.table[that.data.timeIndex].value != null)
     });
+  },
+
+  bindtap_reset: function(e) {
+    var t = this.data.table;
+    t[this.data.timeIndex].time = {
+      hour: null,
+      minute: null
+    };
+    t[this.data.timeIndex].value = null;
+    this.setData({
+      canFinish: true,
+      table: t
+    })
   }
 })

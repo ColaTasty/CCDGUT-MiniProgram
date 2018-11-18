@@ -10,7 +10,8 @@
     "pages/calendar/calendar",
     "pages/calendar/build/build",
     "pages/calendar/view/view",
-    "pages/calendar/build_item/build_item"
+    "pages/calendar/build_item/build_item",
+    "pages/calendar/edit/edit"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -46,6 +46,10 @@
       <zan-cell title="阅读" value="{{res.r}}"></zan-cell>
       <zan-cell title="写作和翻译" value="{{res.w}}"></zan-cell>
     </zan-cell-group>
+    <zan-button-group>
+      <zan-button bindtap='bindtap_requeryAgain'>返回查询
+      </zan-button>
+    </zan-button-group>
   </block>
   <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
   <zan-dialog id="verify-can-not-get"></zan-dialog>

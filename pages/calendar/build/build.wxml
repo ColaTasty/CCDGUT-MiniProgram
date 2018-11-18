@@ -1,54 +1,132 @@
 <!--pages/calendar/build/build.wxml-->
-<doc-page title="新建日程表" without-padding>
-  <block wx:if="{{table_name == ''}}">
-    <form bindsubmit='bindsubmit_next'>
-      <zan-panel title="第一步、新的日程表名称">
-        <zan-field name="table_name" title="日程表名称" placeholder="不超过15个字" bind:change="bindchange_tableName">
-        </zan-field>
-      </zan-panel>
-      <zan-button-group>
-        <button disabled='{{!canNext}}' form-type='submit' type="primary">下一步</button>
-      </zan-button-group>
-    </form>
-  </block>
-  <block wx:else>
-    <zan-panel title="第二步、点击加号添加日程安排">
-      <zan-row>
-        <zan-col col="4" col-class="table-title">时间点</zan-col>
-        <zan-col col="4" col-class="table-title">星期一</zan-col>
-        <zan-col col="4" col-class="table-title">星期二</zan-col>
-        <zan-col col="4" col-class="table-title">星期三</zan-col>
-        <zan-col col="4" col-class="table-title">星期四</zan-col>
-        <zan-col col="4" col-class="table-title">星期五</zan-col>
-      </zan-row>
-      <zan-row>
-        <zan-col col="4" col-class="table-item">
-          一
-        </zan-col>
-        <block wx:for="{{table_items[0]}}" wx:key="*this">
-          <zan-col col="4" col-class="table-item value" wx:if="{{item.value != null}}">
-            <view class='zan-ellipsis' style='width:{{phone.screenWidth/6}}px;'>123456789</view>
-          </zan-col>
-        <zan-col col="4" col-class="table-item null" wx:else>
-        </zan-col>
-        </block>
-        <zan-col col="4" col-class="table-item value">
-          <view class='zan-ellipsis--l2' style='width:{{phone.screenWidth/6}}px;'>123456789</view>
-        </zan-col>
-        <zan-col col="4" col-class="table-item null">
-        </zan-col>
-        <zan-col col="4" col-class="table-item null">
-        </zan-col>
-        <zan-col col="4" col-class="table-item null">
-        </zan-col>
-      </zan-row>
-      <zan-row>
-        <zan-col col="4" col-class="table-item">
-          二
-        </zan-col>
-        <block wx:for="{{table_items}}" wx:key="{{item.value}}">
-        </block>
-      </zan-row>
+<doc-page title="新建周程表" without-padding>
+  <block wx:if="{{step==0}}">
+    <zan-panel title="第一步、新的周程表名称">
+      <zan-field name="table_name" title="周程表名称" placeholder="{{table_name != null ? table_name:'不超过15个字'}}" bind:change="bindchange_tableName">
+      </zan-field>
     </zan-panel>
+    <zan-button-group>
+      <button disabled='{{!canNext}}' bindtap='bindtap_next' type="primary">下一步</button>
+    </zan-button-group>
   </block>
+  <block wx:if="{{step==1}}">
+    <zan-panel title="第二步、点击气泡编辑周程安排">
+      <view class='nav'>
+        <block wx:for="{{days}}" wx:key="*this" wx:for-item="day_item" wx:for-index="week">
+          <view data-index='{{week}}' class='{{day_item.checked}}' bindtap='bindtap_dayChange'>{{day_item.day}}</view>
+        </block>
+      </view>
+    </zan-panel>
+    <view class='timeline'>
+      <view class='timeline-time'>{{days[days_index].day}}</view>
+      <view class="timeline-box">
+        <block wx:for="{{days[days_index].item}}" wx:key="*this" wx:for-index="timeIndex">
+          <view class='timeline-item timeline-sm' data-time-index='{{timeIndex}}' bindtap='bindtap_buildItem'>
+            <view class='timeline-main'>
+              <view class='badge secondary radius capsule-badge'>
+                <block wx:if="{{item.time.hour == null}}">
+                  <text>#</text>
+                  <text>时间点{{timeIndex+1}}</text>
+                </block>
+                <block wx:else>
+                  <text>{{item.time.hour<12 ? (item.time.hour<6?"凌晨":"上午"):(item.time.hour<14?"中午":(item.time.hour<18?"下午":"晚上"))}}</text>
+                  <text>{{item.time.hour}}:{{item.time.minute>10 ? item.time.minute:"0"+item.time.minute}}</text>
+                </block>
+              </view>
+              <view class='mt-sm text-sm'>
+                <text style='word-break:break-all;'>{{item.value == null ? "点击编辑时间点":item.value}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <zan-button-group>
+      <button bindtap='bindtap_last' type="default" style='margin-top:10px;margin-bottom:10px'>上一步</button>
+      <button disabled='{{!canNext}}' bindtap='bindtap_next' type="primary">下一步</button>
+    </zan-button-group>
+    <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
+  </block>
+  <block wx:if="{{step == 2}}">
+    <zan-panel title="第三步、预览周程安排">
+      <view class='nav'>
+        <block wx:for="{{days}}" wx:key="*this" wx:for-item="day_item" wx:for-index="week">
+          <view data-index='{{week}}' class='{{day_item.checked}}' bindtap='bindtap_dayChange'>{{day_item.day}}</view>
+        </block>
+      </view>
+
+      <view class='timeline'>
+        <view class='timeline-time'>{{days[days_index].day}}</view>
+        <view class="timeline-box">
+          <block wx:for="{{days[days_index].item}}" wx:key="*this" wx:for-index="timeIndex">
+            <block wx:if="{{item.time.hour != null}}">
+              <view class='timeline-item timeline-sm'>
+                <view class='timeline-main'>
+                  <view class='badge secondary radius capsule-badge'>
+                    <text>{{item.time.hour<12 ? (item.time.hour<6?"凌晨":"上午"):(item.time.hour<14?"中午":(item.time.hour<18?"下午":"晚上"))}}</text>
+                    <text>{{item.time.hour}}:{{item.time.minute>10 ? item.time.minute:"0"+item.time.minute}}</text>
+                  </view>
+                  <view class='mt-sm text-sm'>
+                    <text style='word-break:break-all;'>{{item.value}}</text>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <block wx:else>
+              <view class='timeline-item timeline-sm'>
+                <view class='timeline-main'>
+                  <text class='mr-sm'></text>
+                </view>
+              </view>
+            </block>
+          </block>
+        </view>
+      </view>
+    </zan-panel>
+    <zan-button-group>
+      <button bindtap='bindtap_last' type="default" style='margin-top:10px;margin-bottom:10px'>上一步</button>
+      <button disabled='{{!canNext}}' bindtap='bindtap_next' type="primary">{{finishText}}</button>
+    </zan-button-group>
+    <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
+  </block>
+  <block wx:if="{{step == 3}}">
+    <zan-panel title="第四步、完成">
+      <block wx:if="{{isPageLoading}}">
+        <view style='text-align:center;margin-top:15px'>
+          <icon type="waiting" size="93"></icon>
+        </view>
+        <view style='text-align:center;margin-top:15px'>正在上传</view>
+        <view style='display:block' style='align-items:left'>
+          <zan-loading type="dot" color="black"></zan-loading>
+        </view>
+      </block>
+      <block wx:else>
+        <block wx:if="{{isSuccess}}">
+          <view style='text-align:center;margin-top:15px'>
+            <icon type="success" size="93" style='margin:atuo 0'></icon>
+          </view>
+          <view style='text-align:center;margin-top:15px'>
+            创建完成
+          </view>
+          <zan-button-group>
+            <button bindtap='bindtap_back' type="primary">返回查看</button>
+          </zan-button-group>
+        </block>
+        <block wx:else>
+          <view style='text-align:center;margin-top:15px'>
+            <icon type="warn" size="93" style='margin:atuo 0'></icon>
+          </view>
+          <view style='text-align:center;margin-top:15px'>
+            创建失败
+          </view>
+          <zan-button-group>
+            <button bindtap='bindtap_reUpload' type="warn" style='text-align:center;margin-top:15px'>重新提交</button>
+            <button bindtap='bindtap_back' type="default" style='text-align:center;margin-top:15px'>返回</button>
+          </zan-button-group>
+        </block>
+      </block>
+    </zan-panel>
+    <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
+  </block>
+  <zan-dialog id="alter"></zan-dialog>
 </doc-page>

@@ -15,7 +15,7 @@ Page({
     canSubmit: false,
     isLoading_submit: false,
     val_i: null,
-    val_name: null,
+    val_n: null,
     val_v: null,
     err_i: false,
     err_name: false,
@@ -70,6 +70,22 @@ Page({
         });
       },
     });
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+    app.requestTo(
+      "/wxapp/cet/unsetSession", {
+        cet_sessionid: wx.getStorageSync("cet_sessionid")
+      },
+      null,
+      function(res) {
+        console.log(res);
+      }
+    )
+    wx.removeStorageSync("cet_sessionid");
   },
 
   bindchange_getZkz: function(e) {
@@ -148,9 +164,53 @@ Page({
         function(res) {
           Dialog({
             title: "提示",
-            message: "如果验证码显示不出来，这是服务器的网络波动，再戳图片一次就好了",
+            message: "如果验证码显示不出来，这是服务器网络波动的原因，再戳图片一次就好了",
             selector: '#verify-can-not-get'
           });
+          if (res.data.isOK) {
+            that.setData({
+              showVerify: true,
+              src_v: res.data.request_url
+            });
+          } else
+            Dialog({
+              title: "服务器网络出错啦",
+              message: "服务器可能间歇性的大姨妈了，请稍后再试试吧",
+              selector: '#verify-can-not-get'
+            });
+          wx.setStorageSync("cet_sessionid", res.data.cet_sessionid);
+        },
+        null,
+        function() {
+          that.setData({
+            isLoading_v: false
+          })
+        }
+      );
+    }
+  },
+
+  bindtap_submit: function() {
+    var that = this;
+    var t;
+    if ((t = that.checkI()) == null) {
+      Dialog({
+        title: "准考证错误",
+        message: "请检查准考证",
+        selector: '#verify-can-not-get'
+      });
+      that.setData({
+        err_i: true
+      })
+      that.setData({
+        isLoading_v: true
+      })
+      app.requestTo(
+        "/wxapp/cet/verify", {
+          i: that.data.val_i
+        },
+        null,
+        function(res) {
           if (res.data.isOK) {
             that.setData({
               showVerify: true,
@@ -171,17 +231,17 @@ Page({
           })
         }
       );
+      return 0;
     }
-  },
-
-  bindtap_submit: function() {
-    var that = this;
+    wx.showLoading({
+      title: '正在查询...',
+    })
     that.setData({
       isLoading_submit: true
     })
     app.requestTo(
       "/wxapp/cet/query", {
-        t: that.checkI().tab,
+        t: t.tab,
         z: that.data.val_i,
         n: that.data.val_n,
         v: that.data.val_v,
@@ -192,52 +252,52 @@ Page({
         if (res.data.isOK) {
           that.setData({
             have_res: true,
-            res: res.data.res
+            res: res.data.res,
+            showVerify: false
           })
-        } else
+        } else {
           Dialog({
             title: "信息查询错误！",
             message: res.data.res.error + "请检查输入的信息！",
             selector: '#verify-can-not-get'
           });
+          that.setData({
+            isLoading_v: true
+          })
+          app.requestTo(
+            "/wxapp/cet/verify", {
+              i: that.data.val_i
+            },
+            null,
+            function(res) {
+              if (res.data.isOK) {
+                that.setData({
+                  showVerify: true,
+                  src_v: res.data.request_url
+                });
+                wx.setStorageSync("cet_sessionid", res.data.cet_sessionid);
+              } else
+                Dialog({
+                  title: "服务器网络出错啦",
+                  message: "服务器可能间歇性的大姨妈了，请稍后再试试吧",
+                  selector: '#verify-can-not-get'
+                });
+            },
+            null,
+            function() {
+              that.setData({
+                isLoading_v: false
+              })
+            }
+          );
+        }
       },
       null,
       function(res) {
-        wx.removeStorageSync("cet_sessionid");
+        wx.hideLoading();
         that.setData({
           isLoading_submit: false
         })
-        var data = {
-          i: that.data.val_i
-        };
-        that.setData({
-          isLoading_v: true
-        })
-        app.requestTo(
-          "/wxapp/cet/verify",
-          data,
-          null,
-          function(res) {
-            if (res.data.isOK) {
-              that.setData({
-                showVerify: true,
-                src_v: res.data.request_url
-              });
-              wx.setStorageSync("cet_sessionid", res.data.cet_sessionid);
-            } else
-              Dialog({
-                title: "服务器网络出错啦",
-                message: "服务器可能间歇性的大姨妈了，请稍后再试试吧",
-                selector: '#verify-can-not-get'
-              });
-          },
-          null,
-          function() {
-            that.setData({
-              isLoading_v: false
-            })
-          }
-        );
       }
     );
   },
@@ -255,12 +315,25 @@ Page({
       if (!isNaN(t))
         index = t;
     }
-    var code = types_z[index];
-    for (var i = 0; i < this.data.dd.rdsub.length; i++) {
-      if (code == this.data.dd.rdsub[i].code) {
-        return this.data.dd.rdsub[i];
+    if (index != -1) {
+      var code = types_z[index];
+      for (var i = 0; i < this.data.dd.rdsub.length; i++) {
+        if (code == this.data.dd.rdsub[i].code) {
+          return this.data.dd.rdsub[i];
+        }
       }
     }
+    return null;
+  },
+  bindtap_requeryAgain: function(e) {
+    this.setData({
+      val_i: null,
+      val_n: null,
+      val_v: null,
+      have_res: false,
+      res: null,
+      canSubmit: false,
+    })
   }
 
 })

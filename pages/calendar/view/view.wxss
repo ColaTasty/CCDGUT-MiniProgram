@@ -1,1 +1,8 @@
 /* pages/calendar/view/view.wxss */
+@import "./../timeline.wxss";
+/* view{
+  display: flex;
+} */
+text{
+  display: flex;
+}

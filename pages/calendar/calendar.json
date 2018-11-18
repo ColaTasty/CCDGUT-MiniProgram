@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "我的日程表",
+  "navigationBarTitleText": "我的周程表",
   "usingComponents": {
     "zan-button": "../../zanui-components/btn/index",
     "zan-button-group": "../../zanui-components/btn-group/index",

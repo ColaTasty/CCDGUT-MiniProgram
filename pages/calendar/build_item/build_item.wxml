@@ -1,2 +1,19 @@
 <!--pages/calendar/build_item/build_item.wxml-->
-<text>pages/calendar/build_item/build_item.wxml</text>
+<doc-page title="编辑时间点" without-padding>
+  <text class='iconfont icon-title success-text'></text>
+  <text style='font-size:14px'>填写时间点内容</text>
+  <view class='form-box'>
+    <view class="form-item">
+      <view class='form-title'>时间</view>
+      <zan-date-picker slot="footer" not-use="{{['years', 'months', 'days', 'seconds']}}" bindchange="bindchange_timeChange" bindcancel="bindcancel_timeCancel" placeholder="{{table[timeIndex].time.hour == null ? '请选择时间':((table[timeIndex].time.hour>10 ? table[timeIndex].time.hour:'0'+table[timeIndex].time.hour)+':'+(table[timeIndex].time.minute>10 ? table[timeIndex].time.minute:'0'+table[timeIndex].time.minute))}}"
+        format="HH:mm" />
+    </view>
+    <view class="form-item form-textarea">
+      <view class='form-title'>内容</view>
+      <textarea placeholder='{{table[timeIndex].value == null ? "最多50个字":table[timeIndex].value}}' maxlength="50" bindinput='bindinput_value'></textarea>
+    </view>
+  </view>
+  <zan-button-group>
+    <button disabled='{{!canFinish}}' bindtap='bindtap_finish' type="primary" style='margin-top:30px'>完成</button>
+  </zan-button-group>
+</doc-page>

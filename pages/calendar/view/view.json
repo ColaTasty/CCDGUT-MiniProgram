@@ -1,1 +1,18 @@
-{}
+{
+  "navigationBarTitleText": "我的周程表",
+  "usingComponents": {
+    "zan-icon": "../..//zanui-components/icon/index",
+    "zan-row": "../../zanui-components/row/index",
+    "zan-col": "../../zanui-components/col/index",
+    "zan-button": "../../zanui-components/btn/index",
+    "zan-button-group": "../../zanui-components/btn-group/index",
+    "zan-cell-group": "../../zanui-components/cell-group/index",
+    "zan-cell": "../../zanui-components/cell/index",
+    "zan-dialog": "../../zanui-components/dialog/index",
+    "zan-field": "../../zanui-components/field/index",
+    "zan-panel": "../../zanui-components/panel/index",
+    "doc-page": "../../zanui-components/doc-page/index",
+    "zan-toast": "../../zanui-components/toast/index",
+    "zan-loading": "../../zanui-components/loading/index"
+  }
+}

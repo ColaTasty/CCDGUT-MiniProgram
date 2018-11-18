@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view>
-    <view class="userinfo">
+  <view class="userinfo">
     <button style='display: none; ' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 点我显示头像 </button>
     <block>
       <view class="userinfo-avatar" background-size="cover">
@@ -9,14 +9,14 @@
       <open-data class="userinfo-nickname whiteFont" type="userNickName" lang="zh_CN"></open-data>
       <text class="regulatFont whiteFont">Hello！城院贴吧小助手欢迎你，<text class="yellowFont">^_^</text></text>
     </block>
-    </view>
-    <view wx:if="{{loading}}">
-        <import src="/dist/loadmore/index.wxml" />
-        <template is="zan-loadmore" data="{{loading: true}}" />
-    </view>
-    <view wx:else>
+  </view>
+  <view wx:if="{{loading}}">
+    <import src="/dist/loadmore/index.wxml" />
+    <template is="zan-loadmore" data="{{loading: true}}" />
+  </view>
+  <view wx:else>
     <!-- 以下教务教学功能留到日后备用，若重新启用请将备份代码拷贝进pages目录，上传至微信小程序 -->
-        <!-- <view>
+    <!-- <view>
         <text class="navicationClass">教务教学</text>
             <view class="navicationBlock">
 
@@ -79,40 +79,54 @@
 
             </view>
         </view> -->
-        
-        <view>
-        <text class="navicationClass">学习生活</text>
-            <view class="navicationBlock">
 
-                <view class="weui-flex">
-                    <view class="weui-flex__item navicationLeftItem">
-                        <view>
-                        <navigator url="./../CETquery/CETquery"><view class="placeholder">四六级查询 <text class="yellowFont boldFont">></text></view></navigator>
-                    </view>
-                    </view>
-                    <view class="weui-flex__item navicationRightItem">
-                        <view>
-                        <navigator url="./../calendar/calendar"><view class="placeholder">
-                            我的日程表 <text class="yellowFont boldFont">></text>
-                        </view></navigator>
-                    </view>
-                    </view>
+    <view>
+      <text class="navicationClass">学习生活</text>
+      <view class="navicationBlock">
+
+        <view class="weui-flex">
+          <view class="weui-flex__item navicationLeftItem">
+            <view>
+              <navigator url="./../CETquery/CETquery">
+                <view class="placeholder">四六级查询
+                  <text class="yellowFont boldFont">></text>
                 </view>
-
+              </navigator>
             </view>
+          </view>
+          <view class="weui-flex__item navicationRightItem">
+            <view>
+              <navigator url="./../calendar/calendar">
+                <view class="placeholder">
+                  我的周程表
+                  <text class="yellowFont boldFont">></text>
+                </view>
+              </navigator>
+            </view>
+          </view>
         </view>
 
-        <view>
-            <text class="navicationClass">城院日常</text>
-            <view class="navicationBlock">
-                <view class="weui-flex">
-                    <view class="weui-flex__item navicationLeftItem">
-                      <navigator url="/pages/lostAndFound/index/index">
-                        <view class="placeholder">失物招领 寻物启事 <text class="redFont boldFont">></text></view>
-                      </navigator>
-                    </view>
-                </view>
-            </view>
-        </view>
+      </view>
     </view>
+
+    <view>
+      <text class="navicationClass">城院日常</text>
+      <view class="navicationBlock">
+        <view class="weui-flex">
+          <view class="weui-flex__item navicationLeftItem">
+            <navigator url="/pages/lostAndFound/index/index">
+              <view class="placeholder">失物招领 寻物启事
+                <text class="redFont boldFont">></text>
+              </view>
+            </navigator>
+          </view>
+          <view class="weui-flex__item grayItem">
+            <view>
+              更多功能正在开发中。。。
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

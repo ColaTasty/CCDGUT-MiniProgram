@@ -188,7 +188,7 @@ App({
       complete: onComplete,
     });
 
-    console.log("Call API:" + url);
+    console.log("Call API: " + url);
   },
 
   uploadFile: function(api, filePath, name, formData, onSuccess, onFail, onComplete) {

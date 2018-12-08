@@ -1,6 +1,9 @@
 // pages/calendar/calendar.js
 const Dialog = require('../../zanui-components/dialog/dialog');
 const app = getApp();
+const week = [
+  "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"
+];
 Page({
 
   /**
@@ -10,7 +13,8 @@ Page({
     app: app,
     have_tables: false,
     tables: null,
-    isDeleting: false
+    isDeleting: false,
+    todayIs: app.systemInfo.year + "年" + app.systemInfo.month + "月" + app.systemInfo.day + "日" + " " + week[app.systemInfo.week]
   },
 
   /**
@@ -142,25 +146,23 @@ Page({
         type: 'confirm'
       }]
     }).then((e) => {
-      if(e.type == "confirm"){
+      if (e.type == "confirm") {
         wx.showLoading({
           title: '正在删除',
         })
         app.requestTo(
-          "/wxapp/calendar/delet",
-          {
+          "/wxapp/calendar/delet", {
             tid: that.data.tables[tap.currentTarget.dataset.tablesIndex].tid
           },
           null,
-          function(res){
-            if(res.data.isOK){
+          function(res) {
+            if (res.data.isOK) {
               app.requestTo(
-                "/wxapp/calendar/init", 
-                {
+                "/wxapp/calendar/init", {
                   sessionid: wx.getStorageSync("sessionID")
                 },
                 null,
-                function (res) {
+                function(res) {
                   if (res.data.isOK) {
                     that.setData({
                       have_tables: res.data.isOK,
@@ -174,8 +176,7 @@ Page({
                   }
                 },
               );
-            }
-            else {
+            } else {
               Dialog({
                 title: "删除失败",
                 message: res.data.msg,
@@ -184,7 +185,7 @@ Page({
             }
           },
           null,
-          function(res){
+          function(res) {
             wx.hideLoading();
           }
         );

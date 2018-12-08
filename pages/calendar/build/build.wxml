@@ -30,7 +30,7 @@
                 </block>
                 <block wx:else>
                   <text>{{item.time.hour<12 ? (item.time.hour<6?"凌晨":"上午"):(item.time.hour<14?"中午":(item.time.hour<18?"下午":"晚上"))}}</text>
-                  <text>{{item.time.hour}}:{{item.time.minute>10 ? item.time.minute:"0"+item.time.minute}}</text>
+                  <text>{{item.time.hour}}:{{item.time.minute>=10 ? item.time.minute:"0"+item.time.minute}}</text>
                 </block>
               </view>
               <view class='mt-sm text-sm'>
@@ -64,19 +64,15 @@
                 <view class='timeline-main'>
                   <view class='badge secondary radius capsule-badge'>
                     <text>{{item.time.hour<12 ? (item.time.hour<6?"凌晨":"上午"):(item.time.hour<14?"中午":(item.time.hour<18?"下午":"晚上"))}}</text>
-                    <text>{{item.time.hour}}:{{item.time.minute>10 ? item.time.minute:"0"+item.time.minute}}</text>
+                    <text>{{item.time.hour}}:{{item.time.minute>=10 ? item.time.minute:"0"+item.time.minute}}</text>
                   </view>
                   <view class='mt-sm text-sm'>
                     <text style='word-break:break-all;'>{{item.value}}</text>
                   </view>
                 </view>
-              </view>
-            </block>
-            <block wx:else>
-              <view class='timeline-item timeline-sm'>
-                <view class='timeline-main'>
-                  <text class='mr-sm'></text>
-                </view>
+                <block wx:if="{{item[timeIndex+1].time.hour == null}}">
+                <view class='timeline-main mt-xs' style='background-color:white'></view>
+                </block>
               </view>
             </block>
           </block>

@@ -1,6 +1,6 @@
 <!--pages/calendar/view/view.wxml-->
 <doc-page title="周程表--{{tables.tname}}" without-padding>
-  <zan-panel title="创建于{{tables.ttime}}">
+  <zan-panel title="今天是{{todayIs}}">
     <view class='nav'>
       <block wx:for="{{tables.days}}" wx:key="*this" wx:for-item="day" wx:for-index="week">
         <view data-index='{{week}}' class='{{day.checked}}' bindtap='bindtap_dayChange'>{{day.day}}</view>
@@ -18,7 +18,7 @@
               <view class='timeline-main'>
                 <view class='badge secondary radius capsule-badge'>
                   <text>{{item.time.hour<12 ? (item.time.hour<6?"凌晨":"上午"):(item.time.hour<14?"中午":(item.time.hour<18?"下午":"晚上"))}}</text>
-                  <text>{{item.time.hour}}:{{item.time.minute>10 ? item.time.minute:"0"+item.time.minute}}</text>
+                  <text>{{item.time.hour}}:{{item.time.minute>=10 ? item.time.minute:"0"+item.time.minute}}</text>
                 </view>
                 <view class='mt-sm text-sm'><text style='word-break:break-all;'>{{item.value}}</text></view>
               </view>
@@ -55,7 +55,7 @@
               <view class='timeline-main'>
                 <view class='badge secondary radius capsule-badge'>
                   <text>{{item.time.hour<12 ? (item.time.hour<6?"凌晨":"上午"):(item.time.hour<14?"中午":(item.time.hour<18?"下午":"晚上"))}}</text>
-                  <text>{{item.time.hour}}:{{item.time.minute>10 ? item.time.minute:"0"+item.time.minute}}</text>
+                  <text>{{item.time.hour}}:{{item.time.minute>=10 ? item.time.minute:"0"+item.time.minute}}</text>
                 </view>
                 <view class='mt-sm text-sm'><text style='word-break:break-all;'>{{item.value}}</text></view>
               </view>

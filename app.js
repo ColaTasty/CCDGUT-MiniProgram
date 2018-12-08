@@ -2,7 +2,7 @@
 var systemInfo = null;
 var date = new Date();
 wx.getSystemInfo({
-  success: function (res) {
+  success: function(res) {
     systemInfo = res;
   },
 });
@@ -10,6 +10,7 @@ systemInfo.year = date.getFullYear();
 systemInfo.month = date.getMonth() + 1;
 systemInfo.day = date.getDate();
 systemInfo.time = date.getTime();
+systemInfo.week = date.getDay();
 App({
   sessionReady: false, // 程序首次启动后，Session ID是否已准备好？
   sessionReadyCallback: function() {}, // Session ID首次准备好后的回调，只在onLaunch事件中生效
@@ -216,6 +217,25 @@ App({
 
   onLaunch: function() {
     console.log("app.js onLaunch invoked.");
+    const updateManager = wx.getUpdateManager();
+    updateManager.onCheckForUpdate((e) => {
+      console.log("hasUpdate: " + e.hasUpdate);
+      if (e.hasUpdate) {
+        updateManager.onUpdateReady((e) => {
+          wx.showModal({
+            title: '更新提示',
+            content: '新版本已经准备好，请重启使用',
+            showCancel:false,
+            success: function(res) {
+              if (res.confirm) {
+                // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                updateManager.applyUpdate()
+              }
+            }
+          })
+        });
+      }
+    })
     this.sessionCheck();
   },
 

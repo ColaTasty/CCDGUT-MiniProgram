@@ -1,32 +1,28 @@
 <!--pages/calendar/calendar.wxml-->
 <doc-page title="周程表" without-padding>
-  <zan-cell-group border class="cell-panel-demo">
-    <block wx:if="{{isDeleting}}">
-      <block wx:if="{{have_tables}}">
-        <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
-          <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tables-index="{{tableIndex}}" data-tid="{{table.tid}}" bindtap="bindtap_deletIt" value="删除" only-tap-footer></zan-cell>
-          <!-- <view class="list-li">
-              <view class='list-tx'>
-                <text>{{table.tname}}</text>
-              </view>
-              <view class="delet-box iconfont icon-delete">
-                <text style='font-size:11px'>创建于{{table.ttime}}</text>
-              </view>
-            </view> -->
+  <zan-panel title="今天是{{todayIs}}">
+    <zan-cell-group border class="cell-panel-demo">
+      <block wx:if="{{isDeleting}}">
+        <block wx:if="{{have_tables}}">
+          <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
+            <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tables-index="{{tableIndex}}" data-tid="{{table.tid}}" bindtap="bindtap_deletIt" value="删除" only-tap-footer></zan-cell>
+          </block>
+        </block>
+        <zan-cell title="完成" class="zan-c-blue" bindtap="bindtap_finish"></zan-cell>
+      </block>
+      <block wx:else>
+        <block wx:if="{{have_tables}}">
+          <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
+            <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tid="{{table.tid}}" bindtap="bindtap_viewTable" is-link></zan-cell>
+          </block>
+        </block>
+        <zan-cell title="新建周程表" class="zan-c-blue" bindtap="bindtap_build"></zan-cell>
+        <block wx:if="{{have_tables}}">
+          <zan-cell title="删除" class="zan-c-red" bindtap="bindtap_delet"></zan-cell>
         </block>
       </block>
-      <zan-cell title="完成" class="zan-c-blue" bindtap="bindtap_finish"></zan-cell>
-    </block>
-    <block wx:else>
-      <block wx:if="{{have_tables}}">
-        <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
-          <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tid="{{table.tid}}" bindtap="bindtap_viewTable" is-link></zan-cell>
-        </block>
-      </block>
-      <zan-cell title="新建周程表" class="zan-c-blue" bindtap="bindtap_build"></zan-cell>
-      <zan-cell title="删除" class="zan-c-red" bindtap="bindtap_delet"></zan-cell>
-    </block>
-  </zan-cell-group>
+    </zan-cell-group>
+  </zan-panel>
   <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
   <zan-dialog id="alter"></zan-dialog>
 </doc-page>

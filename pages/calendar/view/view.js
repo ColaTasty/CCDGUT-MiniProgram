@@ -1,5 +1,9 @@
 // pages/calendar/view/view.js
 const app = getApp();
+const week = [
+  "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"
+];
+var weekIndex = app.systemInfo.week == 0 ? 6 : app.systemInfo.week - 1;
 var init_table_item = [{
   time: {
     hour: null,
@@ -64,7 +68,7 @@ var init_table_item = [{
 
 var init_days = [{
   day: "星期一",
-  checked: "nav-item cur",
+  checked: "nav-item",
   item: init_table_item
 }, {
   day: "星期二",
@@ -100,9 +104,10 @@ Page({
   data: {
     app: app,
     tables: null,
-    days_index: 0,
+    days_index: weekIndex,
     isEditing: false,
-    canSave: false
+    canSave: false,
+    todayIs: app.systemInfo.year + "年" + app.systemInfo.month + "月" + app.systemInfo.day + "日" + " " + week[app.systemInfo.week]
   },
 
   /**
@@ -115,8 +120,7 @@ Page({
         title: '正在查询。。。',
       })
       app.requestTo(
-        "/wxapp/calendar/viewTable", 
-        {
+        "/wxapp/calendar/viewTable", {
           tid: options.tid
         },
         null,
@@ -130,6 +134,8 @@ Page({
             d[4].item = JSON.parse(res.data.Fri);
             d[5].item = JSON.parse(res.data.Sat);
             d[6].item = JSON.parse(res.data.Sun);
+            init_days[weekIndex].checked = "nav-item cur";
+            d[weekIndex].checked = "nav-item cur";
             that.setData({
               tables: {
                 tid: res.data.tid,
@@ -207,14 +213,14 @@ Page({
             wx.removeStorageSync("table_edit");
             wx.removeStorageSync("tables_backup");
           }
-          if(e.cancel){
+          if (e.cancel) {
             wx.navigateTo({
-              url: './view/view?tid='+this.data.tables.tid,
+              url: './view/view?tid=' + this.data.tables.tid,
             })
           }
         }
       })
-    }else{
+    } else {
       wx.removeStorageSync("table_tmp");
       wx.removeStorageSync("table_edit");
       wx.removeStorageSync("tables_backup");
@@ -261,6 +267,7 @@ Page({
       isEditing: true
     })
     wx.setStorageSync("tables_backup", that.data.tables);
+    weekIndex = that.data.days_index;
   },
 
   bindtap_toBuild: function(e) {
@@ -284,7 +291,8 @@ Page({
         that.setData({
           isEditing: false,
           canSave: false,
-          tables: res.data
+          tables: res.data,
+          days_index:weekIndex
         })
       },
     })

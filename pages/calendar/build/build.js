@@ -260,7 +260,8 @@ Page({
   bindtap_last: function(e) {
     haveLast = this.data.canNext;
     this.setData({
-      step: this.data.step - 1
+      step: this.data.step - 1,
+      canNext:true
     })
   },
 

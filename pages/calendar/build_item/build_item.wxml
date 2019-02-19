@@ -4,13 +4,18 @@
   <text style='font-size:14px'>填写时间点内容</text>
   <view class='form-box'>
     <view class="form-item">
-      <view class='form-title'>时间</view>
-      <zan-date-picker slot="footer" not-use="{{['years', 'months', 'days', 'seconds']}}" bindchange="bindchange_timeChange" bindcancel="bindcancel_timeCancel" placeholder="{{table[timeIndex].time.hour == null ? '请选择时间':((table[timeIndex].time.hour>=10 ? table[timeIndex].time.hour:'0'+table[timeIndex].time.hour)+':'+(table[timeIndex].time.minute>10 ? table[timeIndex].time.minute:'0'+table[timeIndex].time.minute))}}"
+      <view class='form-title'>开始时间</view>
+      <zan-date-picker slot="footer" data-tidx='start' not-use="{{['years', 'months', 'days', 'seconds']}}" bindchange="bindchange_timeChange" bindcancel="bindcancel_timeCancel" placeholder="{{dayList[timeIndex].start_time.hour == null ? '请选择时间':((dayList[timeIndex].start_time.hour>=10 ? dayList[timeIndex].start_time.hour:'0'+dayList[timeIndex].start_time.hour)+':'+(dayList[timeIndex].start_time.minute>10 ? dayList[timeIndex].start_time.minute:'0'+dayList[timeIndex].start_time.minute))}}"
+        format="HH:mm" />
+    </view>
+    <view class="form-item">
+      <view class='form-title'>结束时间</view>
+      <zan-date-picker slot="footer" data-tidx='end' not-use="{{['years', 'months', 'days', 'seconds']}}" bindchange="bindchange_timeChange" bindcancel="bindcancel_timeCancel" placeholder="{{dayList[timeIndex].end_time.hour == null ? '请选择时间':((dayList[timeIndex].end_time.hour>=10 ? dayList[timeIndex].end_time.hour:'0'+dayList[timeIndex].end_time.hour)+':'+(dayList[timeIndex].end_time.minute>10 ? dayList[timeIndex].end_time.minute:'0'+dayList[timeIndex].end_time.minute))}}"
         format="HH:mm" />
     </view>
     <view class="form-item form-textarea">
       <view class='form-title'>内容</view>
-      <textarea placeholder='{{table[timeIndex].value == null ? "最多50个字":""}}' value='{{table[timeIndex].value == null ? "":table[timeIndex].value}}' maxlength="50" bindinput='bindinput_value'></textarea>
+      <textarea placeholder='{{dayList[timeIndex].value == null ? "最多50个字":""}}' value='{{dayList[timeIndex].value == null ? "":dayList[timeIndex].value}}' maxlength="50" bindinput='bindinput_value'></textarea>
     </view>
   </view>
   <zan-button-group>

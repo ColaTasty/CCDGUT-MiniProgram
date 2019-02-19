@@ -9,29 +9,21 @@
     "pages/CETquery/CETquery",
     "pages/calendar/calendar",
     "pages/calendar/build/build",
+    "pages/calendar/build_item/build_item",
+    "pages/calendar/build_class/build_class",
     "pages/calendar/view/view",
-    "pages/calendar/build_item/build_item"
+    "pages/calendar/edit/edit",
+    "pages/calendar/share/share"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置仅用于小程序内发送消息的定位"
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "城院贴吧小助手",
     "navigationBarTextStyle": "black"
-  },
-  "tabBarBackup": {
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/bindEducationSystem/bindEducationSystem",
-        "text": "绑定教务系统"
-      },
-      {
-        "pagePath": "pages/logs/logs",
-        "text": "日志"
-      }
-    ]
   }
 }

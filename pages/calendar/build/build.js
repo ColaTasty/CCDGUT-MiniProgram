@@ -1,98 +1,7 @@
 // pages/calendar/build/build.js
 const Dialog = require('../../../zanui-components/dialog/dialog');
+const calendarModule = require("./../CalendarModule.js");
 const app = getApp();
-
-var init_table_item = [{
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}, {
-  time: {
-    hour: null,
-    minute: null
-  },
-  value: null
-}];
-
-var init_days = [{
-  day: "星期一",
-  checked: "nav-item cur",
-  item: init_table_item
-}, {
-  day: "星期二",
-  checked: "nav-item",
-  item: init_table_item
-}, {
-  day: "星期三",
-  checked: "nav-item",
-  item: init_table_item
-}, {
-  day: "星期四",
-  checked: "nav-item",
-  item: init_table_item
-}, {
-  day: "星期五",
-  checked: "nav-item",
-  item: init_table_item
-}, {
-  day: "星期六",
-  checked: "nav-item",
-  item: init_table_item
-}, {
-  day: "星期日",
-  checked: "nav-item",
-  item: init_table_item
-}, ];
 var haveLast = false;
 Page({
 
@@ -102,13 +11,24 @@ Page({
   data: {
     app: app,
     step: 0,
-    days: init_days,
-    days_index: 0,
-    table_name: null,
+    days: [],
+    daysIndex: 0,
+    tableName: null,
     canNext: false,
     finishText: "完成创建10s",
     isPageLoading: true,
-    isSuccess: false
+    isSuccess: false,
+    arr_tableTypes: [{
+        name: "week",
+        value: "周程表",
+        checked: true
+      },
+      {
+        name: "class",
+        value: "课表"
+      }
+    ],
+    tableType: "week"
   },
 
   /**
@@ -116,29 +36,37 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    wx.getStorage({
-      key: 'table_name',
-      success: function(res) {
-        if (res.data != null) {
-          that.setData({
-            table_name: res.data
-          })
-          wx.getStorage({
-            key: 'days_backup',
-            success: function(res) {
-              that.setData({
-                step: 1,
-                days: res.data
-              })
-            },
-          })
-        }
+    calendarModule.isSetType(
+      (e) => {
+        that.setData({
+          tableName: wx.getStorageSync(calendarModule.items.str_storageKey_tableName),
+          tableType: e.data,
+          arr_tableTypes: [{
+            name: "week",
+            value: "周程表",
+            checked: e.data == "week"
+          }, {
+            name: "class",
+            value: "课表",
+            checked: e.data == "class"
+          }],
+          canNext: true
+        });
       },
-    })
-    // if (wx.getStorageSync("table_name") != null)
-    //   this.setData({
-    //     step: 1,
-    //   })
+      (e) => {
+        that.setData({
+          tableType: "week",
+          arr_tableTypes: [{
+            name: "week",
+            value: "周程表",
+            checked: true
+          }, {
+            name: "class",
+            value: "课表"
+          }]
+        });
+      }
+    );
   },
 
   /**
@@ -152,34 +80,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
-    wx.getStorage({
-      key: 'table_edit',
-      success: function(res) {
-        if (res.data) {
-          var table_item;
-          var d = that.data.days;
-          wx.getStorage({
-            key: 'table_tmp',
-            success: function(res) {
-              table_item = res.data;
-              d[that.data.days_index].item = table_item;
-              that.setData({
-                days: d,
-                canNext: true
-              });
-              wx.setStorage({
-                key: 'days_backup',
-                data: that.data.days,
-                success: (e) => {
-                  wx.setStorageSync("table_edit", false);
-                }
-              })
-            },
-          });
-        }
-      },
-    })
+    var that = this,
+    count = calendarModule.editedItemCount();
+    calendarModule.getDaysFromStorage(
+      (e) => {
+        var td = e.data;
+        console.log(count);
+        that.setData({
+          days: td,
+          countItem: count
+        })
+        calendarModule.setEditFlag(false);
+      }
+    )
   },
 
   /**
@@ -193,35 +106,29 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    wx.getStorage({
-      key: 'table_tmp',
-      success: function(res) {
-        if (res.data != null) {
-          wx.showModal({
-            title: '确定退出吗？',
-            content: '这将不保存已输入好的信息噢，请三思',
-            showCancel: true,
-            confirmText: "退出",
-            cancelText: "考虑一下",
-            confirmColor: "black",
-            cancelColor: "red",
-            success: (res) => {
-              if (res.confirm) {
-                wx.removeStorageSync("table_tmp");
-                wx.removeStorageSync("table_edit");
-                wx.removeStorageSync("table_name");
-                wx.removeStorageSync("days_backup");
-              }
-              if (res.cancel) {
-                wx.navigateTo({
-                  url: './build/build',
-                })
-              }
+    calendarModule.isSetType(
+      (e) => {
+        wx.showModal({
+          title: '确定退出吗？',
+          content: '这将不保存已输入好的信息噢，请三思',
+          showCancel: true,
+          confirmText: "退出",
+          cancelText: "考虑一下",
+          confirmColor: "black",
+          cancelColor: "red",
+          success: (res) => {
+            if (res.confirm) {
+              calendarModule.removeCalendarStorage();
             }
-          })
-        }
-      },
-    })
+            if (res.cancel) {
+              wx.navigateTo({
+                url: './build/build',
+              })
+            }
+          }
+        })
+      }
+    );
   },
 
   /**
@@ -248,7 +155,7 @@ Page({
   bindchange_tableName: function(e) {
     if (e.detail.value.length > 0)
       this.setData({
-        table_name: e.detail.value,
+        tableName: e.detail.value,
         canNext: true
       });
     else
@@ -257,11 +164,23 @@ Page({
       });
   },
 
+  bindchange_tableType: function(e) {
+    // console.log(e);
+    var t = this.data.arr_tableTypes;
+    for (var i = 0; i < t.length; i++) {
+      t[i].checked = t[i].name == e.detail.detail.value;
+    }
+    this.setData({
+      tableType: e.detail.detail.value,
+      arr_tableTypes: t
+    })
+  },
+
   bindtap_last: function(e) {
     haveLast = this.data.canNext;
     this.setData({
       step: this.data.step - 1,
-      canNext:true
+      canNext: true
     })
   },
 
@@ -274,48 +193,72 @@ Page({
     if (haveLast)
       haveLast = !haveLast;
     switch (this.data.step) {
+      //step 1
       case 1:
-        wx.setStorageSync("table_name", this.data.table_name);
-        break;
-      case 2:
-        var timeOut = 10;
-        if (!that.data.canNext) {
-          var i = setInterval(() => {
-            if (timeOut < 0) {
+        calendarModule.setTypeToStorage(that.data.tableType, () => {
+          wx.setStorageSync(calendarModule.items.str_storageKey_tableName, that.data.tableName);
+          that.setData({
+            days: null
+          })
+          calendarModule.isSetDays(
+            (res) => {
+              if ((res.data.length == 5 && that.data.tableType == "class") || (res.data.length == 7 && that.data.tableType == "week")) {
+                that.setData({
+                  days: res.data
+                })
+                // var d = that.data.days;
+                // for (var i = 0; i < (that.data.tableType == 'week' ? 7 : 5); i++) {
+                //   for (var j = 0; j < 10; j++) {
+                //     if (that.data.tableType == 'week' ? d[i].dayList[j].value != null : !(d[i].dayList[j].start_time === null && d[i].dayList[j].end_time === null)) {
+                //       that.setData({
+                //         canNext: true
+                //       });
+                //       break;
+                //     }
+                //     continue;
+                //   }
+                // }
+              } else {
+                that.setData({
+                  days: calendarModule.getInitDays(that.data.tableType)
+                })
+              }
+            },
+            (res) => {
               that.setData({
-                finishText: "完成创建",
-                canNext: true
-              });
-              clearInterval(i);
-              return;
-            }
-            that.setData({
-              finishText: "完成创建" + timeOut + "s"
+                days: calendarModule.getInitDays(that.data.tableType)
+              })
             });
-            timeOut--;
-          }, 1000);
-        }
-        wx.setStorageSync("days_backup", this.data.days);
+        });
         break;
+        //step2
+      case 2:
+        calendarModule.setDaysToStorage(that.data.days, () => {
+          var timeOut = 10;
+          if (!that.data.canNext) {
+            var i = setInterval(() => {
+              if (timeOut < 0) {
+                that.setData({
+                  finishText: "完成创建",
+                  canNext: true
+                });
+                clearInterval(i);
+                return;
+              }
+              that.setData({
+                finishText: "完成创建" + timeOut + "s"
+              });
+              timeOut--;
+            }, 1000);
+          }
+        });
+        break;
+        //step 3
       case 3:
         that.setData({
           isPageLoading: true
         });
-        app.requestTo(
-          "/wxapp/calendar/buildUp", {
-            sessionid: wx.getStorageSync("sessionID"),
-            table: JSON.stringify({
-              table_name: that.data.table_name,
-              Mon: that.data.days[0].item,
-              Tue: that.data.days[1].item,
-              Wed: that.data.days[2].item,
-              Thu: that.data.days[3].item,
-              Fri: that.data.days[4].item,
-              Sat: that.data.days[5].item,
-              Sun: that.data.days[6].item
-            }),
-          },
-          null,
+        calendarModule.uploadBuildUp(
           (res) => {
             that.setData({
               isSuccess: res.data.isOK
@@ -339,7 +282,7 @@ Page({
       default:
         Dialog({
           title: "你不能进入下一步",
-          message: "你触发了一个BUG，请反馈",
+          message: "你触发了一个BUG，请贴吧发贴反馈",
           selector: '#alter',
         });
         break;
@@ -355,32 +298,30 @@ Page({
     d[e.currentTarget.dataset.index].checked = "nav-item cur";
     that.setData({
       days: d,
-      days_index: e.currentTarget.dataset.index,
+      daysIndex: e.currentTarget.dataset.index,
     })
   },
 
   bindtap_buildItem: function(e) {
     // console.log(e);
     var that = this;
-    var elem = e;
-    wx.setStorage({
-      key: 'table_tmp',
-      data: this.data.days[this.data.days_index].item,
-      success: (e) => {
-        wx.setStorageSync("table_edit", false);
-        wx.setStorageSync("days_backup", that.data.days);
-        wx.navigateTo({
-          url: './../build_item/build_item?time_index=' + elem.currentTarget.dataset.timeIndex,
-        })
-      }
-    })
+    calendarModule.setDaysToStorage(
+      that.data.days,
+      (res) => {
+        if (that.data.tableType == "class") {
+          wx.navigateTo({
+            url: './../build_class/build_class?dayIndex=' + that.data.daysIndex + "&timeIndex=" + e.currentTarget.dataset.timeIndex,
+          })
+        } else if (that.data.tableType == "week") {
+          wx.navigateTo({
+            url: './../build_item/build_item?dayIndex=' + that.data.daysIndex + "&timeIndex=" + e.currentTarget.dataset.timeIndex,
+          })
+        }
+      })
   },
 
   bindtap_back: (e) => {
-    wx.removeStorageSync("table_tmp");
-    wx.removeStorageSync("table_edit");
-    wx.removeStorageSync("table_name");
-    wx.removeStorageSync("days_backup");
+    calendarModule.removeCalendarStorage();
     wx.navigateBack({
       detail: 1
     })
@@ -396,13 +337,13 @@ Page({
         sessionid: wx.getStorageSync("sessionID"),
         table: JSON.stringify({
           table_name: that.data.table_name,
-          Mon: that.data.days[0].item,
-          Tue: that.data.days[1].item,
-          Wed: that.data.days[2].item,
-          Thu: that.data.days[3].item,
-          Fri: that.data.days[4].item,
-          Sat: that.data.days[5].item,
-          Sun: that.data.days[6].item
+          Mon: that.data.days[0].dayList,
+          Tue: that.data.days[1].dayList,
+          Wed: that.data.days[2].dayList,
+          Thu: that.data.days[3].dayList,
+          Fri: that.data.days[4].dayList,
+          Sat: that.data.days[5].dayList,
+          Sun: that.data.days[6].dayList
         }),
       },
       null,

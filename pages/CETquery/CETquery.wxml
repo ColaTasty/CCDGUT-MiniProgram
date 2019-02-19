@@ -51,6 +51,6 @@
       </zan-button>
     </zan-button-group>
   </block>
-  <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
+  <view id="copyright_text">© {{app.systemInfo.year}} 城院贴吧小助手</view>
   <zan-dialog id="verify-can-not-get"></zan-dialog>
 </doc-page>

@@ -1,1 +1,47 @@
 /* pages/calendar/calendar.wxss */
+
+#button-group {
+  border-top: 1px solid #eeeeee ;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+}
+
+#button-group view {
+  flex-grow: 1;
+  text-align: center;
+  padding-top: 2px;
+  border-left:1px solid #ccc;
+  border-right:1px solid #ccc;
+}
+
+#button-group .back-color-red {
+  background-color: rgb(255, 93, 93);
+  color: #fff;
+}
+
+#button-group .back-color-blue {
+  background-color: rgb(93, 144, 255);
+  color: #fff;
+}
+
+#button-group .back-color-green {
+  background-color: rgba(83, 255, 67, 0.692);
+  color: #fff;
+}
+
+#button-group .back-color-defualt {
+  color: #555;
+}
+ 
+ #button-group .font-color-blue{
+   color: rgb(93, 144, 255);
+ }
+
+ #button-group .font-color-red{
+  color: rgb(255, 93, 93);
+ }
+ #button-group .font-color-green{
+   color: rgba(83, 255, 67, 0.692);
+ }

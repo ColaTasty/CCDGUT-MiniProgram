@@ -1,76 +1,49 @@
 <!--pages/calendar/view/view.wxml-->
-<doc-page title="周程表--{{tables.tname}}" without-padding>
-  <zan-panel title="今天是{{todayIs}}">
-    <view class='nav'>
-      <block wx:for="{{tables.days}}" wx:key="*this" wx:for-item="day" wx:for-index="week">
-        <view data-index='{{week}}' class='{{day.checked}}' bindtap='bindtap_dayChange'>{{day.day}}</view>
+<web-view wx:if="{{isTesting}}" src="https://ccdgut.yuninter.net/IcedCappuccino/wxapp/calendar/viewTable?tid={{tid}}"></web-view>
+<scroll-view scroll-x>
+  <view id="table-main">
+    <view id='title-row'>
+      <view id="item-time">时间</view>
+      <view id="item-week-day">星期一</view>
+      <view id="item-week-day">星期二</view>
+      <view id="item-week-day">星期三</view>
+      <view id="item-week-day">星期四</view>
+      <view id="item-week-day">星期五</view>
+      <block wx:if="{{table.type == 'week'}}">
+        <view id="item-week-day">星期六</view>
+        <view id="item-week-day">星期日</view>
       </block>
     </view>
-  </zan-panel>
-  <!-- isEditing == true -->
-  <block wx:if="{{isEditing}}">
-    <view class='timeline'>
-      <view class='timeline-time'>{{tables.days[days_index].day}}</view>
-      <view class="timeline-box">
-        <block wx:for="{{tables.days[days_index].item}}" wx:key="*this" wx:for-index="timeIndex">
-          <block wx:if="{{item.time.hour != null}}">
-            <view class='timeline-item timeline-sm' data-time-index="{{timeIndex}}" bindtap="bindtap_toBuild">
-              <view class='timeline-main'>
-                <view class='badge secondary radius capsule-badge'>
-                  <text>{{item.time.hour<12 ? (item.time.hour<6?"凌晨":"上午"):(item.time.hour<14?"中午":(item.time.hour<18?"下午":"晚上"))}}</text>
-                  <text>{{item.time.hour}}:{{item.time.minute>=10 ? item.time.minute:"0"+item.time.minute}}</text>
-                </view>
-                <view class='mt-sm text-sm'><text style='word-break:break-all;'>{{item.value}}</text></view>
-              </view>
-            </view>
-          </block>
-          <block wx:else>
-            <view class='timeline-item timeline-sm' data-time-index="{{timeIndex}}" bindtap="bindtap_toBuild">
-              <view class='timeline-main'>
-                <view class='badge secondary radius capsule-badge'>
-                  <text>#</text>
-                  <text>时间点{{timeIndex+1}}</text>
-                </view>
-                <view class='mt-sm text-sm'>点击编辑周程安排</view>
-              </view>
-            </view>
-          </block>
+    <!-- week start -->
+    <block wx:for="{{row}}" wx:key="*this" wx:for-index="rowIndex" wx:if="{{table.type == 'week'}}">
+      <view id="row">
+        <view id="item-time">{{rowIndex}}</view>
+        <!-- <block wx:for="{{table.days}}">
+        </block> -->
+      </view>
+    </block>
+    <!-- week end -->
+    <!-- class start -->
+    <view id="class-box">
+      <view id="column-time">
+        <block wx:for="{{row}}" wx:key="*this" wx:for-index="rowIndex">
+          <view id="item-time" style='background-color: rgb(70, 140, 219);color:#ddd'>{{rowIndex}}</view>
         </block>
       </view>
-    </view>
-    <zan-button-group>
-      <button bindtap='bindtap_back' type="default" style='margin-top:10px;margin-bottom:10px'>返回</button>
-      <button disabled='{{!canSave}}' bindtap='bindtap_saveEditing' type="primary">保存</button>
-    </zan-button-group>
-  </block>
-
-  <!-- isEditing == fasle -->
-  <block wx:else>
-    <view class='timeline'>
-      <view class='timeline-time'>{{tables.days[days_index].day}}</view>
-      <view class="timeline-box">
-        <block wx:for="{{tables.days[days_index].item}}" wx:key="*this" wx:for-index="timeIndex">
-          <block wx:if="{{item.time.hour != null}}">
-            <view class='timeline-item timeline-sm'>
-              <view class='timeline-main'>
-                <view class='badge secondary radius capsule-badge'>
-                  <text>{{item.time.hour<12 ? (item.time.hour<6?"凌晨":"上午"):(item.time.hour<14?"中午":(item.time.hour<18?"下午":"晚上"))}}</text>
-                  <text>{{item.time.hour}}:{{item.time.minute>=10 ? item.time.minute:"0"+item.time.minute}}</text>
-                </view>
-                <view class='mt-sm text-sm'><text style='word-break:break-all;'>{{item.value}}</text></view>
-              </view>
-              <block wx:if="{{tables.days[days_index].item[timeIndex+1].time.hour == null}}">
-                <view class='timeline-main mt-xs' style='background-color:white'></view>
-              </block>
+      <block wx:for="{{column}}" wx:key="*this" wx:for-index="columnIndex" wx:if="{{table.type == 'class'}}">
+        <view id="column-day">
+          <block wx:for="{{table.days[columnIndex]}}" wx:key="*this" wx:for-index="timeIndex" wx:for-item="timeItem">
+            <view id="item-day" wx:if="{{timeItem.start_time==null}}">
+            </view>
+            <view id="item-day" wx:if="{{timeItem.start_time==timeIndex}}" style='flex-grow:{{timeItem.end_time-timeItem.start_time+1}}'>
+              <text>{{timeItem.value.className}}\n{{timeItem.value.classRoom}}\n{{timeItem.value.classTeacher}}\n</text>
             </view>
           </block>
-        </block>
-      </view>
-      <view class='timeline-time'>
-        <text style='color:blue;' bindtap='bindtap_edit'>编辑</text>
-      </view>
+        </view>
+      </block>
     </view>
-  </block>
-  <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
-  <zan-dialog id="alter"></zan-dialog>
-</doc-page>
+    <!-- class end -->
+  </view>
+</scroll-view>
+<view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
+<zan-dialog id="alter"></zan-dialog>

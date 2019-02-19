@@ -1,26 +1,50 @@
-<!--pages/calendar/calendar.wxml-->
+<!-- pages/calendar/calendar.wxml -->
 <doc-page title="周程表" without-padding>
   <zan-panel title="今天是{{todayIs}}">
     <zan-cell-group border class="cell-panel-demo">
+      <!-- 删除 -->
       <block wx:if="{{isDeleting}}">
-        <block wx:if="{{have_tables}}">
-          <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
-            <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tables-index="{{tableIndex}}" data-tid="{{table.tid}}" bindtap="bindtap_deletIt" value="删除" only-tap-footer></zan-cell>
-          </block>
+        <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
+          <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tables-index="{{tableIndex}}" data-tid="{{table.tid}}" bindtap="bindtap_deletIt" value="删除" only-tap-footer></zan-cell>
         </block>
         <zan-cell title="完成" class="zan-c-blue" bindtap="bindtap_finish"></zan-cell>
       </block>
+      <!-- 删除end -->
+      <!-- 编辑 -->
+      <block wx:elif="{{isEditing}}">
+        <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
+          <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tables-index="{{tableIndex}}" data-tid="{{table.tid}}" bindtap="bindtap_editIt" value="编辑" only-tap-footer></zan-cell>
+        </block>
+        <zan-cell title="完成" class="zan-c-blue" bindtap="bindtap_finish"></zan-cell>
+      </block>
+      <!-- 编辑end -->
+      <!-- 分享 start -->
+      <block wx:elif="{{isSharing}}">
+        <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
+          <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tables-index="{{tableIndex}}" data-tid="{{table.tid}}" bindtap="bindtap_shareIt" value="分享" only-tap-footer></zan-cell>
+        </block>
+        <zan-cell title="完成" class="zan-c-blue" bindtap="bindtap_finish"></zan-cell>
+      </block>
+      <!-- 分享 end -->
+      <!-- 显示表 -->
       <block wx:else>
         <block wx:if="{{have_tables}}">
           <block wx:for="{{tables}}" wx:for-item="table" wx:for-index="tableIndex" wx:key="*this">
-            <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tid="{{table.tid}}" bindtap="bindtap_viewTable" is-link></zan-cell>
+            <zan-cell title="{{table.tname}}" label="创建于{{table.ttime}}" data-tid="{{table.tid}}" bindlongtap="bindlongtap_share" bindtap="bindtap_viewTable" is-link></zan-cell>
           </block>
         </block>
-        <zan-cell title="新建周程表" class="zan-c-blue" bindtap="bindtap_build"></zan-cell>
+        <zan-cell title="新建" class="zan-c-blue" bindtap="bindtap_build"></zan-cell>
         <block wx:if="{{have_tables}}">
-          <zan-cell title="删除" class="zan-c-red" bindtap="bindtap_delet"></zan-cell>
+          <view id="button-group">
+            <view class='back-color-defualt' bindtap="bindtap_edit">编辑</view>
+            <view class='font-color-blue' bindtap='bindtap_share'>分享</view>
+            <view class='font-color-red' bindtap="bindtap_delet">删除</view>
+          </view>
+          <!-- <zan-cell title="编辑" class="zan-c-blue" bindtap="bindtap_edit"></zan-cell>
+          <zan-cell title="删除" class="zan-c-red" bindtap="bindtap_delet"></zan-cell> -->
         </block>
       </block>
+      <!-- 显示表end -->
     </zan-cell-group>
   </zan-panel>
   <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>

@@ -1,5 +1,6 @@
 // pages/calendar/calendar.js
 const Dialog = require('../../zanui-components/dialog/dialog');
+const calendarModule = require("./CalendarModule.js");
 const app = getApp();
 const week = [
   "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"
@@ -14,7 +15,8 @@ Page({
     have_tables: false,
     tables: null,
     isDeleting: false,
-    todayIs: app.systemInfo.year + "年" + app.systemInfo.month + "月" + app.systemInfo.day + "日" + " " + week[app.systemInfo.week]
+    todayIs: app.systemInfo.year + "年" + app.systemInfo.month + "月" + app.systemInfo.day + "日" + " " + week[app.systemInfo.week],
+    isEditing: false
   },
 
   /**
@@ -38,29 +40,26 @@ Page({
     var that = this;
     wx.showLoading({
       title: '正在查询...',
-    })
-    app.requestTo(
-      "/wxapp/calendar/init", {
-        sessionid: wx.getStorageSync("sessionID")
-      },
-      null,
-      function(res) {
-        if (res.data.isOK) {
+    });
+    var res;
+    calendarModule.getUserTables(
+      (e) => {
+        res = e.data;
+        if (!res.isOK) {
           that.setData({
-            have_tables: res.data.isOK,
-            tables: res.data.tables
+            have_tables: false
           })
-        } else {
           Dialog({
             title: "未查到周程表",
-            message: res.data.msg,
+            message: res.msg,
             selector: '#alter'
           });
+          return;
         }
-      },
-      null,
-      function(res) {
-        wx.hideLoading();
+        that.setData({
+          have_tables: true,
+          tables: res.tables
+        })
       }
     );
   },
@@ -122,9 +121,35 @@ Page({
     });
   },
 
+  bindtap_share: function(e) {
+    this.setData({
+      isSharing: true
+    })
+  },
+
+  bindtap_edit: function(e) {
+    this.setData({
+      isEditing: true
+    });
+  },
+
   bindtap_finish: function(e) {
     this.setData({
-      isDeleting: false
+      isSharing:false,
+      isDeleting: false,
+      isEditing: false
+    })
+  },
+
+  bindtap_editIt: function(e) {
+    wx.navigateTo({
+      url: './edit/edit?tid=' + e.currentTarget.dataset.tid,
+    })
+  },
+
+  bindtap_shareIt: (e) => {
+    wx.navigateTo({
+      url: './share/share?tid=' + e.currentTarget.dataset.tid,
     })
   },
 

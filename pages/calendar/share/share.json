@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "分享周程表",
+  "navigationBarBackgroundColor":"#eee",
+  "backgroundColor": "#eee",
+  "disableScroll":true
+}

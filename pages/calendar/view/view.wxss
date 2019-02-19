@@ -1,8 +1,96 @@
 /* pages/calendar/view/view.wxss */
-@import "./../timeline.wxss";
-/* view{
+
+#table-main {
+  width: 400px;
   display: flex;
-} */
-text{
+  flex-direction: column;
+  /* background-color: blue; */
+  flex-wrap: nowrap;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  /* align-items: stretch; */
+}
+
+#table-main #title-row {
+  width: 400px;
+  height: 30px;
+  flex-grow: 1;
   display: flex;
+  flex-direction: row;
+  background-color: rgb(70, 140, 219);
+  color: #ddd;
+}
+
+#table-main #title-row #item-time {
+  flex-grow: 1;
+  height: inherit;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+
+#table-main #title-row #item-week-day {
+  flex-grow: 2;
+  height: inherit;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+
+#table-main #row {
+  width: 400px;
+  height: 50px;
+  min-height: 50px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  background-color: green;
+  border: 1px solid #ccc;
+}
+
+#table-main #row #item-time {
+  flex-grow: 1;
+  height: 50px;
+  min-height: 50px;
+  background-color: rgb(70, 140, 219);
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  color: #ddd;
+}
+
+#table-main #class-box {
+  width: 400px;
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+}
+
+#table-main #class-box #column-time {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#table-main #class-box #column-day {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+}
+
+#table-main #class-box #column-time #item-time,
+#table-main #class-box #column-day #item-day {
+  /* width: 60px; */
+  flex-grow: 1;
+  height: 30px;
+  min-height: 30px;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+
+#table-main #class-box #column-day #item-day text{
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  word-break: break-all;
 }

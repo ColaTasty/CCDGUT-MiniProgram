@@ -1,0 +1,35 @@
+<!-- pages/calendar/build_item/build_item.wxml -->
+<doc-page title="编辑时间点" without-padding>
+  <text class='iconfont icon-title success-text'></text>
+  <text style='font-size:14px'>填写时间点内容</text>
+  <view class='form-box'>
+    <view class="form-item">
+      <view class='form-title'>开始时间</view>
+      第{{timeIndex+1}}节
+    </view>
+    <view class="form-item">
+      <view class='form-title'>结束时间</view>
+      <picker bindchange="bindchange_numChange" value="{{numIdx}}" range="{{array_num}}">
+        <view class="picker">第{{array_num[numIdx]}}节</view>
+      </picker>
+    </view>
+    <view class="form-item form-textarea">
+      <view class='form-title'>课程名</view>
+      <textarea data-flag='className' placeholder='{{dayList[timeIndex].value.className == null ? "最多15个字":""}}' value='{{dayList[timeIndex].value.className == null ? "":dayList[timeIndex].value.className}}' maxlength="15" bindinput='bindinput_value'></textarea>
+    </view>
+    <view class="form-item form-textarea">
+      <view class='form-title'>教室</view>
+      <textarea data-flag='classRoom' placeholder='{{dayList[timeIndex].value.classRoom == null ? "最多15个字":""}}' value='{{dayList[timeIndex].value.classRoom == null ? "":dayList[timeIndex].value.classRoom}}' maxlength="15" bindinput='bindinput_value'></textarea>
+    </view>
+    <view class="form-item form-textarea">
+      <view class='form-title'>老师</view>
+      <textarea data-flag='classTeacher' placeholder='{{dayList[timeIndex].value.classTeacher == null ? "最多15个字":""}}' value='{{dayList[timeIndex].value.classTeacher == null ? "":dayList[timeIndex].value.classTeacher}}' maxlength="15" bindinput='bindinput_value'></textarea>
+    </view>
+  </view>
+  <zan-button-group>
+    <button disabled='{{!canFinish}}' bindtap='bindtap_finish' type="primary" style='margin-top:30px'>
+      完成
+    </button>
+    <button bindtap='bindtap_reset' type="default" style='margin-top:15px'>清空</button>
+  </zan-button-group>
+</doc-page>

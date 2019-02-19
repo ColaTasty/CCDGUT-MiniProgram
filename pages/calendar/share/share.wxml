@@ -1,0 +1,34 @@
+<!--pages/calendar/share/share.wxml-->
+<view class='page'>
+  <view id="top-box">
+    <text class='title' wx:if="{{isSelf}}">分享你的{{tableInfor.type=="week"?"周程表":"课表"}}</text>
+    <text class='title' wx:else>来自{{tableCreator.nickName}}的分享</text>
+  </view>
+  <view id="avatar-box">
+    <image src='{{tableCreator.avatarUrl}}'></image>
+  </view>
+  <view id="message-box" class='border-bottom'>
+    <text class='small-middle'>{{isSelf?"你":tableCreator.nickName}}的{{tableInfor.type=="week"?"周程表":"课表"}}\n</text>
+    <view class='big bold' style="margin-top:10px">"{{tableInfor.tname}}"\n</view>
+    <text class='small-middle'>已有 <text class='big bold' style='animation:show 2s'>{{tableInfor.sharedCount}}</text> 人保存</text>
+  </view>
+  <view id="content-box">
+    <block wx:if="{{isSelf}}">
+      <view id="message-box">
+        <text class="small">你可以在本界面，通过右上角的 "转发小程序" 来分享你的{{tableInfor.type=="week"?"周程表":"课表"}}</text>
+      </view>
+      <!-- <view id="button-box">
+        <view id='button' class='primary' bindtap='bindtap_toShare' open-type="share" hover-class='button-hover'>分享</view>
+      </view> -->
+    </block>
+    <block wx:else>
+      <view id="button-box">
+        <view id='button' class='defualt' bindtap='bindtap_toView' hover-class='button-hover'>立即查看</view>
+        <view id="button" class='primary' bindtap='bindtap_saveTable' hover-class='button-hover' style='margin-top:15px;'>保存到我的{{tableInfor.type=="week"?"周程表":"课表"}}</view>
+      </view>
+    </block>
+  </view>
+  <view id='copyright-box'>
+    <text>{{app.systemInfo.year}} © 城院贴吧小助手</text>
+  </view>
+</view>

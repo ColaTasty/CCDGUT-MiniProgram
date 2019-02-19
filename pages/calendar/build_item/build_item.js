@@ -1,4 +1,7 @@
 // pages/calendar/build_item/build_item.js
+const calendarModuel = require("./../CalendarModule.js");
+var dayIndex = 0;
+var isNull = true;
 Page({
 
   /**
@@ -16,16 +19,16 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    wx.getStorage({
-      key: 'table_tmp',
-      success: function(res) {
-        // console.log(res)
+    dayIndex = options.dayIndex;
+    var tIdx = options.timeIndex;
+    calendarModuel.getDaysFromStorage(
+      (e) => {
         that.setData({
-          table: res.data,
-          timeIndex: options.time_index
-        })
-      },
-    })
+          dayList: e.data[dayIndex].dayList,
+          timeIndex: tIdx
+        });
+      }
+    );
   },
 
   /**
@@ -78,49 +81,84 @@ Page({
   },
 
   bindtap_finish: function(e) {
-    wx.setStorage({
-      key: 'table_tmp',
-      data: this.data.table,
-      success: (e) => {
-        wx.setStorageSync("table_edit", true);
-        wx.navigateBack({
-          detail: 1
-        });
+    var that = this;
+    var d = that.data.dayList;
+    calendarModuel.getDaysFromStorage(
+      (e) => {
+        var td = e.data;
+        td[dayIndex].dayList = d;
+        calendarModuel.setDaysToStorage(
+          td,
+          (e) => {
+            calendarModuel.setEditFlag(
+              true,
+              (e) => {
+                isNull = (that.data.dayList[that.data.timeIndex].start_time.hour == null) && (that.data.dayList[that.data.timeIndex].end_time.hour == null) && (that.data.dayList[that.data.timeIndex].value == null);
+                if (isNull) {
+                  calendarModuel.editedItemCountMinus(
+                    () => {
+                      wx.navigateBack({
+                        detail: 1
+                      })
+                    }
+                  );
+                } else {
+                  calendarModuel.editedItemCountAdd(
+                    () => {
+                      wx.navigateBack({
+                        detail: 1
+                      })
+                    }
+                  );
+                }
+              }
+            )
+          }
+        )
       }
-    })
+    )
   },
 
   bindinput_value: function(e) {
     var that = this;
-    var t = that.data.table;
-    t[that.data.timeIndex].value = e.detail.value;
+    var d = that.data.dayList;
+    d[that.data.timeIndex].value = e.detail.value;
     that.setData({
-      table: t,
-      canFinish: (that.data.table[that.data.timeIndex].time.hour != null) && (that.data.table[that.data.timeIndex].value != null)
+      dayList: d,
+      canFinish: (that.data.dayList[that.data.timeIndex].start_time.hour != null) && (that.data.dayList[that.data.timeIndex].end_time.hour != null) && (that.data.dayList[that.data.timeIndex].value != null)
     });
   },
 
   bindchange_timeChange: function(e) {
     var that = this;
-    var t = that.data.table;
-    t[that.data.timeIndex].time.hour = e.detail.value[3];
-    t[that.data.timeIndex].time.minute = e.detail.value[4];
+    var d = that.data.dayList;
+    if (e.currentTarget.dataset.tidx == "start") {
+      d[that.data.timeIndex].start_time.hour = e.detail.value[3];
+      d[that.data.timeIndex].start_time.minute = e.detail.value[4];
+    } else {
+      d[that.data.timeIndex].end_time.hour = e.detail.value[3];
+      d[that.data.timeIndex].end_time.minute = e.detail.value[4];
+    }
     that.setData({
-      table: t,
-      canFinish: (that.data.table[that.data.timeIndex].time.hour != null) && (that.data.table[that.data.timeIndex].value != null)
+      dayList: d,
+      canFinish: (that.data.dayList[that.data.timeIndex].start_time.hour != null) && (that.data.dayList[that.data.timeIndex].end_time.hour != null) && (that.data.dayList[that.data.timeIndex].value != null)
     });
   },
 
   bindtap_reset: function(e) {
-    var t = this.data.table;
-    t[this.data.timeIndex].time = {
+    var d = this.data.dayList;
+    d[this.data.timeIndex].start_time = {
       hour: null,
       minute: null
     };
-    t[this.data.timeIndex].value = null;
+    d[this.data.timeIndex].end_time = {
+      hour: null,
+      minute: null
+    };
+    d[this.data.timeIndex].value = null;
     this.setData({
       canFinish: true,
-      table: t
-    })
+      dayList: d
+    });
   }
 })

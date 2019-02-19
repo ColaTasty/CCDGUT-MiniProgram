@@ -1,4 +1,4 @@
-/* pages/calendar/build/build.wxss */
+/* pages/calendar/edit/edit.wxss */
 @import "./../timeline.wxss";
 .class-msg{
   display: flex;

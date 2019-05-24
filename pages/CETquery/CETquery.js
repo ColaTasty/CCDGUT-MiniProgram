@@ -38,7 +38,22 @@ Page({
       "/wxapp/cet/getDd",
       null,
       null,
-      function(res) {
+      function (res) {
+        if(!res.data.canUse){
+          wx.showModal({
+            title: '暂不开放查询',
+            content: res.data.msg,
+            showCancel:false,
+            success:function(e){
+              if(e.confirm){
+                wx.navigateBack({
+                  detail:1
+                })
+              }
+            }
+          })
+          return;
+        }
         if (res.data.isOK)
           that.setData({
             dd: res.data.dd

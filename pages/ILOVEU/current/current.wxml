@@ -1,0 +1,35 @@
+<!-- pages/ILOVEU/current/current.wxml -->
+<wxs module="tool" src="./../ILOVEU.wxs"></wxs>
+<nav-bar title="城院贴吧" home="{{true}}" />
+<!-- bg-image -->
+<image class="bg-image" src='./../../src/bg-love.jpg'></image>
+<!-- content -->
+<view id="content" class=" content-show">
+    <view class="context">
+        <text>{{message.content}}</text>
+    </view>
+    <view class="signature">
+      {{tool.getTime(currentTime,message.time)}}
+    </view>
+</view>
+<!-- bottom -->
+<view id="bottom">
+    <view class="buttons" style="margin-top:20px;">
+      <view id='button' class="iconfont icon-appreciate {{message.is_like ? 'red-font':'gray-font'}} left-show" data-midx="{{midx}}" data-mid="{{message.mid}}" bindtap="bindtap_like" hover-class='hover'>
+        <block wx:if="{{!message.loading_like}}">{{message.like > 99 ? '99+':message.like}}</block>
+        <block wx:else>
+          <text class='iconfont icon-loading iconfont-spin mr-xs'></text>
+        </block>
+      </view>
+      <view id='button' class="iconfont icon-forward {{message.is_share ? 'red-font':'gray-font'}} right-show" data-midx="{{midx}}" data-mid="{{message.mid}}" bindtap="bindtap_share" hover-class='hover'>
+        <block wx:if="{{!message.loading_share}}">{{message.share > 99 ? '99+':message.share}}</block>
+        <block wx:else>
+          <text class='iconfont icon-loading iconfont-spin mr-xs'></text>
+        </block>
+      </view>
+    </view>
+</view>
+<!-- copyright -->
+<view id="copyright">
+    <text>{{year}} © 城院贴吧小助手</text>
+</view>

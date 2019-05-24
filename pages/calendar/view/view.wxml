@@ -1,4 +1,5 @@
 <!--pages/calendar/view/view.wxml-->
+<!-- <nav-bar nav-title="我的周程表" back="{{true}}" /> -->
 <web-view wx:if="{{isTesting}}" src="https://ccdgut.yuninter.net/IcedCappuccino/wxapp/calendar/viewTable?tid={{tid}}"></web-view>
 <scroll-view scroll-x>
   <view id="table-main">

@@ -1,0 +1,81 @@
+<!-- pages/ILOVEU/ILOVEU.wxml -->
+<wxs module="tool" src="./ILOVEU.wxs"></wxs>
+<nav-bar title="城院贴吧表白墙" home="{{true}}" back="{{false}}" />
+<!-- bg-love -->
+<!-- <view class="bg-love masking"></view> -->
+<image class='bg-love' src='./../src/bg-love.jpg'></image>
+<!-- head -->
+<view id="head">
+  <view id="toptip" wx:if="{{showInform}}">
+    <zan-noticebar text="{{inform}}" mode="closeable" scrollable="{{true}}" />
+  </view>
+  <image class="logo" src="./../src/tieba_logo.png" bind:longpress="bindlongpress_toBeAdmin"></image>
+  <image class="title" src="./../src/biaobaiqiang_font.png"></image>
+</view>
+<!-- content -->
+<view id="content">
+  <!-- 帖子 -->
+  <view id="content-item" class="item-show-{{midx%2==0?'left':'right'}}" wx:for="{{messages}}" wx:for-index="midx" wx:for-item="mitem" wx:key="{{mitem.mid}}">
+    <!-- middle -->
+    <view class='middle' data-midx="{{midx}}" data-mflag="{{mitem.flag}}" data-mid="{{mitem.mid}}" bind:longpress="bindlongpress_delete" bindtap='bindtap_toCurrent'>
+      <text>{{mitem.content}}</text>
+    </view>
+    <!-- signature -->
+    <view class='signature'>
+      <text>{{mitem.flag == 0?'热门推荐':(mitem.flag == 1?'随机推荐':'')}}</text>
+      <!-- <text>{{tool.test()}}</text> -->
+      <!-- <text>{{tool.getTime(mitem.time)}}</text> -->
+      <text>{{tool.getTime(currentTime,mitem.time)}}</text>
+    </view>
+    <!-- bottom -->
+    <view class='bottom'>
+      <view class="iconfont icon-appreciate {{mitem.is_like ? 'red-font':'gray-font'}}" data-midx="{{midx}}" data-mid="{{mitem.mid}}" bindtap="bindtap_like" hover-class='hover'>
+        <block wx:if="{{!mitem.loading_like}}">{{mitem.like > 99 ? '99+':mitem.like}}</block>
+        <block wx:else>
+          <text class='iconfont icon-loading iconfont-spin mr-xs'></text>
+        </block>
+      </view>
+      <view class="iconfont icon-forward {{mitem.is_share ? 'red-font':'gray-font'}}" data-midx="{{midx}}" data-mid="{{mitem.mid}}" bindtap="bindtap_share" hover-class='hover'>
+        <button open-type="share" style="width:100%" hidden="{{true}}"></button>
+        <block wx:if="{{!mitem.loading_share}}">{{mitem.share > 99 ? '99+':mitem.share}}</block>
+        <block wx:else>
+          <text class='iconfont icon-loading iconfont-spin mr-xs'></text>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- statement-list -->
+<view id='statement-list' class='{{isShowStatement?"show-statement":"hide-statement"}}'>
+  <view id="statement-list-item">
+    <view id='txt' bind:tap="bindtap_toWrite">刷新</view>
+    <view id='ico-box' hover-class='hover' bind:tap="bindtap_refresh">
+      <view id="ico" class="iconfont icon-refresh"></view>
+    </view>
+  </view>
+  <view id="statement-list-item" style='bottom:3px'>
+    <view id='txt' bind:tap="bindtap_choiceMyself">我的</view>
+    <view id='ico-box' hover-class='hover' bind:tap="bindtap_choiceMyself">
+      <view id="dot" wx:if="{{haveNewMessage}}"></view>
+      <view id="ico" class="iconfont icon-notice"></view>
+    </view>
+  </view>
+  <view id="statement-list-item">
+    <view id='txt' bind:tap="bindtap_toWrite">悄悄表白</view>
+    <view id='ico-box' hover-class='hover' bind:tap="bindtap_toWrite">
+      <view id="ico" class="iconfont icon-write"></view>
+    </view>
+  </view>
+</view>
+<!-- bottom -->
+<view id="bottom">
+  <text wx:if="{{!isEnd}}">正在加载...</text>
+  <text wx:else space="nbsp">没有更多了 ^_^</text>
+</view>
+<!-- statement button -->
+<view id="statement" animation="{{isShowStatement?anima_show_statement:anima_hide_statement}}" bindtap="bindtap_statementRotate">
+  <view id="dot" wx:if="{{!isShowStatement && haveNewMessage}}"></view>
+  <view id="ico" class="iconfont {{isShowStatement?'icon-more':'icon-write'}}"></view>
+</view>
+<!-- bg-panel -->
+<view id="bg-panel" wx:if="{{isShowStatement}}" bindtap="bindtap_statementRotate"></view>

@@ -1,4 +1,5 @@
 <!-- pages/calendar/calendar.wxml -->
+<!-- <nav-bar nav-title="周程表" back="{{true}}" /> -->
 <doc-page title="周程表" without-padding>
   <zan-panel title="今天是{{todayIs}}">
     <zan-cell-group border class="cell-panel-demo">

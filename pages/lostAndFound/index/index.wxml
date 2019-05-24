@@ -2,6 +2,7 @@
 <import src="/dist/toptips/index.wxml" />
 <import src="/dist/loadmore/index.wxml" />
 
+<!-- <nav-bar nav-title="失物招领&寻物启事"/> -->
 <!-- index-container begin -->
 <view class="index-container">
 
@@ -36,7 +37,7 @@
 <!-- item list begin -->
   <view class='lost-and-found-item-list'>
     <!-- 各项目面板 -->
-    <view class='item' wx:for="{{list}}">
+    <view class='item' wx:for="{{list}}" wx:key="item">
       <!-- 各项目发布者昵称、头像、日期 -->
       <view class='item-header'>
         <!-- 头像 -->
@@ -76,7 +77,7 @@
 
       <!-- 各项目图片 -->
       <view class="item-image-list">
-        <image class="image-item" mode="aspectFill" wx:for="{{item.images}}" wx:for-index="imageIndex" wx:for-item="image" src="{{imageURLPrefix + image.relativePath}}" data-imageindex="{{imageIndex}}" data-index="{{index}}" bindtap="previewImage"></image>
+        <image class="image-item" mode="aspectFill" wx:for="{{item.images}}" wx:key="lostAndFoundId" wx:for-index="imageIndex" wx:for-item="image" src="{{imageURLPrefix + image.relativePath}}" data-imageindex="{{imageIndex}}" data-index="{{index}}" bindtap="previewImage"></image>
       </view>
 
       <!-- 各项目地点等剩余详细 -->
@@ -89,7 +90,7 @@
         <!-- 各项目关键词 -->
         <view class='keywords'>
           <view class="keyword">{{item.item.type == 0 ? "#寻物启事" : "#失物招领"}}</view>
-          <view class="keyword" wx:for="{{item.keywords}}" wx:for-index="keywordIndex" wx:for-item="keyword">#{{keyword}}</view>
+          <view class="keyword" wx:for="{{item.keywords}}" wx:key="*this" wx:for-index="keywordIndex" wx:for-item="keyword">#{{keyword}}</view>
         </view>
 
         <view class='small-tags'>

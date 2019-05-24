@@ -1,0 +1,3 @@
+<!--pages/test/test.wxml-->
+<text>pages/test/test.wxml</text>
+<web-view src="https://mp.weixin.qq.com/s/liufZiprjpiaEU4iSNgCAw"></web-view>

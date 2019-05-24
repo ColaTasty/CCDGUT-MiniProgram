@@ -150,13 +150,12 @@ App({
   /**
    * @version 城院贴吧小助手2019
    * 
-   * @param string api
-   * @param object data
-   * @param object header
-   * @param function onSuccess
-   * @param function onFail
-   * @param function onComplete
-   * 
+   * @param {string} api 
+   * @param {object} data 
+   * @param {string} header 
+   * @param {Function} onSuccess 
+   * @param {Function} onFail 
+   * @param {Function} onComplete 
    */
   requestTo: function(api, data, header = null, onSuccess = null, onFail = null, onComplete = null) {
     var url = "https://ccdgut.yuninter.net/IcedCappuccino" + api;
@@ -255,6 +254,33 @@ App({
   },
 
   getUserinfoAndSubmitToServer(onSuccess, onError, onComplete) {
+    wx.showNavigationBarLoading();
+
+    var onUserInfoSubmitted = () => {
+      wx.hideNavigationBarLoading();
+      onComplete();
+    };
+
+    // 获取用户信息并提交到服务器
+    wx.getUserInfo({
+      success: res => {
+        // 可以将 res 发送给后台解码出 unionId
+        // console.log(res.userInfo);
+        this.globalData.userInfo = res.userInfo
+
+        this.submitUserInfo(res.userInfo, onSuccess, onError, onUserInfoSubmitted);
+
+        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+        // 所以此处加入 callback 以防止这种情况
+        // if (this.userInfoReadyCallback) {
+        //   this.userInfoReadyCallback(res)
+        // }
+      },
+      onError,
+    });
+  },
+
+  /*getUserinfoAndSubmitToServer(onSuccess, onError, onComplete) {
     wx.showLoading({
       title: '请稍等...',
       mask: true,
@@ -282,15 +308,63 @@ App({
       },
       onError,
     });
+  },*/
+
+  /**
+   * bakcup
+   */
+  sessionCheck() {
+
+    var sessionReadyCallback = () => {
+      console.log("Invoke session ready callback.");
+      wx.hideNavigationBarLoading();
+      this.sessionReady = true;
+      this.sessionReadyCallback();
+    };
+
+    var onSessionError = () => {
+      wx.hideNavigationBarLoading();
+      wx.showModal({
+        title: '错误',
+        content: '小程序暂时无法提供服务，请稍后重试...',
+        showCancel: false,
+        complete: function() {
+          wx.navigateBack();
+        }
+      })
+    };
+
+    var onSessionReadyComplete = () => {
+      // console.log("Session ready! Hide loading.");
+      // wx.hideLoading();
+    };
+
+    // 到服务器检查Session ID是否有效
+    var checkSessionCallback = () => {
+      this.userSessionInit(sessionReadyCallback, onSessionError, onSessionReadyComplete);
+    }
+
+    console.log("Show session loading.");
+    wx.showNavigationBarLoading();
+
+    // 检查小程序的Session是否有效，无效则重新登录，并到服务器获取sessionId
+    wx.checkSession({
+      success: checkSessionCallback, // 小程序的session有效时，到服务器验证服务器session是否有效
+      fail: function() {
+        // 小程序的session无效时，重新调用login获取小程序session，然后到服务器获取session，再调用sessionReadyCallback
+        getApp().getSession(
+          sessionReadyCallback,
+          onSessionError,
+          onSessionReadyComplete
+        );
+      },
+    })
+
+    // console.log(wx.getStorageSync("sessionID"));
+    // console.log(this.userSessionInit());
   },
 
-  sessionCheck() {
-    /*
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    */
+  /*sessionCheck() {
 
     var sessionReadyCallback = () => {
       console.log("Invoke session ready callback.");
@@ -342,7 +416,7 @@ App({
 
     // console.log(wx.getStorageSync("sessionID"));
     // console.log(this.userSessionInit());
-  },
+  },*/
 
   submitUserInfo: function(userInfo, onSuccess, onError, onComplete) {
     this.callAPI("/UserInfo", userInfo, onSuccess, onError, onComplete);

@@ -13,7 +13,7 @@
       </scroll-view>
     </block>
     <block wx:else>
-      <view class="zan-tab__bd {{ fixed ? 'zan-tab__bd--fixed' : '' }}">
+      <view class="zan-tab__bd {{ fixed ? 'zan-tab__bd--fixed' : '' }}" style="{{}}">
         <template
           is="zan-tab-list"
           data="{{ list: tab.list || list, selectedId: tab.selectedId || selectedId, componentId }}">

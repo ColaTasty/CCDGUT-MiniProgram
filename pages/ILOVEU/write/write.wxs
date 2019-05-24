@@ -1,0 +1,8 @@
+var bindinput_textarea = function (e,ins) {
+    console.log("loging。。。。");
+    console.log(e);
+}
+
+module.exports = {
+    bindinput_textarea: bindinput_textarea
+}

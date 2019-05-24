@@ -217,9 +217,14 @@ var editedItemCountAdd = (onSuccessSync) => {
   wx.getStorage({
     key: "editedItemCount",
     success: function(res) {
-      wx.setStorageSync("editedItemCount", !isNaN(parseInt(res.data)) ? parseInt(res.data) + 1 : 1);
-      console.log("ADD editedItemCount: " + editedItemCount());
-      onSuccessSync();
+      wx.setStorage({
+        key: "editedItemCount",
+        data: !isNaN(parseInt(res.data)) ? parseInt(res.data) + 1 : 1,
+        success: onSuccessSync,
+        complete: () => {
+          console.log("ADD editedItemCount: " + editedItemCount());
+        }
+      })
     },
   })
 };
@@ -227,9 +232,14 @@ var editedItemCountMinus = (onSuccessSync) => {
   wx.getStorage({
     key: "editedItemCount",
     success: function(res) {
-      wx.setStorageSync("editedItemCount", !isNaN(parseInt(res.data)) ? (parseInt(res.data) <= 0 ? 0 : parseInt(res.data) - 1) : 0);
-      console.log("MINUS editedItemCount: " + editedItemCount());
-      onSuccessSync();
+      wx.setStorage({
+        key: "editedItemCount",
+        data: !isNaN(parseInt(res.data)) ? (parseInt(res.data) <= 0 ? 0 : parseInt(res.data) - 1) : 0,
+        success: onSuccessSync,
+        complete: () => {
+          console.log("MINUS editedItemCount: " + editedItemCount());
+        }
+      })
     },
   })
 };

@@ -142,8 +142,15 @@ Page({
         if (res.data.isOK) {
           wx.showModal({
             title: '保存成功',
-            content: that.data.table.type == "week" ? "周程表:" : "课表:" + that.data.table.tname + "保存成功",
-            showCancel: false
+            content: that.data.tableInfor.type == "week" ? "周程表:" : "课表:" + that.data.tableInfor.tname + "保存成功",
+            showCancel: false,
+            success:function(e){
+              if(e.confirm){
+                wx.reLaunch({
+                  url: './../../index/index?redirect=./../calendar/calendar',
+                })
+              }
+            }
           })
         } else {
           wx.showModal({

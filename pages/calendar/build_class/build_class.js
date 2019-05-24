@@ -111,7 +111,7 @@ Page({
                 console.log(isNull);
                 if (isNull) {
                   calendarModule.editedItemCountMinus(
-                    () => {
+                    function() {
                       wx.navigateBack({
                         detail: 1
                       })
@@ -119,7 +119,7 @@ Page({
                   );
                 } else {
                   calendarModule.editedItemCountAdd(
-                    () => {
+                    function() {
                       wx.navigateBack({
                         detail: 1
                       })
@@ -141,7 +141,6 @@ Page({
       d[that.data.timeIndex].value.className = e.detail.value;
     else if (e.currentTarget.dataset.flag == "classRoom")
       d[that.data.timeIndex].value.classRoom = e.detail.value;
-    console.log(d);
     that.setData({
       dayList: d,
       canFinish: ((that.data.dayList[that.data.timeIndex].start_time != null) && (that.data.dayList[that.data.timeIndex].end_time != null) && (that.data.dayList[that.data.timeIndex].value.className != null) && (that.data.dayList[that.data.timeIndex].value.classTeacher != null) && (that.data.dayList[that.data.timeIndex].value.classRoom != null))

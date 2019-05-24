@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "nav-bar":"./../../../template/navbar/navbar"
+  },
+  "navigationStyle": "custom"
+}

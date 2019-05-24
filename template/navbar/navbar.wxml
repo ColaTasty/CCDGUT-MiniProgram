@@ -1,0 +1,31 @@
+<!-- template/navbar/navbar.wxml -->
+<wxs module="event" src="./navbar.wxs"></wxs>
+<!-- nav-body -->
+<view class="nav-body" style='width:100%;height:{{nav_style.height}}px;position:fixed;top:0px;background-color:{{bgColor}};'>
+  <!-- menu icon -->
+  <!-- back -->
+  <image class='menu-icon left' style='width:{{nav_style.menu.width/4}}px;height:{{nav_style.menu.width/4}}px;top:{{nav_style.menu.top+(nav_style.menu.height-nav_style.menu.width/4)/2}}px;left:{{nav_style.menu.left+(nav_style.menu.width/2-nav_style.menu.width/4)/2}}px' src='./../src/back.png' wx:if="{{back}}" data-flag='back' bindtap='_bindtap_back' bindtouchstart='{{event.bindtouchstart_menuTouch}}' bindtouchend='{{event.bindtouchend_menuTouch}}'></image>
+  <!-- back end -->
+  <!-- home -->
+  <image class='menu-icon {{back?"right":"left"}}' style='width:{{nav_style.menu.width/4}}px;height:{{nav_style.menu.width/4}}px;top:{{nav_style.menu.top+(nav_style.menu.height-nav_style.menu.width/4)/2}}px;left:{{nav_style.menu.left+(back?nav_style.menu.width/2:1)+(nav_style.menu.width/2-nav_style.menu.width/4)/2}}px' src='./../src/homepage.png' wx:if="{{home}}" data-flag='home' bindtap='_bindtap_home' bindtouchstart='{{event.bindtouchstart_menuTouch}}' bindtouchend='{{event.bindtouchend_menuTouch}}'></image>
+  <!-- home end -->
+  <!-- menu icon end -->
+  <!-- nav-menu -->
+  <view class='nav-menu' style='min-width:{{nav_style.menu.width/2}}px;max-width:{{nav_style.menu.width}}px;height:{{nav_style.menu.height}}px;border-radius:{{nav_style.menu.height}}px;top:{{nav_style.menu.top}}px;left:{{nav_style.menu.left}}px'>
+    <!-- back -->
+    <view id="back-item" class='nav-menu-item' wx:if="{{back}}" style='width:{{nav_style.menu.width/2}}px;height:{{nav_style.menu.height}}px;' hover-class='hover' bindtap='_bindtap_back'></view>
+    <!-- back end -->
+    <view class='nav-menu-separator' style='height:{{nav_style.menu.width/4}}px;margin-top:{{(nav_style.menu.height-nav_style.menu.width/4)/2-1}}px;'></view>
+    <!-- home -->
+    <view id="home-item" class='nav-menu-item' wx:if="{{home}}" style='width:{{nav_style.menu.width/2}}px;height:{{nav_style.menu.height}}px;' hover-class='hover' bindtap='_bindtap_home'></view>
+    <!-- home end -->
+  </view>
+  <!-- nav-menu end -->
+  <!-- nav-title -->
+  <view class='nav-title' style='max-width:45%;height:{{nav_style.menu.height}}px;margin-top:{{nav_style.menu.top}}px;padding-top:{{(nav_style.menu.height-nav_style.menu.width/4)-1}}px;'>
+    {{title}}
+  </view>
+  <!-- nav-title end -->
+</view>
+<!-- nav-body end -->
+<view style='width:100%;height:{{nav_style.height}}px;z-index:2;top:0px;'></view>

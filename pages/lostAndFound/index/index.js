@@ -329,7 +329,7 @@ Page(Object.assign({}, Zan.Tab, Zan.TopTips, {
             imageURLPrefix: e.data.prefix
           });
           onSuccess(e.data.list, e.data.uid);
-          console.log(this.data.list);
+          console.log("this.data.list");
         } else {
           wx.showModal({
             title: '错误',

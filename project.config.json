@@ -1,17 +1,20 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"nodeModules": true
+		"nodeModules": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
+	"libVersion": "2.7.0",
 	"appid": "wx5401e991aa5b11ca",
 	"projectname": "CCDGUT",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -111,10 +114,46 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 13,
 					"name": "pages/index/index",
 					"pathName": "pages/index/index",
-					"query": ""
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ILOVEU/ILOVEU",
+					"pathName": "pages/ILOVEU/ILOVEU",
+					"query": "",
+					"scene": 1001
+				},
+				{
+					"id": -1,
+					"name": "pages/ILOVEU/current/current",
+					"pathName": "pages/ILOVEU/current/current",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ILOVEU/write/write",
+					"pathName": "pages/ILOVEU/write/write",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ILOVEU/write/sending",
+					"pathName": "pages/ILOVEU/write/sending",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "pages/ILOVEU/myself/myself",
+					"pathName": "pages/ILOVEU/myself/myself",
+					"query": "statement=",
+					"scene": null
 				}
 			]
 		}

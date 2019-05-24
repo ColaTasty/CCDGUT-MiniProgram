@@ -1,0 +1,220 @@
+/* pages/ILOVEU/myself/myself.wxss */
+
+
+@keyframes messages-item-show-left {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+
+@keyframes messages-item-show-right {
+    from {
+        transform: translateX(200px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+.hover {
+    opacity: 0.5;
+}
+
+.bg-image {
+    width: 100%;
+    height: 800px;
+    position: fixed;
+    z-index: -1;
+}
+
+
+/***************************************** content ******************************************/
+#content {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 500;
+}
+
+#content #content-item:nth-child(1) {
+    margin-top: 30px;
+}
+
+.item-show-left {
+    animation: messages-item-show-left 1500ms;
+    animation-fill-mode: forwards;
+}
+
+.item-show-right {
+    animation: messages-item-show-right 1500ms;
+    animation-fill-mode: forwards;
+}
+
+#content #content-item {
+    width: 88%;
+    min-height: 140px;
+    border: 1px solid rgba(209, 209, 209, 0.87);
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+    z-index: 500;
+    opacity: 0;
+    background-color: #fff;
+}
+
+#content #content-item .top {
+    width: 100%;
+    height: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: rgba(209, 209, 209, 0.87);
+    border-bottom: 1px solid rgba(209, 209, 209, 0.87);
+    font-size: 14px;
+}
+
+#content #content-item .top text:nth-child(1) {
+    display: block;
+    float: left;
+}
+
+#content #content-item .top text:nth-child(2) {
+    display: block;
+    float: right;
+}
+
+#content #content-item .middle {
+    width: 90%;
+    min-height: 85px;
+    margin: 0 auto;
+    margin-top: 10px;
+    word-wrap: break-word;
+    padding: 0;
+    /* border: 1px solid blue; */
+}
+
+#content #content-item .middle text {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+}
+
+#content #content-item .middle #images {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    padding-left: 2px;
+    box-sizing: border-box;
+}
+
+#content #content-item .middle #images.double-images {
+    width: 140px;
+    min-height: 65px;
+}
+
+#content #content-item .middle #images.odd-images {
+    width: 200px;
+    min-height: 65px;
+}
+
+#content #content-item .middle #images image {
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    /* border: 1px solid yellow; */
+    border-radius: 2px;
+}
+
+#content #content-item .signature {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: auto;
+    margin: 3px auto;
+    padding-top: 2px;
+    padding-left: 10px;
+    padding-right: 5px;
+    /* position: absolute;
+    bottom: 30px; */
+}
+
+#content #content-item .signature text {
+    display: inline-block;
+    color: #ccc;
+    font-size: 14px;
+}
+
+#content #content-item .signature text:nth-child(1) {
+    /* border: 1px solid blue; */
+}
+
+#content #content-item .signature text:nth-child(2) {
+    margin-top: 2px;
+    float: right;
+    /* border: 1px solid yellow; */
+}
+
+#content #content-item .bottom {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    position: absolute;
+    bottom: 0px;
+    /* border-top: 1px solid rgba(209, 209, 209, 0.87); */
+}
+
+#content #content-item .bottom view,
+#content #content-item .bottom .normal {
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+    flex-grow: 1;
+    text-align: center;
+    position: relative;
+    /* border-top: 1px solid rgba(209, 209, 209, 0.87); */
+}
+
+#content #content-item .bottom view text {
+    font-size: 14px;
+}
+
+.red-font {
+    color: #d8276b;
+}
+
+.gray-font {
+    color: rgb(104, 104, 104);
+}
+
+/********************************************************bottom*************************************************/
+#bottom {
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    margin: 0 auto;
+    padding-top: 10px;
+    /* border: 1px solid blue; */
+}
+
+#bottom text {
+    display: inline-block;
+}

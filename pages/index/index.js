@@ -16,7 +16,7 @@ Page({
     loading: false,
   },
 
-  educationSystemBindCheck: function () {
+  educationSystemBindCheck: function() {
     /* //教务系统用
     var page = this;
     page.setData({
@@ -36,8 +36,15 @@ Page({
     });
     */
   },
-  
-  onLoad: function () {
+
+  onLoad: function(options) {
+    // if (!(typeof (options.redirect) == "undefined")) {
+    console.log("options.redirect = " + ~~options.redirect)
+    if (~~options.redirect) {
+      wx.navigateTo({
+        url: options.redirect,
+      })
+    }
     /*
     if (app.globalData.userInfo) {
       this.setData({
@@ -79,7 +86,7 @@ Page({
     */
   },
 
-  onShow: function () {
+  onShow: function() {
     /*
     edusystem.bindCheck(
       undefined,
@@ -108,7 +115,7 @@ Page({
     */
   },
 
-  getUserInfo: function (e) {
+  getUserInfo: function(e) {
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -116,8 +123,7 @@ Page({
     });
   },
 
-  onShareAppMessage: function (options) {
-  },
+  onShareAppMessage: function(options) {},
 
   /*
   bindtap_redirect: function (){

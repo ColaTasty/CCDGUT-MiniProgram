@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "zan-button":"../../zanui-components/btn/index",
+    "zan-noticebar": "../../zanui-components/noticebar/index",
+    "zan-loading":"../../zanui-components/loading/index",
+    "nav-bar": "./../../template/navbar/navbar"
+  },
+  "backgroundTextStyle":"dark",
+  "enablePullDownRefresh":true,
+  "onReachBottomDistance":10,
+  "navigationStyle": "custom",
+  "disableSwipeBack":true
+}

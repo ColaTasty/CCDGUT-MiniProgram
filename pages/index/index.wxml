@@ -1,13 +1,20 @@
-<!--index.wxml-->
+<!-- index.wxml -->
+<!-- <nav-bar nav-title="城院贴吧小助手">
+</nav-bar> -->
 <view>
   <view class="userinfo">
-    <button style='display: none; ' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 点我显示头像 </button>
+    <button style='display: none; ' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      点我显示头像
+    </button>
     <block>
       <view class="userinfo-avatar" background-size="cover">
         <open-data type="userAvatarUrl"></open-data>
       </view>
       <open-data class="userinfo-nickname whiteFont" type="userNickName" lang="zh_CN"></open-data>
-      <text class="regulatFont whiteFont">Hello！城院贴吧小助手欢迎你，<text class="yellowFont">^_^</text></text>
+      <text class="regulatFont whiteFont">
+        Hello！城院贴吧小助手欢迎你，
+        <text class="yellowFont">^_^</text>
+      </text>
     </block>
   </view>
   <view wx:if="{{loading}}">
@@ -18,12 +25,13 @@
     <view>
       <text class="navicationClass">学习生活</text>
       <view class="navicationBlock">
-
+        <!-- row -->
         <view class="weui-flex">
           <view class="weui-flex__item navicationLeftItem">
             <view>
               <navigator url="./../CETquery/CETquery">
-                <view class="placeholder">四六级查询
+                <view class="placeholder">
+                  四六级查询
                   <text class="yellowFont boldFont">></text>
                 </view>
               </navigator>
@@ -40,27 +48,75 @@
             </view>
           </view>
         </view>
-
+        <!-- row -->
+        <!-- <view class="weui-flex">
+          <view class="weui-flex__item navicationLeftItem">
+            <view>
+              <navigator url="./../homework/homework">
+                <view class="placeholder">
+                  作业提醒
+                  <text class="yellowFont boldFont">></text>
+                </view>
+              </navigator>
+            </view>
+          </view>
+          <view class="weui-flex__item navicationRightItem grayItem">
+            <view>
+              <navigator url="">
+                <view class="placeholder">
+                  正在施工
+                  <text class="whiteFont">></text>
+                </view>
+              </navigator>
+            </view>
+          </view>
+        </view> -->
       </view>
     </view>
-
     <view>
       <text class="navicationClass">城院日常</text>
       <view class="navicationBlock">
+        <!-- row -->
         <view class="weui-flex">
           <view class="weui-flex__item navicationLeftItem">
             <navigator url="/pages/lostAndFound/index/index">
-              <view class="placeholder">失物招领 寻物启事
+              <view class="placeholder">
+                失物招领 寻物启事
                 <text class="redFont boldFont">></text>
               </view>
             </navigator>
           </view>
-          <view class="weui-flex__item grayItem">
+          <view class="weui-flex__item navicationRightItem">
             <view>
-              更多功能正在开发中。。。
+              <navigator url="/pages/ILOVEU/ILOVEU">
+                <view class="placeholder">
+                  表白墙
+                  <text class="yellowFont">></text>
+                </view>
+              </navigator>
             </view>
           </view>
         </view>
+        <!-- <view class="weui-flex__item navicationRightItem">
+            <view>
+              <navigator url="./../vote/vote">
+                <view class="placeholder">
+                  投票器
+                  <text class="yellowFont boldFont">></text>
+                </view>
+              </navigator>
+            </view>
+          </view> -->
+        <!-- <view class="weui-flex__item navicationLeftItem">
+            <view>
+              <navigator url="./../test/test">
+                <view class="placeholder">
+                  测试
+                  <text class="yellowFont boldFont">></text>
+                </view>
+              </navigator>
+            </view>
+          </view> -->
       </view>
     </view>
   </view>

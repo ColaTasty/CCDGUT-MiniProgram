@@ -1,0 +1,46 @@
+<!-- pages/ILOVEU/myself/myself.wxml -->
+<wxs module="tool" src="./../ILOVEU.wxs"></wxs>
+<nav-bar title="{{title}}"></nav-bar>
+<!-- bg-image -->
+<image class="bg-image" src='./../../src/bg-love.jpg'></image>
+<!-- content -->
+<view id="content">
+    <block wx:for="{{messages}}" wx:for-index="midx" wx:for-item="mitem" wx:key="{{mitem.mid}}">
+        <!-- 帖子 -->
+        <view id="content-item" class="item-show-{{midx%2==0?'left':'right'}}" data-midx="{{midx}}" data-mid="{{mitem.mid}}">
+            <!-- middle -->
+            <view class='middle' data-midx="{{midx}}" data-mid="{{mitem.mid}}" bindtap='bindtap_toCurrent' bind:longpress="bindlongpress_delete">
+                <text>{{mitem.content}}</text>
+            </view>
+            <!-- signature -->
+            <view class='signature'>
+                <text></text>
+                <text>{{tool.getTime(currentTime,mitem.time)}}</text>
+            </view>
+            <!-- bottom -->
+            <view class='bottom'>
+                <view class="iconfont icon-appreciate {{mitem.is_like ? 'red-font':'gray-font'}}" data-midx="{{midx}}" data-mid="{{mitem.mid}}" bindtap="bindtap_like" hover-class='hover'>
+                    <block wx:if="{{!mitem.loading_like}}">
+                        {{mitem.like > 99 ? '99+':mitem.like}}
+                    </block>
+                    <block wx:else>
+                        <text class='iconfont icon-loading iconfont-spin mr-xs'></text>
+                    </block>
+                </view>
+                <view class="iconfont icon-forward {{mitem.is_share ? 'red-font':'gray-font'}}" data-midx="{{midx}}" data-mid="{{mitem.mid}}" bindtap="bindtap_share" hover-class='hover'>
+                    <block wx:if="{{!mitem.loading_share}}">
+                        {{mitem.share > 99 ? '99+':mitem.share}}
+                    </block>
+                    <block wx:else>
+                        <text class='iconfont icon-loading iconfont-spin mr-xs'></text>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>
+<!-- bottom -->
+<view id="bottom">
+    <text wx:if="{{!isEnd}}">正在加载...</text>
+    <text wx:else space="nbsp">没有更多了 ^_^</text>
+</view>

@@ -2,6 +2,7 @@
 <import src="/dist/toptips/index.wxml" />
 <import src="/dist/loadmore/index.wxml" />
 
+<!-- <nav-bar nav-title="创建新的发布" back="{{true}}"/> -->
 <form bindsubmit="formSubmit" bindreset="formReset">
 <view class='item-form-box'>
 <text style='color: gray; font-size: 13px;'>启事类型</text>

@@ -1,0 +1,18 @@
+var bindtouchstart_menuTouch = function(e, currentPageInstance) {
+  var instance = currentPageInstance.selectComponent("#" + e.currentTarget.dataset.flag + "-item");
+  instance.setStyle({
+    "background-color": "#888"
+  })
+}
+
+var bindtouchend_menuTouch = function(e, currentPageInstance) {
+  var instance = currentPageInstance.selectComponent("#" + e.currentTarget.dataset.flag + "-item");
+  instance.setStyle({
+    "background-color": "#fff"
+  });
+}
+
+module.exports = {
+  bindtouchstart_menuTouch: bindtouchstart_menuTouch,
+  bindtouchend_menuTouch: bindtouchend_menuTouch
+}

@@ -13,7 +13,16 @@
     "pages/calendar/build_class/build_class",
     "pages/calendar/view/view",
     "pages/calendar/edit/edit",
-    "pages/calendar/share/share"
+    "pages/calendar/share/share",
+    "pages/homework/homework",
+    "pages/ILOVEU/ILOVEU",
+    "template/navbar/navbar",
+    "pages/ILOVEU/current/current",
+    "pages/test/test",
+    "pages/ILOVEU/write/write",
+    "pages/ILOVEU/myself/myself",
+    "pages/ILOVEU/write/sending",
+    "pages/ILOVEU/write/write/sending"
   ],
   "permission": {
     "scope.userLocation": {
@@ -25,5 +34,6 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "城院贴吧小助手",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

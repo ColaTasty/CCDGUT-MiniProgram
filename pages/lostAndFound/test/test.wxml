@@ -1,3 +1,4 @@
+<!-- <nav-bar nav-title="测试" back="{{true}}"/> -->
 <view class="container">
 
   <view class="doc-title zan-hairline--bottom">POPUP</view>

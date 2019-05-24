@@ -1,9 +1,10 @@
 <!-- pages/calendar/build/build.wxml -->
-<doc-page title="新建周程表" without-padding>
+<!-- <nav-bar nav-title="我的周程表" back="{{true}}" /> -->
+<doc-page title="新建{{tableType=='week' ? '周程表':'课表'}}" without-padding>
   <!-- step 0 start -->
   <block wx:if="{{step==0}}">
-    <zan-panel title="第一步、新的周程表名称">
-      <zan-field name="tableName" title="周程表名称" placeholder="{{tableName != null ? tableName:'不超过15个字'}}" bind:change="bindchange_tableName" value="{{tableName != null ? tableName:''}}"></zan-field>
+    <zan-panel title="第一步、新的{{tableType=='week' ? '周程表':'课表'}}名称">
+      <zan-field name="tableName" title="{{tableType=='week' ? '周程表':'课表'}}名称" placeholder="{{tableName != null ? tableName:'不超过15个字'}}" bind:change="bindchange_tableName" value="{{tableName != null ? tableName:''}}"></zan-field>
       <zan-radio items="{{arr_tableTypes}}" bind:change="bindchange_tableType"></zan-radio>
     </zan-panel>
     <zan-button-group>
@@ -13,7 +14,7 @@
   <!-- step 0 end -->
   <!-- step 1 start -->
   <block wx:if="{{step==1}}">
-    <zan-panel title="第二步、点击气泡编辑周程安排">
+    <zan-panel title="第二步、点击气泡编辑{{tableType=='week' ? '周程':'课表'}}安排">
       <view class='nav'>
         <block wx:for="{{days}}" wx:key="*this" wx:for-item="dayItem" wx:for-index="weekIdx">
           <view data-index='{{weekIdx}}' class='{{dayItem.checked}}' bindtap='bindtap_dayChange'>
@@ -87,7 +88,7 @@
   <!-- step 1 end -->
   <!-- step 2 start -->
   <block wx:if="{{step == 2}}">
-    <zan-panel title="第三步、预览周程安排">
+    <zan-panel title="第三步、预览{{tableType=='week' ? '周程':'课表'}}安排">
       <view class='nav'>
         <block wx:for="{{days}}" wx:key="*this" wx:for-item="dayItem" wx:for-index="weekIdx">
           <view data-index='{{weekIdx}}' class='{{dayItem.checked}}' bindtap='bindtap_dayChange'>

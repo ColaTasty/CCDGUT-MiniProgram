@@ -3,11 +3,9 @@ const app = getApp();
 const week = [
   "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"
 ];
-var weekIndex = 0,
-  flag = false,
-  page_tid = 0,
-  page_isLoaded = false;
 const calendarModule = require("./../CalendarModule.js");
+var weekIndex = 0,
+  flag = false;
 Page({
 
   /**
@@ -27,13 +25,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var that = this;
-    if (options.tid != null) {
-      page_tid = options.tid;
-    }
+    var that = this,
+      editedItemCount = calendarModule.editedItemCount();;
     if (options.tid != null) {
       wx.showLoading({
-        title: '正在查询。。。',
+        title: '正在查询',
       })
       calendarModule.viewTable(
         options.tid,
@@ -223,47 +219,5 @@ Page({
         wx.hideLoading();
       }
     )
-    // wx.getStorage({
-    //   key: 'tables_backup',
-    //   success: function(res) {
-    // app.requestTo(
-    //   "/wxapp/calendar/reBuild", {
-    //     tid: that.data.tables.tid,
-    //     Mon: (JSON.stringify(that.data.tables.days[0].item) == JSON.stringify(res.data.days[0].item) ? 0 : JSON.stringify(that.data.tables.days[0].item)),
-    //     Tue: (JSON.stringify(that.data.tables.days[1].item) == JSON.stringify(res.data.days[1].item) ? 0 : JSON.stringify(that.data.tables.days[1].item)),
-    //     Wed: (JSON.stringify(that.data.tables.days[2].item) == JSON.stringify(res.data.days[2].item) ? 0 : JSON.stringify(that.data.tables.days[2].item)),
-    //     Thu: (JSON.stringify(that.data.tables.days[3].item) == JSON.stringify(res.data.days[3].item) ? 0 : JSON.stringify(that.data.tables.days[3].item)),
-    //     Fri: (JSON.stringify(that.data.tables.days[4].item) == JSON.stringify(res.data.days[4].item) ? 0 : JSON.stringify(that.data.tables.days[4].item)),
-    //     Sat: (JSON.stringify(that.data.tables.days[5].item) == JSON.stringify(res.data.days[5].item) ? 0 : JSON.stringify(that.data.tables.days[5].item)),
-    //     Sun: (JSON.stringify(that.data.tables.days[6].item) == JSON.stringify(res.data.days[6].item) ? 0 : JSON.stringify(that.data.tables.days[6].item)),
-    //   },
-    //   null,
-    //   (res) => {
-    //     if (res.data.isOK) {
-    //       wx.setStorage({
-    //         key: 'tables_backup',
-    //         data: that.data.tables,
-    //         success: function(e) {
-    //           that.setData({
-    //             isEditing: false,
-    //             canSave: false
-    //           });
-    //         }
-    //       })
-    //     } else {
-    //       Dialog({
-    //         title: "更新周程表失败",
-    //         message: "服务器原因，请反馈",
-    //         selector: '#alter',
-    //       });
-    //     }
-    //   },
-    //   null,
-    //   (res) => {
-    //     wx.hideLoading();
-    //   }
-    // );
-    //   },
-    // })
   }
 })

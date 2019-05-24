@@ -112,7 +112,6 @@ Page({
     wx.navigateTo({
       url: './view/view?tid=' + e.currentTarget.dataset.tid,
     })
-    console.log(e);
   },
 
   bindtap_delet: function(e) {

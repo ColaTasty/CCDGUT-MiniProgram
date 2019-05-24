@@ -36,7 +36,6 @@ Page({
           type = "";
         tableName = data.tname;
         type = data.ttype;
-        console.log(data);
         t[0] = JSON.parse(data.Mon);
         t[1] = JSON.parse(data.Tue);
         t[2] = JSON.parse(data.Wed);

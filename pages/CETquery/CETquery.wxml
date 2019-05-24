@@ -1,4 +1,5 @@
 <!--pages/CETquery/CETquery.wxml-->
+<!-- <nav-bar nav-title="四六级查询" back="{{true}}" /> -->
 <doc-page title="四六级查询" without-padding>
   <block wx:if="{{!have_res}}">
     <zan-panel title="{{dd.subn}}">
@@ -51,6 +52,6 @@
       </zan-button>
     </zan-button-group>
   </block>
-  <view id="copyright_text">© {{app.systemInfo.year}} 城院贴吧小助手</view>
+  <view id="copyright_text">{{app.systemInfo.year}} © 城院贴吧小助手</view>
   <zan-dialog id="verify-can-not-get"></zan-dialog>
 </doc-page>

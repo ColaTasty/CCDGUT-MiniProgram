@@ -1,0 +1,28 @@
+<!-- pages/ILOVEU/write/sending.wxml -->
+<nav-bar title="写下我的表白"></nav-bar>
+<!-- bg-image -->
+<image class="bg-image" src='./../../src/bg-love.jpg'></image>
+<!-- content -->
+<view id="content">
+    <icon id="pattern" type="{{patternType[sendStatus]}}" size="100" />
+    <view class="tip">
+        <block wx:if="{{sendStatus==2}}">正在发送...</block>
+        <block wx:if="{{sendStatus==1}}">发送成功</block>
+        <block wx:if="{{sendStatus==0}}">发送失败，{{errorMsg}}</block>
+    </view>
+    <view id="bottom">
+        <block wx:if="{{sendStatus==2}}">
+            <zan-loading type="dot" color="black"></zan-loading>
+        </block>
+        <block wx:if="{{sendStatus==1}}">
+            <button class="item" type="primary" bindtap="bindtap_toCurrent">立即查看</button>
+        </block>
+        <block wx:if="{{sendStatus==0}}">
+            <button class="item" type="warn" bindtap="bindtap_resend">重新发送</button>
+        </block>
+    </view>
+</view>
+<!-- copyright -->
+<view id="copyright">
+    <text>{{year}} © 城院贴吧小助手</text>
+</view>

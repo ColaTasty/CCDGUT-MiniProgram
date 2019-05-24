@@ -206,18 +206,6 @@ Page({
                 that.setData({
                   days: res.data
                 })
-                // var d = that.data.days;
-                // for (var i = 0; i < (that.data.tableType == 'week' ? 7 : 5); i++) {
-                //   for (var j = 0; j < 10; j++) {
-                //     if (that.data.tableType == 'week' ? d[i].dayList[j].value != null : !(d[i].dayList[j].start_time === null && d[i].dayList[j].end_time === null)) {
-                //       that.setData({
-                //         canNext: true
-                //       });
-                //       break;
-                //     }
-                //     continue;
-                //   }
-                // }
               } else {
                 that.setData({
                   days: calendarModule.getInitDays(that.data.tableType)
@@ -303,7 +291,6 @@ Page({
   },
 
   bindtap_buildItem: function(e) {
-    // console.log(e);
     var that = this;
     calendarModule.setDaysToStorage(
       that.data.days,

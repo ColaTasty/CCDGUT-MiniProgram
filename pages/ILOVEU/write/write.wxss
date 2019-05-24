@@ -1,0 +1,79 @@
+/* pages/ILOVEU/write/write.wxss */
+
+
+.hover {
+    opacity: 0.5;
+}
+
+.bg-image {
+    width: 100%;
+    height: 800px;
+    position: fixed;
+    z-index: -1;
+}
+
+/*******************************************content*************************************/
+#content {
+    width: 100%;
+    height: auto;
+}
+
+#content #context {
+    width: 88%;
+    height: 300px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 10px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    border-radius: 10px;
+    background-color: #fff;
+    /* border: 1px solid blue; */
+}
+
+#content #context textarea {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    /* border: 1px solid red; */
+}
+
+#content #context button {
+    width: 40%;
+    height: auto;
+    position: relative;
+    top: 50px;
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.canSubmit {
+    color: #eee;
+    background-color: #dc7280;
+    border: none;
+}
+
+.canNotSubmit {
+    color: #353535;
+    background-color: #fff;
+    border: #353535;
+}
+
+/*******************************************copyright************************************/
+
+#copyright {
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0px;
+}
+
+#copyright text {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+}

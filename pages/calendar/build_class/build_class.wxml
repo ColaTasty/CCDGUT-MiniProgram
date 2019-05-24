@@ -1,4 +1,5 @@
 <!-- pages/calendar/build_item/build_item.wxml -->
+<!-- <nav-bar nav-title="编辑时间点" back="{{true}}"/> -->
 <doc-page title="编辑时间点" without-padding>
   <text class='iconfont icon-title success-text'></text>
   <text style='font-size:14px'>填写时间点内容</text>

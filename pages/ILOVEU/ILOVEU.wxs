@@ -1,0 +1,37 @@
+var getTime = function (currentTime, timestamp) {
+    var str_currentTime = currentTime.toString();
+    var time = str_currentTime.substring(0, 10);
+    // console.log("time" + time);
+    // console.log("timestamp" + timestamp);
+    var callback = "";
+    var tt = parseInt(timestamp),
+        t = parseInt(time),
+        gap = t - tt;
+    if (gap < 60) {
+        callback = gap % 60 + "秒前";
+        callback = callback.toString().replace("-", "");
+    } else if (gap < 3600) {
+        callback = parseInt(gap / 60) + "分钟前";
+        callback = callback.toString().replace("-", "");
+    } else if (gap < 24 * 3600) {
+        callback = parseInt(gap / 3600) + "小时前";
+        callback = callback.toString().replace("-", "");
+    } else if (gap < 48 * 3600) {
+        callback = "昨天";
+        callback = callback.toString().replace("-", "");
+    } else {
+        var data_reg = getRegExp("[0-9]+\/[0-9]+\/[0-9]+");
+        var data = data_reg.exec(getDate(tt * 1000).toLocaleString())[0];
+        callback = data.replace(getRegExp("\/", "g"), "-");
+    }
+    return callback;
+}
+
+var test = function () {
+    return "test";
+}
+
+module.exports = {
+    getTime: getTime,
+    test: test
+}

@@ -1,0 +1,19 @@
+<!-- pages/ILOVEU/write/write.wxml -->
+<wxs src="./write.wxs" module="active"></wxs>
+<nav-bar title="写下我的表白"></nav-bar>
+<!-- bg-image -->
+<image class="bg-image" src='./../../src/bg-love.jpg'></image>
+<!-- content -->
+<view id="content">
+    <form id="context" bindsubmit="bindsubmit_form">
+        <textarea name="content" id="textarea" placeholder="在这里悄悄地写下你对TA的爱意..." bindinput="bindinput_textarea" maxlength="1000"></textarea>
+        <button form-type="submit" class="can{{canSubmit?'':'Not'}}Submit" disabled="{{!canSubmit}}">
+            <text space="nbsp">发 送</text>
+        </button>
+    </form>
+</view>
+<view id="bottom"></view>
+<!-- copyright -->
+<view id="copyright">
+    <text>{{year}} © 城院贴吧小助手</text>
+</view>

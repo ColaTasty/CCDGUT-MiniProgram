@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "nav-bar":"./../../../../template/navbar/navbar",
+    "zan-loading": "./../../../../zanui-components/loading/index"
+  },
+  "navigationStyle": "custom"
+}

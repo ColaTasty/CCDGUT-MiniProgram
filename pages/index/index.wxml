@@ -97,6 +97,27 @@
             </view>
           </view>
         </view>
+        <!-- row -->
+        <view class="weui-flex">
+          <view class="weui-flex__item navicationLeftItem">
+            <navigator url="/pages/secondHand/secondHand">
+              <view class="placeholder">
+                跳蚤市场
+                <text class="redFont boldFont">></text>
+              </view>
+            </navigator>
+          </view>
+          <view class="weui-flex__item navicationRightItem grayItem">
+            <view>
+              <navigator url="">
+                <view class="placeholder">
+                  正在施工
+                  <text class="whiteFont">></text>
+                </view>
+              </navigator>
+            </view>
+          </view>
+        </view>
         <!-- <view class="weui-flex__item navicationRightItem">
             <view>
               <navigator url="./../vote/vote">

@@ -1,0 +1,73 @@
+<!-- pages/secondHand/secondHand.wxml -->
+<wxs module="style" src="Style.wxs"></wxs>
+<nav-bar title="城院跳蚤市场" home="{{true}}" back="{{false}}" />
+<!-- header -->
+<view id="header">
+    <view class="logo-box logo-show">
+        <image id="logo" src="./../src/tieba_logo.png" />
+        <view class="logo-back"></view>
+    </view>
+    <view class="title-box title-show">
+        <view class="title">城院跳蚤市场</view>
+        <view class="title-back"></view>
+    </view>
+</view>
+<!-- content -->
+<view id="content">
+    <!-- categories -->
+    <view id="category" style="top:{{style.getNavHeight(app.systemInfo)}}px">
+        <view class="nav">
+            <view class="nav-item-box">
+                <view class="nav-item{{category.selected ? ' cur':''}}" bindtap="bindtap_selectCategory" data-cidx="{{cidx}}" wx:for="{{categories}}" wx:for-item="category" wx:for-index="cidx" wx:key="{{cidx}}">
+                    {{category.name}}
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- search -->
+    <view id="search">
+        <zan-search focus="{{searchGood != ''}}" placeholder="搜索我想要的{{categoryIndex > 0 ? categories[categoryIndex].name:''}}..." useCancel="{{searchGood != ''}}" keyword="{{searchGood}}" bindchange="bindchange_searchGood" bindsearch="bindsearch_searchGood" bindcancel="bindcancel_searchGood"></zan-search>
+    </view>
+    <!-- messages -->
+    <view id="messages">
+        <!-- if messages items -->
+        <block wx:if="{{messages.length > 0}}">
+            <view class="item" wx:for="{{messages}}" wx:for-index="midx" wx:for-item="mitem" wx:key="{{midx}}">
+                <!-- mitem header -->
+                <view class="header">
+                    <view class="seller-avatar">
+                        <block wx:if="{{mitem.seller.avatar=='卖家头像路径'}}">
+                            <view id="avatar" class="iconfont icon-my" style="display:block;padding-top:4px;"></view>
+                        </block>
+                        <block wx:else>
+                            <image id="avatar" src="{{mitem.seller.avatar}}" />
+                        </block>
+                    </view>
+                    <view class="title">我有·{{mitem.title}}</view>
+                    <view class="time">发布于·{{style.getShowTimeString(mitem.time)}}</view>
+                    <view class="price">￥{{mitem.content.price}}</view>
+                    <view class="original-price">原价·<text style="text-decoration:line-through;font-weight:bold">{{mitem.content.originalPrice}}</text></view>
+                </view>
+                <!-- mitem content -->
+                <!-- <view class="content"></view> -->
+                <!-- mitem footer -->
+                <!-- <view class="footer">
+                    <button size="mini">测试</button>
+                    <button size="mini">测试</button>
+                </view> -->
+            </view>
+        </block>
+        <!-- else no messages -->
+        <block wx:else>
+            <view class="no-message">
+                <view id="icon" class="iconfont icon-goods"></view>
+                <view class="inform">貌似没有人发布商品哦~</view>
+            </view>
+        </block>
+    </view>
+</view>
+<!-- spot -->
+<view id="spot">
+    <view class="spot-main"></view>
+</view>
+<!-- <view id="footer"></view> -->

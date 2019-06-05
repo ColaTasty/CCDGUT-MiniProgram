@@ -22,7 +22,8 @@
     "pages/ILOVEU/write/write",
     "pages/ILOVEU/myself/myself",
     "pages/ILOVEU/write/sending",
-    "pages/ILOVEU/write/write/sending"
+    "pages/ILOVEU/write/write/sending",
+    "pages/secondHand/secondHand"
   ],
   "permission": {
     "scope.userLocation": {

@@ -1,0 +1,298 @@
+/* pages/secondHand/secondHand.wxss */
+
+@keyframes title-show {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.title-show {
+    animation: title-show 1500ms;
+}
+
+@keyframes logo-show {
+    from {
+        transform: scale(0, 0);
+    }
+    to {
+        transform: scale(1, 1);
+    }
+}
+
+.logo-show {
+    animation: logo-show 1500ms;
+}
+
+
+/* @keyframes back-show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.5;
+    }
+}
+
+.back-show {
+    animation: back-show 1s;
+} */
+
+
+/* ****************************************header************************************** */
+
+#header {
+    display: block;
+    width: 100%;
+    height: 150px;
+    /* background: linear-gradient(45deg, #252525, #808080); */
+    background-image: url("https://mmbiz.qpic.cn/mmbiz_jpg/8rvuMBprahpzoyatonKnG8rLribPjEtk8BqKRa657ut6qib2k2l3NXpCFSw073PfyxRibgExyqQlzFmFUjibqSAh7g/0?wx_fmt=jpeg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    border: 1px solid #ffffff;
+}
+
+#header .logo-box {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 10px;
+    overflow: hidden;
+    transform: scale(0, 0);
+    animation-fill-mode: forwards;
+}
+
+#header .logo-box #logo {
+    display: block;
+    width: 100px;
+    height: 80px;
+    position: absolute;
+    left: -12px;
+    z-index: 10;
+}
+
+#header .logo-box .logo-back {
+    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    opacity: 0.2;
+    background-color: #bbb;
+}
+
+#header .title-box {
+    /* border: 1px solid red; */
+    width: 55%;
+    height: 30px;
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    margin-top: 10px;
+    transform: scaleX(0);
+    animation-delay: 750ms;
+    animation-fill-mode: forwards;
+}
+
+#header .title-box .title {
+    display: block;
+    text-align: center;
+    width: 90%;
+    height: 30px;
+    padding: 0;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 500;
+    text-align-last: justify;
+    position: absolute;
+    left: 5%;
+    top: -2px;
+    z-index: 10;
+}
+
+#header .title-box .title-back {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 30px;
+    border-radius: 8px;
+    background-color: #bbb;
+    /* margin: 0 auto; */
+    /* margin-top: 11px; */
+    opacity: 0.2;
+}
+
+
+/* ****************************************content************************************** */
+
+#content {
+    /* border: 1px solid blue; */
+}
+
+#content #category {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    z-index: 10;
+    border-bottom: 1px solid #bbb;
+}
+
+#content #search {
+    width: 100%;
+    height: auto;
+    z-index: 10;
+    background-color: #fff;
+    border-bottom: 1px solid #bbb;
+}
+
+#content #messages {
+    display: block;
+    height: 2000px;
+    background-color: #eee;
+    border: 1px solid #eee;
+}
+
+#content #messages .item {
+    width: 100%;
+    min-height: 200px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+}
+
+#content #messages .item .header {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid red;
+}
+
+#content #messages .item .header .seller-avatar {
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    padding-top: 1px;
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    overflow: hidden;
+    /* border: 1px solid red; */
+}
+
+#content #messages .item .header .seller-avatar #avatar {
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 24px;
+    color: #353535;
+    background-color: #ddd;
+    /* border: 1px solid green; */
+}
+
+#content #messages .item .header .seller-name,
+#content #messages .item .header .title {
+    display: block;
+    width: auto;
+    height: 20px;
+    font-size: 15px;
+    position: absolute;
+    top: 5px;
+    left: 55px;
+    /* border: 1px solid green; */
+}
+
+#content #messages .item .header .time {
+    display: block;
+    width: auto;
+    height: 16px;
+    font-size: 12px;
+    color: #bbb;
+    position: absolute;
+    bottom: 5px;
+    left: 55px;
+    /* border: 1px solid green; */
+}
+
+#content #messages .item .header .price {
+    display: block;
+    width: auto;
+    height: 20px;
+    font-size: 15px;
+    color: #353535;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border: 1px solid green;
+}
+
+#content #messages .item .header .original-price {
+    display: block;
+    width: auto;
+    height: 16px;
+    font-size: 12px;
+    color: #353535;
+    position: absolute;
+    color: #bbb;
+    right: 5px;
+    bottom: 5px;
+    border: 1px solid green;
+}
+
+#content #messages .item .content {
+    width: 100%;
+    height: 120px;
+    border: 1px solid blue;
+}
+
+#content #messages .item .footer {
+    width: 100%;
+    height: 40px;
+    /* border: 1px solid green; */
+}
+
+#content #messages .no-message {
+    display: block;
+    width: 100%;
+    height: 200px;
+    margin-top: 50px;
+    text-align: center;
+    /* border: 1px solid red; */
+}
+
+#content #messages .no-message #icon {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    font-size: 90px;
+    /* border: 1px solid blue; */
+}
+
+#content #messages .no-message .inform {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 20px;
+    /* border: 1px solid red; */
+}
+
+
+/* ****************************************footer************************************** */
+
+#footer {
+    border: 1px solid green;
+}

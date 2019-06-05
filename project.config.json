@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
+			"current": 19,
 			"list": [
 				{
 					"id": -1,
@@ -153,6 +153,12 @@
 					"name": "pages/ILOVEU/myself/myself",
 					"pathName": "pages/ILOVEU/myself/myself",
 					"query": "statement=",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/secondHand/secondHand",
+					"pathName": "pages/secondHand/secondHand",
 					"scene": null
 				}
 			]

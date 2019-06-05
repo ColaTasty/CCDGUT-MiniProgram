@@ -1,0 +1,70 @@
+var getNavHeight = function(systemInfo) {
+    var menu = systemInfo.menuButton;
+    var callback = parseInt(menu.top) + parseInt(menu.height) + parseInt(systemInfo.screenWidth) - parseInt(menu.right);
+    return callback;
+}
+
+/**
+ * 
+ * @param {number} timestamp 
+ */
+var getShowTimeString = function(timestamp) {
+    var now = getDate().getTime();
+    var n = now.toString(),
+        t = timestamp.toString();
+    if (t.length > 10) {
+        t = t.substring(0, 10);
+    }
+    if (n.length > 10) {
+        n = n.substring(0, 10);
+    }
+    var diff = parseInt(n) - parseInt(t);
+    if (diff < 0) {
+        diff *= -1;
+    }
+    if (diff < 60) {
+        return (diff % 60) + "秒前";
+    } else if (diff < 60 * 60) {
+        return parseInt(diff / 60) + "分钟前";
+    } else if (diff < 24 * 60 * 60) {
+        return parseInt(diff / 3600) + "小时前";
+    } else if (diff < 2 * 24 * 60 * 60) {
+        return "昨天";
+    } else {
+        return getTimeString(parseInt(t));
+    }
+}
+
+/**
+ * 
+ * @param {number} timestamp 
+ * @param {boolean} needTime
+ */
+var getTimeString = function(timestamp, needTime = false) {
+    var t = timestamp.toString();
+    if (t.length <= 10)
+        t += "000";
+    var date = getDate(parseInt(t));
+    var callback = "";
+    // 年
+    callback += date.getFullYear() + "-";
+    // 月
+    callback += (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    // 日
+    callback += date.getDate() + ' ';
+    if (needTime) {
+        // 时
+        callback += date.getHours() + ':';
+        // 分
+        callback += date.getMinutes() + ':';
+        // 秒
+        callback += date.getSeconds();
+    }
+    return callback;
+}
+
+module.exports = {
+    getNavHeight: getNavHeight,
+    getTimeString: getTimeString,
+    getShowTimeString: getShowTimeString
+}

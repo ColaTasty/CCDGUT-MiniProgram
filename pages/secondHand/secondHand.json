@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "nav-bar": "./../../template/navbar/navbar",
+        "zan-search": "./../../zanui-components/search/index"
+    },
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 10,
+    "navigationStyle": "custom",
+    "disableSwipeBack": true
+}
